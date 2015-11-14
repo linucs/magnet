@@ -1,0 +1,47 @@
+%section.content-header
+  %h1
+    Your main dashboard
+    %small it all starts here
+  = render_crumbs
+
+%section.content
+  .row
+    - linked_identities = 0
+    - AuthenticationProvider.all.each do |provider|
+      - if provider.needs_authentication?
+        .col-md-3.col-xs-6
+          - if current_user.is_connected_to?(provider.name)
+            - linked_identities += 1
+            .small-box{class: "btn-#{provider.name}"}
+              .inner
+                %h3
+                  = current_user.cards_count(provider.name)
+                %p
+                  cards from #{provider.title}
+                -# = simple_form_for identity, :remote => true do |f|
+                  -# .switch.switch-large= f.check_box :enabled, :class => 'submit-on-change'
+              .icon
+                %i.ion{class: "ion-social-#{provider.name}"}
+              .small-box-footer
+                Connected
+          - else
+            .small-box.bg-red
+              .inner
+                %h3= current_user.cards_count(provider.name)
+                %p
+                  cards from #{provider.title}
+              .icon
+                %i.ion{class: "ion-social-#{provider.name}"}
+              = link_to user_omniauth_authorize_path(:provider => provider.name), class: 'small-box-footer', title: "To populate your boards, please link your #{provider.title} account" do
+                connect to #{provider.title}
+                %i.fa.fa-fw.fa-arrow-circle-right
+  - if linked_identities == 0
+    .alert.alert-info
+      %h4
+        %i.icon.fa.fa-info
+        Link your social accounts to get started!
+      Click on the connect links above to create a trusted connection with your social accounts on Twitter, Facebook, instagram and Tumbrl.
+      %br
+      You'll then be able to create new content feeds, download posts and organize then in collections.
+
+  #latest-boards= render 'latest_boards'

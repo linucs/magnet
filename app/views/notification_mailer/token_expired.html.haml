@@ -1,0 +1,20 @@
+!!!
+%html
+  %body
+    %p
+      Dear #{@feed.user.email},
+      %br
+      your credentials to access #{@feed.authentication_provider.title} have expired, and your social feed
+      %i= @feed.name
+      has been disabled.
+      %br
+      Any new content from #{@feed.authentication_provider.title} won't be displayed anymore on your #{link_to @feed.board.name, board_url(@feed.board)} collection, unless you disconnect and re-connect to #{@feed.authentication_provider.title}, granting access to your social account.
+      %br
+      %br
+      Please
+      = link_to 'manage your social connections', edit_user_registration_url
+      to solve this problem.
+    %p
+      Sincerly,
+      %br
+      Customer Support Team

@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="card {{card.label}} {{card.content_type}}" ui-scroll="card in cards" id="{{card.id}}" data-external-id="{{card.external_id}}">
+        <div class="panel panel-default">
+          <div class="panel-heading" ng-show="card.from">
+            <img ng-src="{{card.profile_image_url}}" class="img-profile">
+            <span class="small">
+              <a ng-href="{{card.profile_url}}" target="_blank">{{card.from}}</a>
+            </span>
+          </div>
+          <div class="media-wrapper" ng-switch="card.content_type">
+            <div ng-switch-when="text"></div>
+            <a ng-href="{{card.media_url}}" title="{{card.content}}" class="fancybox" ng-switch-when="image">
+              <img ng-src="{{card.media_url}}" class="img-preview">
+            </a>
+            <div ng-switch-when="custom" ng-bind-html="card.media_tag | to_trusted"></div>
+            <a ng-href="{{card.media_url}}" title="{{card.content}}" class="fancybox" data-fancybox-type="iframe" ng-switch-default>
+              <div class="play-wrapper">
+                <img ng-src="{{card.thumbnail_image_url}}" class="img-preview">
+              </div>
+            </a>
+          </div>
+          <div ng-show="card.content && card.content.length > 0" ng-switch="card.content_type" class="panel-body">
+            <p ng-switch-when="html" ng-bind-html="card.content | to_trusted">
+            <p ng-switch-default ng-bind-html="card.content | linky:'_blank'">
+          </div>
+          <div ng-show="card.provider_name" class="panel-footer">
+            <a ng-href="{{card.original_content_url}}" target="_blank">
+              <i class="fa img-provider" ng-class="'fa-' + card.provider_name"></i>
+            </a>
+            <span class="small">{{card.created_at | date:'medium'}}</span>
+            <div class="btn-group pull-right" dropdown on-toggle="template='share.html'">
+              <button type="button" class="btn btn-xs dropdown-toggle" dropdown-toggle>
+                <i class="fa fa-share-alt"></i>
+              </button>
+              <div class="dropdown-menu" ng-include src="template"></div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/ng-template" id="share.html">
+  <ul ng-social-buttons
+     data-url="card.original_content_url"
+     data-title="card.content"
+     data-image="card.thumbnail_image_url">
+    <li>Share on:</li>
+    <li class="share ng-social-facebook">Facebook</li>
+    <li class="share ng-social-google-plus">Google+</li>
+    <li class="share ng-social-twitter">Twitter</li>
+    <li ng-if="card.content_type == 'image'" class="share ng-social-pinterest">Pinterest</li>
+  </ul>
+</script>

@@ -1,0 +1,9 @@
+= simple_form_for(@board, remote: true) do |f|
+  .modal-body
+    = f.error_notification
+
+    = hidden_field_tag :in_place, params[:in_place]
+    = hidden_field_tag :page, params[:page]
+    = f.association :users, input_html: { class: 'selectize' }
+  .modal-footer
+    = f.button :submit

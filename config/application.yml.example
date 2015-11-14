@@ -1,0 +1,81 @@
+# Add configuration values here, as shown below.
+#
+# pusher_app_id: "2954"
+# pusher_key: 7381a978f7dd7f9a1117
+# pusher_secret: abdc3b896a0ffb85d373
+# stripe_api_key: sk_test_2J0l093xOyW72XUYJHE4Dv2r
+# stripe_publishable_key: pk_test_ro9jV5SNwGb1yYlQfzG17LHK
+#
+# production:
+#   stripe_api_key: sk_live_EeHnL644i6zo4Iyq4v1KdV9H
+#   stripe_publishable_key: pk_live_9lcthxpSIHbGwmdO941O1XVU
+
+# Twitter app configuration (see https://apps.twitter.com/)
+twitter_title: 'Twitter'
+twitter_app_id:
+twitter_app_secret:
+
+# Instagram app configuration (see https://instagram.com/developer/clients/manage/)
+instagram_title: 'Instagram'
+instagram_app_id:
+instagram_app_secret:
+
+# Tumblr app configuration (see https://www.tumblr.com/oauth/apps)
+tumblr_title: 'Tumblr'
+tumblr_app_id:
+tumblr_app_secret:
+
+# Facebook app configuration (see https://developers.facebook.com/apps/)
+facebook_title: 'Facebook'
+facebook_app_id:
+facebook_app_secret:
+
+# RSS configuration
+rss_title: 'the publisher website'
+
+# Chromecast (see https://cast.google.com/publish/)
+chromecast_app_id:
+chromecast_app_namespace:
+
+# Sender address for mail notification
+notification_mailer_sender: 'Support Team <noreply@example.com>'
+
+# Disable file uploads (HTTP uploads + WebDAV access)
+# disable_uploads: 'false'
+
+# Parse posts to find URLs linking to images
+# search_images_in_content: 'false'
+
+# GA configuration
+# enable_google_analytics: 'false'
+# google_analytics_code: 'UA-XXXXXXXX-Y'
+# google_analytics_domain: 'magnet.dev'
+
+# Public URL
+web_host: 'http://magnet.dev'
+
+# Public API URL
+api_host: 'http://api.magnet.dev'
+
+# Websocket configuration (Faye)
+websocket_host: 'magnet.dev'
+websocket_port: '3001'
+
+# Assets host (useful when deliverying to a CDN)
+# assets_host:
+
+# Elasticsearch configuration
+# enable_elasticsearch_indexing: 'false'
+# ELASTICSEARCH_URL:
+
+# Sentry configuration
+# SENTRY_DSN:
+
+# Logstash configuration
+# LOGSTASH_URI:
+
+# Redis configuration
+REDIS_URL:
+
+# Rails configuration
+SECRET_KEY_BASE:

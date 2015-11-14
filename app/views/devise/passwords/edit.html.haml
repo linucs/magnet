@@ -1,0 +1,24 @@
+.login-box
+  .login-logo
+    %b>Mag
+    NET
+  / /.login-logo
+  .login-box-body
+    %p.login-box-msg Change your password
+    = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+      = f.error_notification
+      = f.full_error :reset_password_token
+
+      = f.input :reset_password_token, as: :hidden
+      = f.input :password, label: false, wrapper_html: {class: 'has-feedback'} do
+        = f.input_field :password, placeholder: 'Password', class: 'form-control'
+        %span.glyphicon.glyphicon-lock.form-control-feedback
+      = f.input :password_confirmation, label: false, wrapper_html: {class: 'has-feedback'} do
+        = f.input_field :password_confirmation, placeholder: 'Confirm password', class: 'form-control'
+        %span.glyphicon.glyphicon-lock.form-control-feedback
+      .row
+        .col-xs-12
+          = f.button :submit, 'Change my password', class: 'btn-block'
+  / /.login-box-body
+  .box-footer= render 'devise/shared/links'
+/ /.login-box

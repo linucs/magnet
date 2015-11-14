@@ -1,0 +1,19 @@
+{
+  "name": "awesomecloud",
+  "main": "jquery.awesomeCloud-0.2.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "homepage": "https://github.com/rajenms/jQuery.awesomeCloud.plugin",
+  "_release": "43bcd9bff0",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "43bcd9bff002739daa9ffb697e7c5817adab910f"
+  },
+  "_source": "git://github.com/rajenms/jQuery.awesomeCloud.plugin.git",
+  "_target": "*",
+  "_originalSource": "awesomecloud"
+}

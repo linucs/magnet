@@ -1,0 +1,20 @@
+= simple_form_for(@board, remote: true) do |f|
+  .modal-body
+    = f.error_notification
+
+    = hidden_field_tag :in_place, params[:in_place]
+    = hidden_field_tag :page, params[:page]
+
+    .row
+      .col-sm-6= f.input :moderated, as: :boolean
+      .col-sm-6= f.input :include_text_only_cards, as: :boolean
+    .row
+      .col-sm-6= f.input :discard_identical_images, as: :boolean
+      .col-sm-6= f.input :discard_obscene_contents, as: :boolean
+    .row
+      .col-sm-4= f.input :max_tags_per_card
+    = f.input :trusted_users, input_html: { class: 'selectize' }
+    = f.input :banned_users, input_html: { class: 'selectize' }
+    = f.input :banned_words, input_html: { class: 'selectize' }
+  .modal-footer
+    = f.button :submit, 'Update filtering settings'

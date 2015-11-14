@@ -1,0 +1,40 @@
+{
+  "name": "angular-rrssb",
+  "authors": [
+    "Matheus Souza<matheusvalientesouza@hotmail.com>"
+  ],
+  "description": "",
+  "main": [
+    "dist/angular-rrssb.min.js",
+    "dist/angular-rrssb.min.css"
+  ],
+  "license": "MIT",
+  "private": false,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "jquery": "~2.1.1",
+    "angular": "~1.2.26",
+    "angular-sanitize": "~1.2.26",
+    "angular-mocks": "~1.2.26",
+    "RRSSB": "1.6.5"
+  },
+  "dependencies": {
+    "RRSSB": "~1.6.5"
+  },
+  "homepage": "https://github.com/mvsouza/angular-rrssb",
+  "_release": "ae69563147",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "ae69563147b17026fe8773ded311df5029afa5ba"
+  },
+  "_source": "git://github.com/mvsouza/angular-rrssb.git",
+  "_target": "*",
+  "_originalSource": "angular-rrssb"
+}

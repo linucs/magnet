@@ -1,0 +1,27 @@
+- linked_identities = 0
+#page-wrapper
+  .row
+    .col-lg-12
+      %h1.page-header
+        Contents categories
+  .row
+    .col-lg-12
+      %ul.list-group
+        - @providers.each do |provider|
+          - authentication = current_user.authentications.where(:authentication_provider_id => provider.id).first
+          %li.list-group-item
+            - if authentication.try(:updated_at)
+              %span.text-success You are connected to #{provider.title}
+              .pull-right
+                = link_to users_authentication_path(authentication), :method => :delete, :data => { :confirm => "You are about to disconnect from #{provider.title}. Are you sure?" }, :class => 'btn btn-xs btn-link' do
+                  %i.fa{class: "fa-#{provider.name}"}
+                  disconnect from #{provider.title}
+              - linked_identities += 1
+              -# = simple_form_for identity, :remote => true do |f|
+                -# .switch.switch-large= f.check_box :enabled, :class => 'submit-on-change'
+            - else
+              %span.text-danger You are not connected to #{provider.title}.
+              .pull-right
+                = link_to user_omniauth_authorize_path(:provider => provider.name), :class => "btn btn-xs btn-link" do
+                  %i.fa{class: "fa-#{provider.name}"}
+                  connect to #{provider.title}

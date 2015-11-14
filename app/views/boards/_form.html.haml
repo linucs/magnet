@@ -1,0 +1,91 @@
+= simple_form_for(@board, remote: true) do |f|
+  .modal-body
+    = f.error_notification
+
+    = hidden_field_tag :in_place, params[:in_place]
+    = hidden_field_tag :page, params[:page]
+
+    - if @board.persisted?
+      = f.input :enabled, as: :boolean
+    - unless editing_in_place?
+      .row
+        .col-sm-4= f.input :name
+        .col-sm-4= f.association :category, include_blank: '(uncategorized)'
+        .col-sm-4= f.input :label, input_html: { class: 'selectize' }
+      .row
+        .col-md-6= f.input :description, input_html: { rows: 10 }
+        .col-md-6
+          = f.input :full_street_address, input_html: { class: 'geocomplete' }
+          .google-map
+      = f.input :latitude, as: :hidden, input_html: { 'data-geo' => 'lat' }
+      = f.input :longitude, as: :hidden, input_html: { 'data-geo' => 'lng' }
+      - if @board.persisted?
+        .row
+          .col-sm-4= f.input :slug
+          .col-sm-4= f.input :host
+          .col-sm-4= f.input :polling_interval, as: :select, collection: (1..AuthenticationProvider::POLLING_TICKS).map { |i| i.to_s.to_sym }, include_blank: 'No scheduled refresh'
+    - else
+      = f.simple_fields_for :options, f.object.options do |o|
+        .row
+          .col-md-6= o.input :google_analytics_code
+          .col-md-6= o.input :google_analytics_domain
+      - unless Figaro.env.disable_uploads.to_b
+        .row
+          .col-sm-4
+            .form-group.file.board_icon{class: f.object.errors[:icon].any? ? 'has-error': nil}
+              %div= f.label :icon
+              .fileinput.fileinput-new{"data-provides" => "fileinput"}
+                .fileinput-new.thumbnail{:style => "width: 120px; height: 90px;"}
+                  = image_tag @board.icon.url
+                .fileinput-preview.fileinput-exists.thumbnail{:style => "max-width: 120px; height: 90px;"}
+                %div
+                  %span.btn.btn-default.btn-xs.btn-file
+                    %span.fileinput-new Select image
+                    %span.fileinput-exists Change
+                    = f.input_field :icon, as: :file
+                  %a.btn.btn-default.btn-xs.fileinput-exists{"data-dismiss" => "fileinput", :href => "#"} Remove
+              = f.error :icon
+              = f.hint :icon
+            - if @board.persisted?
+              = f.input :remove_icon, as: :boolean, label: 'Remove icon'
+          .col-sm-4
+            .form-group.file.board_image{class: f.object.errors[:image].any? ? 'has-error': nil}
+              %div= f.label :image
+              .fileinput.fileinput-new{"data-provides" => "fileinput"}
+                .fileinput-new.thumbnail{:style => "width: 120px; height: 90px;"}
+                  = image_tag @board.image.url
+                .fileinput-preview.fileinput-exists.thumbnail{:style => "max-width: 120px; height: 90px;"}
+                %div
+                  %span.btn.btn-default.btn-xs.btn-file
+                    %span.fileinput-new Select image
+                    %span.fileinput-exists Change
+                    = f.input_field :image, as: :file
+                  %a.btn.btn-default.btn-xs.fileinput-exists{"data-dismiss" => "fileinput", :href => "#"} Remove
+              = f.error :image
+              = f.hint :image
+            - if @board.persisted?
+              = f.input :remove_image, as: :boolean, label: 'Remove image'
+          .col-sm-4
+            .form-group.file.board_cover{class: f.object.errors[:cover].any? ? 'has-error': nil}
+              %div= f.label :cover
+              .fileinput.fileinput-new{"data-provides" => "fileinput"}
+                .fileinput-new.thumbnail{:style => "width: 120px; height: 90px;"}
+                  = image_tag @board.cover.url
+                .fileinput-preview.fileinput-exists.thumbnail{:style => "max-width: 120px; height: 90px;"}
+                %div
+                  %span.btn.btn-default.btn-xs.btn-file
+                    %span.fileinput-new Select image
+                    %span.fileinput-exists Change
+                    = f.input_field :cover, as: :file
+                  %a.btn.btn-default.btn-xs.fileinput-exists{"data-dismiss" => "fileinput", :href => "#"} Remove
+              = f.error :cover
+              = f.hint :cover
+            - if @board.persisted?
+              = f.input :remove_cover, as: :boolean, label: 'Remove cover'
+
+  .modal-footer
+    - if @board.polling?
+      .alert.alert-info
+        Updating is disabled while the board is polling. Please wait some time and try again.
+    - else
+      = f.button :submit

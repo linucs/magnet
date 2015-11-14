@@ -1,0 +1,15 @@
+/*!
+ * angular-rrssb
+ * https://github.com/mvsouza/angular-rrssb
+ * Version: 0.0.8 - 2015-01-13T15:30:23.428Z
+ * License: MIT
+ */
+
+
+.angular-rrssb {
+  color: green;
+}
+.angular-rrssb button {
+  padding: 10px;
+  color: blue;
+}

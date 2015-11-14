@@ -1,0 +1,55 @@
+= simple_form_for([@board, @card], remote: true) do |f|
+  = f.error_notification
+
+  = hidden_field_tag :page, params[:page]
+  .row
+    .col-md-4= f.input :provider_name, as: :select, collection: AuthenticationProvider.all.map { |p| [p.title, p.name] }, include_blank: 'select...'
+    .col-md-4= f.input :content_type, as: :select, collection: [['Image', 'image'], ['Video', 'video'], ['Audio', 'audio'], ['Text', 'text']]
+    .col-md-4= f.input :content_source, as: :select, collection: [['Youtube video', 'youtube'], ['Vine video', 'vine'], ['Vimeo video', 'vimeo'], ['Spotify audio', 'spotify'], ['Facebook video', 'facebook']]
+  .row
+    .col-md-3= f.input :original_content_url
+    .col-md-3= f.input :from
+    .col-md-3
+      = f.input :profile_image_url
+    .col-md-1
+      = f.label :custom_profile_image
+      .fileinput.fileinput-new.input-group{"data-provides" => "fileinput"}
+        %span.btn.btn-default.btn-file
+          %span.fileinput-new Select file
+          %span.fileinput-exists Change
+          = f.input_field :custom_profile_image
+    .col-md-2
+      - if f.object.persisted?
+        = f.input :remove_custom_profile_image, as: :boolean, label: 'Remove', wrapper_html: { style: 'margin-top: 22px', class: 'pull-right'}
+  .row
+    .col-md-6= f.input :content, as: :text
+    .col-md-6= f.input :embed_code, as: :text
+  .row
+    .col-md-3
+      = f.input :media_url
+    .col-md-1
+      = f.label :custom_media
+      .fileinput.fileinput-new.input-group{"data-provides" => "fileinput"}
+        %span.btn.btn-default.btn-file
+          %span.fileinput-new Select file
+          %span.fileinput-exists Change
+          = f.input_field :custom_media
+    .col-md-2
+      - if f.object.persisted?
+        = f.input :remove_custom_media, as: :boolean, label: 'Remove', wrapper_html: { style: 'margin-top: 22px', class: 'pull-right'}
+    .col-md-3
+      = f.input :thumbnail_image_url
+    .col-md-1
+      = f.label :custom_thumbnail_image
+      .fileinput.fileinput-new.input-group{"data-provides" => "fileinput"}
+        %span.btn.btn-default.btn-file
+          %span.fileinput-new Select file
+          %span.fileinput-exists Change
+          = f.input_field :custom_thumbnail_image
+    .col-md-2
+      - if f.object.persisted?
+        = f.input :remove_custom_thumbnail_image, as: :boolean, label: 'Remove', wrapper_html: { style: 'margin-top: 22px', class: 'pull-right'}
+  .row
+    .col-md-6= f.input :label
+    .col-md-6= f.input :notes
+  = f.button :submit

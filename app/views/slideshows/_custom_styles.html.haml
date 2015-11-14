@@ -1,0 +1,134 @@
+- if action_name == 'wall'
+  - if @board.options.wall_custom_background_color.present?
+    :css
+      body { background-color: #{@board.options.wall_custom_background_color}; }
+  - if @board.options.wall_custom_background_image_style.present?
+    - case @board.options.wall_custom_background_image_style
+      - when 'full_screen'
+        :css
+          body {
+            background-image: url(#{@board.cover.url});
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            background-attachment: fixed;
+            filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{@board.cover.url}', sizingMethod='scale');
+            -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{@board.cover.url}', sizingMethod='scale')";
+          }
+  - if @board.options.wall_custom_margin_top.present?
+    :css
+      .magnet-template .slides .card { padding-top: #{@board.options.wall_custom_margin_top}; }
+  - if @board.options.wall_font_family.present?
+    = custom_fonts_init(@board.options.wall_font_family)
+    :css
+      body {
+        font-family: "#{@board.options.wall_font_family}";
+        font-size: #{@board.options.wall_font_size};
+      }
+  - if @board.options.wall_custom_stylesheet_url.present?
+    = stylesheet_link_tag @board.options.wall_custom_stylesheet_url, media: 'all'
+- elsif action_name == 'timeline'
+  - if @board.options.timeline_custom_background_color.present?
+    :css
+      body { background-color: #{@board.options.timeline_custom_background_color}; }
+  - if @board.options.timeline_custom_background_image_style.present?
+    - if @board.cover?
+      :css
+        body {
+          background-image: url(#{@board.cover.url});
+        }
+    - case @board.options.timeline_custom_background_image_style
+      - when 'full_screen'
+        :css
+          body {
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            background-attachment: fixed;
+            filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{@board.cover.url}', sizingMethod='scale');
+            -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{@board.cover.url}', sizingMethod='scale')";
+          }
+      - when 'scrolling_from_top'
+        :css
+          body {
+            background-repeat: no-repeat;
+            background-position: top;
+            background-size: 100% auto;
+          }
+      - when 'parallax'
+        :css
+          body {
+            background-size: 100% auto;
+          }
+        - content_for :javascripts do
+          :javascript
+            $.stellar();
+  - if @board.options.timeline_custom_margin_top.present?
+    :css
+      .magnet-template { padding-top: #{@board.options.timeline_custom_margin_top}; }
+  - if @board.options.timeline_font_family.present?
+    = custom_fonts_init(@board.options.timeline_font_family)
+    :css
+      body {
+        font-family: "#{@board.options.timeline_font_family}";
+        font-size: #{@board.options.timeline_font_size};
+      }
+  - if @board.options.timeline_custom_stylesheet_url.present?
+    = stylesheet_link_tag @board.options.timeline_custom_stylesheet_url, media: 'all'
+- else
+  - if @board.options.deck_columns_width.present?
+    :css
+      .card { width: #{@board.options.deck_columns_width} !important; }
+  - if @board.options.deck_cards_padding.present?
+    :css
+      .card { padding: #{@board.options.deck_cards_padding} !important; }
+  - if @board.options.deck_custom_background_color.present?
+    :css
+      body { background-color: #{@board.options.deck_custom_background_color}; }
+  - if @board.options.deck_custom_background_image_style.present?
+    - if @board.cover?
+      :css
+        body {
+          background-image: url(#{@board.cover.url});
+        }
+    - case @board.options.deck_custom_background_image_style
+      - when 'full_screen'
+        :css
+          body {
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            background-attachment: fixed;
+            filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{@board.cover.url}', sizingMethod='scale');
+            -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{@board.cover.url}', sizingMethod='scale')";
+          }
+      - when 'scrolling_from_top'
+        :css
+          body {
+            background-repeat: no-repeat;
+            background-position: top;
+            background-size: 100% auto;
+          }
+      - when 'parallax'
+        :css
+          body {
+            background-size: 100% auto;
+          }
+        - content_for :javascripts do
+          :javascript
+            $.stellar();
+  - if @board.options.deck_custom_margin_top.present?
+    :css
+      .magnet-template { padding-top: #{@board.options.deck_custom_margin_top}; }
+  - if @board.options.deck_font_family.present?
+    = custom_fonts_init(@board.options.deck_font_family)
+    :css
+      body {
+        font-family: "#{@board.options.deck_font_family}";
+        font-size: #{@board.options.deck_font_size};
+      }
+  - if @board.options.deck_custom_stylesheet_url.present?
+    = stylesheet_link_tag @board.options.deck_custom_stylesheet_url, media: 'all'

@@ -1,0 +1,36 @@
+<section ng-repeat="card in cards" on-finish-render="ngRepeatFinished" id="{{card.id}}" data-external-id="{{card.external_id}}">
+  <div class="card {{card.label}} {{card.content_type}}">
+    <div class="media-wrapper" ng-switch="card.content_type">
+      <div ng-switch-when="text"></div>
+      <div ng-switch-when="html"></div>
+      <a ng-href="{{card.media_url}}" class="fancybox" ng-switch-when="image">
+        <img ng-src="{{card.media_url}}" class="img-preview">
+      </a>
+      <div ng-switch-when="custom" ng-bind-html="card.media_tag | to_trusted"></div>
+      <a ng-href="{{card.media_url}}" class="fancybox" data-fancybox-type="iframe" ng-switch-default>
+        <div class="play-wrapper">
+          <img ng-src="{{card.thumbnail_image_url}}" class="img-preview">
+        </div>
+      </a>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading" ng-show="card.from">
+        <img ng-src="{{card.profile_image_url}}" class="img-profile">
+        <span class="small">
+          <a ng-href="{{card.profile_url}}" target="_blank">{{card.from}}</a>
+        </span>
+      </div>
+      <div ng-show="card.content && card.content.length > 0" ng-switch="card.content_type" class="panel-body">
+        <p ng-switch-when="html" ng-bind-html="card.content | to_trusted">
+        <p ng-switch-default ng-bind-html="card.content | linky:'_blank'">
+      </div>
+      <div ng-show="card.provider_name" class="panel-footer">
+        <a ng-href="{{card.original_content_url}}" target="_blank">
+          <i class="fa img-provider" ng-class="'fa-' + card.provider_name"></i>
+        </a>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</section>

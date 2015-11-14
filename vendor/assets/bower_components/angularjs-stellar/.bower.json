@@ -1,0 +1,13 @@
+{
+  "name": "angularjs-stellar",
+  "homepage": "https://github.com/Pleasurazy/angularjs-stellar",
+  "_release": "6e8b903ca8",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "6e8b903ca8d9d8c41bc4dc68e660ec8321f1658e"
+  },
+  "_source": "git://github.com/Pleasurazy/angularjs-stellar.git",
+  "_target": "*",
+  "_originalSource": "angularjs-stellar"
+}

@@ -1,0 +1,4 @@
+$('#edit-board-form').html('#{ j render 'form' }');
+$('#edit-board-form .selectize').selectize({create: true});
+$('#edit-board-form .geocomplete').geocomplete({map: '#edit-board-form .google-map', location: [#{@board.latitude}, #{@board.longitude}], details: '#edit-board-form', detailsAttribute: 'data-geo'});
+$('#edit-board-dialog').modal('show');

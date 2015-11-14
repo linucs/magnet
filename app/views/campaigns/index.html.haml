@@ -1,0 +1,40 @@
+%section.content-header
+  %h1
+    Advertising campaigns
+  %p
+    Advertising campaings let you inject customized ads, banners and CTAs,
+    inside the contents flow of a collection.
+  = render_crumbs
+
+%section.content
+  .box.box-primary
+    .box-header
+      %h3.box-title Campaigns listing
+    #campaigns
+      = render 'campaigns_listing'
+
+#new-campaign-dialog.modal.fade(tabindex="-1" role="dialog" aria-labelledby="New campaign" aria-hidden="true")
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button(type="button" class="close" data-dismiss="modal")
+          %span(aria-hidden="true")
+            &times;
+          %span.sr-only
+            Close
+        %h4.modal-title
+          Add a new advertising campaign
+      #new-campaign-form
+
+#edit-campaign-dialog.modal.fade(tabindex="-1" role="dialog" aria-labelledby="Manage this campaign" aria-hidden="true")
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button(type="button" class="close" data-dismiss="modal")
+          %span(aria-hidden="true")
+            &times;
+          %span.sr-only
+            Close
+        %h4.modal-title
+          Manage this campaign
+      #edit-campaign-form

@@ -1,0 +1,38 @@
+.modal-dialog
+  .modal-content
+    .modal-header
+      %button(type="button" class="close" data-dismiss="modal")
+        %span(aria-hidden="true")
+          &times;
+        %span.sr-only
+          Close
+      %h4.modal-title
+        External collection embedding
+    .modal-body
+      %p How can embed this collection in my site?
+      %ul
+        %li
+          %strong Option 1
+          \: use an IFRAME, adding this code to your site to display the Collektr-hosted pages:
+          %p(style="margin-top: 0.5em")
+            %code
+              &lt;iframe src="#{slideshow_embed_url(@board, action: :deck)}"&gt;
+              &lt;/iframe&gt;
+          To display the timeline layout, replace
+          %code /deck
+          with
+          %code /timeline
+          at the end of the URL
+        %li
+          %strong Option 2
+          \: choose the AngularJS-powered embedding. Collektr pages themselves are built using AngularJS;
+          you can embed your social wall using our CSS and Javascript files
+          (AngularJS is bundled inside the minimized JS)
+          \-
+          = link_to 'download a deck sample', slideshow_sample_path(@board, layout: 'deck')
+          or
+          = link_to 'download a timeline sample', slideshow_sample_path(@board, layout: 'timeline')
+        %li
+          %strong Option 3
+          \: choose the jQuery-powered embedding. Use a community supported
+          = link_to 'JQuery plugin', 'https://github.com/niccolomarcon/jquery-collektr', target: '_blank'

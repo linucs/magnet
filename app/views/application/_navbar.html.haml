@@ -1,0 +1,56 @@
+/ header logo: style can be found in header.less
+%header.main-header
+  / Logo
+  = link_to root_path, class: 'logo' do
+    %b>Mag
+    NET
+  / Header Navbar: style can be found in header.less
+  %nav.navbar.navbar-static-top{:role => "navigation"}
+    / Sidebar toggle button
+    %a.sidebar-toggle{"data-toggle" => "offcanvas", :href => "#", :role => "button"}
+      %span.sr-only Toggle navigation
+    .navbar-custom-menu
+      %ul.nav.navbar-nav
+        / Notifications: style can be found in dropdown.less
+        %li.dropdown.notifications-menu
+          - alerts = current_user.feeds.with_alerts
+          %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+            %i.fa.fa-bell-o
+            - if alerts.any?
+              %span.label.label-warning= alerts.size
+          %ul.dropdown-menu
+            - if alerts.any?
+              %li.header You have #{alerts.size} notifications
+              %li
+                / inner menu: contains the actual data
+                %ul.menu
+                  - alerts.each do |f|
+                    %li
+                      = link_to board_path(f.board_id) do
+                        %h6
+                          %i.fa.fa-fw{class: "fa-#{f.authentication_provider.name}"}
+                          = f.name
+                        = f.last_exception.truncate(20)
+                        %span.pull-right.text-muted.small= time_ago_in_words(f.polled_at || Time.now)
+            - else
+              %li.footer
+                %a{:href => "#"} No pending alerts
+        / User Account: style can be found in dropdown.less
+        %li.dropdown.user.user-menu
+          %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+            = image_tag gravatar_url(current_user), class: 'user-image'
+            %span.hidden-xs= current_user.email
+          %ul.dropdown-menu
+            / User image
+            %li.user-header
+              = image_tag gravatar_url(current_user), class: 'img-circle'
+              %p
+                = current_user.email
+                %small Member since #{time_ago_in_words(current_user.created_at)}
+            / Menu Footer
+            %li.user-footer
+              .pull-left
+                = link_to 'Profile', edit_user_registration_path, class: 'btn btn-default btn-flat'
+              .pull-right
+                = link_to 'Sign out', destroy_user_session_path, class: 'btn btn-default btn-flat', method: :delete
+  = content_for :sidebar

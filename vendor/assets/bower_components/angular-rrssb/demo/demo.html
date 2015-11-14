@@ -1,0 +1,36 @@
+<!doctype html>
+<html ng-app="demo">
+  <head>
+    <meta charset="utf-8">
+    <title>AngularJS directive demo</title>
+   
+    <link rel="stylesheet" href="../dist/angular-rrssb.css">
+    <link rel="stylesheet" href="../bower_components/RRSSB/css/demo.css"></link>
+    <link rel="stylesheet" href="../bower_components/RRSSB/css/rrssb.css"></link>
+    <link rel="stylesheet" href="../bower_components/RRSSB/css/normalize.min.css"></link>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-muted">Demo</h1>
+
+      <div class="usage row">
+        <h4>Simple usage</h4>
+        <p>This is a simple usage of mvsouza.angular-rrssb</p>
+        <pre>&lt;angular-rrssb&gt;&lt;/angular-rrssb&gt;</pre>
+        <h4>Results</h4>
+        <rrssb ng-share-link="http://mvsouza.github.io" 
+               ng-share-midias="['facebook','googleplus','']" 
+               ng-share-all="true" 
+               ng-pinterest-img="http://bit.ly/1u5gp82" 
+               ng-github-project="https://github.com/mvsouza/angular-rrssb">
+        </rrssb>
+      </div>
+    </div>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/RRSSB/js/rrssb.js"></script>
+    <script src="../dist/angular-rrssb.js"></script>
+    <script src="demo.js"></script>
+  </body>
+</html>

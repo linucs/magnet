@@ -1,0 +1,81 @@
+/*
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+* or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the bottom of the
+* compiled file so the styles you add here take precedence over styles defined in any styles
+* defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+* file per style scope.
+*
+*= require_self
+*/
+
+$icon-font-path: "bootstrap-sass-official/assets/fonts/bootstrap/";
+@import 'font-awesome/css/font-awesome';
+
+@import 'bootstrap-sass-official/assets/stylesheets/bootstrap-sprockets';
+@import 'bootstrap-sass-official/assets/stylesheets/bootstrap';
+@import 'reveal.js/css/reveal';
+@import 'fancybox/source/jquery.fancybox';
+
+.magnet-container {
+	.debug {
+		outline: dashed 1px red;
+	}
+
+	.card {
+		&.image, &.video {
+			width: 90%;
+			margin: auto;
+			.media-wrapper {
+				float: right;
+				width: 48%;
+				.img-preview {
+					display: block;
+					width: 100%;
+					height: auto;
+					overflow: hidden;
+				}
+				.play-wrapper {
+					background-image: url(/img/play.png);
+					background-repeat: no-repeat;
+					background-position: center;
+					.img-preview {
+						opacity: 0.4;
+						filter: alpha(opacity=40); /* For IE8 and earlier */
+					}
+				}
+			}
+			.panel {
+				float: left;
+				width: 48%;
+			}
+		}
+		&.text {
+			width: 90%;
+			margin: auto;
+		}
+	}
+
+	.panel {
+		.panel-heading {
+			padding: 0.2em;
+			.img-profile {
+				margin-right: 0.5em;
+				height: 1.5em;
+				vertical-align: text-bottom;
+			}
+		}
+		.panel-body {
+			padding: 0.2em;
+			overflow: hidden;
+			word-wrap: break-word;
+		}
+		.panel-footer {
+			padding: 0.2em;
+		}
+	}
+}

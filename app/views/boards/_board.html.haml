@@ -1,0 +1,34 @@
+%li.sortable-item{'data-item-id' => board.id}
+  %span.handle
+    %i.fa.fa-ellipsis-v
+    %i.fa.fa-ellipsis-v
+  %span.text
+    = link_to board do
+      %span.hint--right(data-hint="Manage this collection and its contents")= board.name
+    (ID ##{board.id})
+    - if board.category
+      %span.small
+        \-
+        in #{board.category.name}
+    - if board.label.present?
+      %span.label.label-default= board.label
+    - unless board.enabled?
+      %span.label.label-warning disabled
+    - if board.moderated?
+      %span.label.label-info moderated
+  .tools
+    - unless board.polling?
+      = link_to edit_board_path(board, page: params[:page]), remote: true do
+        %span.hint--left(data-hint="Let me change this collection's main options")
+          %i.fa.fa-edit
+      = link_to filters_board_path(board, page: params[:page]), remote: true do
+        %span.hint--left(data-hint="Let me change this collection's content filtering options")
+          %i.fa.fa-filter
+      = link_to users_board_path(board, page: params[:page]), remote: true do
+        %span.hint--left(data-hint="Let me share this collection's management capabilities with other users in the system")
+          %i.fa.fa-user-md
+      = link_to board_path(board, page: params[:page]), :method => :delete, :data => { :confirm => 'Are you sure?' }, remote: true do
+        %span.hint--left(data-hint="Remove this collection and all its contents from the system")
+          %i.fa.fa-trash
+    - else
+      %span.label.label-info scanning

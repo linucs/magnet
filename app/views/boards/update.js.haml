@@ -1,0 +1,11 @@
+- unless editing_in_place?
+  $('#boards').html('#{ j render 'boards_listing' }');
+- if @board.valid?
+  - if editing_in_place?
+    document.location.reload();
+  - else
+    $('#edit-board-dialog').modal('hide');
+- else
+  $('#edit-board-form').html('#{ j render 'form' }');
+  $('#edit-board-form .selectize').selectize({create: true});
+  $('#edit-board-form .geocomplete').geocomplete({map: '#edit-board-form .google-map', location: [#{@board.latitude}, #{@board.longitude}], details: '#edit-board-form', detailsAttribute: 'data-geo'});

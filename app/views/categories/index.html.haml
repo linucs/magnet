@@ -1,0 +1,39 @@
+%section.content-header
+  %h1
+    Content folders
+  %p
+    Organize content collections, by grouping them in folders.
+  = render_crumbs
+
+%section.content
+  .box.box-primary
+    .box-header
+      %h3.box-title Folders listing
+    #categories
+      = render 'categories_listing'
+
+#new-category-dialog.modal.fade(tabindex="-1" role="dialog" aria-labelledby="New folder" aria-hidden="true")
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button(type="button" class="close" data-dismiss="modal")
+          %span(aria-hidden="true")
+            &times;
+          %span.sr-only
+            Close
+        %h4.modal-title
+          Add a new folder
+      #new-category-form
+
+#edit-category-dialog.modal.fade(tabindex="-1" role="dialog" aria-labelledby="Manage this folder" aria-hidden="true")
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button(type="button" class="close" data-dismiss="modal")
+          %span(aria-hidden="true")
+            &times;
+          %span.sr-only
+            Close
+        %h4.modal-title
+          Manage this content folder
+      #edit-category-form

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  board_id: 
+  authentication_provider_id: 
+  user_id: 
+  options: MyText
+  enabled: true
+  polling: 
+  last_exception: MyText
+
+two:
+  board_id: 
+  authentication_provider_id: 
+  user_id: 
+  options: MyText
+  enabled: true
+  polling: 
+  last_exception: MyText

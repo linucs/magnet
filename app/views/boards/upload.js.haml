@@ -1,0 +1,7 @@
+$('#boards').html('#{ j render 'boards_listing' }');
+$('#board-upload-form').html('#{ j render 'upload_form' }');
+- if @upload_errors
+  - if @upload_errors.empty?
+    $.flash('Congratulations! All your collections were imported successfully.', 'success');
+- else
+  $.flash('Please select a definition file to upload.', 'error');

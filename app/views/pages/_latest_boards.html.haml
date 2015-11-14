@@ -1,0 +1,50 @@
+.box.box-solid
+  .box-header
+    %h3.box-title
+      Latest collections
+  .box-body
+    - if @boards.any?
+      .row
+        - @boards.each do |board|
+          .col-sm-6.col-md-3
+            .thumbnail
+              .media-wrapper
+                = link_to board_path(board) do
+                  = image_tag board.banner_url || '1x1.png', class: 'img-responsive'
+              .caption
+                %h4
+                  = board.name
+                  %small (#{board.cards.count} cards)
+                %p
+                  %small Last update: #{time_ago_in_words(board.polled_at || board.created_at)} ago
+              .toolbar.pull-right(role="toolbar")
+                .btn-group(role="group")
+                  = link_to 'Manage', board_path(board), class: 'btn btn-sm btn-default'
+              .clearfix
+    - else
+      %p.lead.text-center
+        No boards found
+  .box-footer
+    .text-center
+      - providers = AuthenticationProvider.all
+      %ul.list-inline
+        - providers.each_with_index do |p, i|
+          - is_connected = current_user.is_connected_to?(p.name)
+          - if is_connected
+            %li
+              = link_to new_board_feed_path(:board, authentication_provider_id: p.id, in_place: true), remote: true, class: "btn btn-block btn-social btn-#{p.name}" do
+                %i.fa.fa-fw{class: "fa-#{p.name}"}
+                Add contents from #{p.title}
+
+  #new-feed-dialog.modal.fade(tabindex="-1" role="dialog" aria-labelledby="Manage this feed" aria-hidden="true")
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button(type="button" class="close" data-dismiss="modal")
+            %span(aria-hidden="true")
+              &times;
+            %span.sr-only
+              Close
+          %h4.modal-title
+            Create a new collection of contents
+        #new-feed-form.modal-body

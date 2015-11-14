@@ -1,0 +1,8 @@
+.box-body
+  %ul.todo-list
+    = render(@boards) || alert('No collections found.')
+.box-footer
+  .pull-right
+    %span.page_entries_info= page_entries_info @boards
+    = paginate @boards, params: {controller: 'boards', action: 'index'}, remote: true
+  .clearfix

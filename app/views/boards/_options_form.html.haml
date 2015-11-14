@@ -1,0 +1,109 @@
+= simple_form_for(@board, remote: true) do |f|
+  .modal-body
+    = f.error_notification
+
+    = hidden_field_tag :in_place, params[:in_place]
+    = hidden_field_tag :page, params[:page]
+    = hidden_field_tag :section, params[:section]
+    = f.simple_fields_for :options, f.object.options do |o|
+      - if params[:section] == 'wall'
+        .alert.alert-info
+          %h4
+            %i.icon.fa.fa-info
+            What can I do here?
+            .pull-right
+              %i.fa.fa-3x.fa-video-camera
+          Customize your collection, as it appears in the Wall layout mode.
+        .row
+          .col-md-4
+            .row
+              .col-md-6= o.input :wall_width, as: :integer, required: false
+              .col-md-6= o.input :wall_height, as: :integer, required: false
+            .row
+              .col-md-6= o.input :wall_page_size, as: :select, collection: {'10 cards' => 10, '20 cards' => 20, '40 cards' => 40, '60 cards' => 60}, include_blank: 'select...', required: false
+              .col-md-6= o.input :wall_auto_slide, as: :select, collection: {'manual sliding' => 0, '5 seconds' => 5, '10 seconds' => 10, '15 seconds' => 15}, include_blank: 'select...', required: false
+            .row
+              .col-md-6= o.input :wall_custom_margin_top, required: false
+              .col-md-6= o.input :wall_center, as: :boolean, required: false
+            = o.input :wall_custom_stylesheet_url, as: :select, collection: Board::WALL_STANDARD_THEMES.merge(@board.options.wall_custom_stylesheet_url => @board.options.wall_custom_stylesheet_url), required: false, input_html: {class: 'selectize'}
+          .col-md-4
+            .row
+              .col-sm-8
+                = o.input :wall_font_family, as: :select, collection: CUSTOM_FONT_FAMILIES.keys, include_blank: 'select...', required: false
+              .col-sm-4
+                = o.input :wall_font_size, as: :select, collection: Board::CUSTOM_FONT_SIZES, include_blank: 'select...', required: false
+            = o.input :wall_custom_background_color, required: false
+            = o.input :wall_custom_background_image_style, as: :select, collection: Board::WALL_BACKGROUND_STYLES.map { |s| [t(s), s] }, include_blank: 'select...', required: false
+            = o.input :wall_background_image_size, required: false
+          .col-md-4
+            = o.input :wall_custom_javascript_url, as: :url, required: false
+            = o.input :wall_custom_header_url, as: :url, required: false
+            = o.input :wall_custom_template_url, as: :url, required: false
+            = o.input :wall_custom_footer_url, as: :url, required: false
+        .modal-footer
+          .pull-left
+            Short URL for this layout:
+            = link_to nil, short_url(slideshow_path(@board, action: :wall), @board), target: '_blank'
+          = f.button :submit, 'Update Wall layout'
+      - elsif params[:section] == 'timeline'
+        .alert.alert-info
+          %h4
+            %i.icon.fa.fa-info
+            What can I do here?
+            .pull-right
+              %i.fa.fa-3x.fa-mobile
+          Customize your collection, as it appears in the Timeline layout mode.
+        .row
+          .col-md-4
+            = o.input :timeline_custom_background_color, required: false
+            = o.input :timeline_custom_background_image_style, as: :select, collection: Board::TIMELINE_BACKGROUND_STYLES.map { |s| [t(s), s] }, include_blank: 'select...', required: false
+            = o.input :timeline_custom_margin_top, required: false
+          .col-md-4
+            .row
+              .col-sm-8
+                = o.input :timeline_font_family, as: :select, collection: CUSTOM_FONT_FAMILIES.keys, include_blank: 'select...', required: false
+              .col-sm-4
+                = o.input :timeline_font_size, as: :select, collection: Board::CUSTOM_FONT_SIZES, include_blank: 'select...', required: false
+            = o.input :timeline_custom_stylesheet_url, as: :select, collection: Board::TIMELINE_STANDARD_THEMES.merge(@board.options.timeline_custom_stylesheet_url => @board.options.timeline_custom_stylesheet_url), required: false, input_html: {class: 'selectize'}
+            = o.input :timeline_custom_javascript_url, as: :url, required: false
+          .col-md-4
+            = o.input :timeline_custom_header_url, as: :url, required: false
+            = o.input :timeline_custom_template_url, as: :url, required: false
+            = o.input :timeline_custom_footer_url, as: :url, required: false
+        .modal-footer
+          .pull-left
+            Short URL for this layout:
+            = link_to nil, short_url(slideshow_path(@board, action: :timeline), @board), target: '_blank'
+          = f.button :submit, 'Update Timeline layout'
+      - else
+        .alert.alert-info
+          %h4
+            %i.icon.fa.fa-info
+            What can I do here?
+            .pull-right
+              %i.fa.fa-3x.fa-desktop
+          Customize your collection, as it appears in the Deck layout mode.
+        .row
+          .col-md-4
+            = o.input :deck_custom_background_color, required: false
+            = o.input :deck_custom_background_image_style, as: :select, collection: Board::TIMELINE_BACKGROUND_STYLES.map { |s| [t(s), s] }, include_blank: 'select...', required: false
+            = o.input :deck_custom_margin_top, required: false
+            = o.input :deck_columns_width, required: false
+          .col-md-4
+            .row
+              .col-sm-8
+                = o.input :deck_font_family, as: :select, collection: CUSTOM_FONT_FAMILIES.keys, include_blank: 'select...', required: false
+              .col-sm-4
+                = o.input :deck_font_size, as: :select, collection: Board::CUSTOM_FONT_SIZES, include_blank: 'select...', required: false
+            = o.input :deck_cards_padding, required: false
+            = o.input :deck_custom_stylesheet_url, as: :select, collection: Board::DECK_STANDARD_THEMES.merge(@board.options.deck_custom_stylesheet_url => @board.options.deck_custom_stylesheet_url), required: false, input_html: {class: 'selectize'}
+            = o.input :deck_custom_javascript_url, as: :url, required: false
+          .col-md-4
+            = o.input :deck_custom_header_url, as: :url, required: false
+            = o.input :deck_custom_template_url, as: :url, required: false
+            = o.input :deck_custom_footer_url, as: :url, required: false
+        .modal-footer
+          .pull-left
+            Short URL for this layout:
+            = link_to nil, short_url(slideshow_path(@board, action: :deck), @board), target: '_blank'
+          = f.button :submit, 'Update Deck layout'

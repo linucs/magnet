@@ -1,0 +1,4 @@
+$('#categories').html('#{j render 'categories_listing' }');
+$('#edit-category-form').html('#{j render 'form' }');
+- if @category.valid?
+  $('#edit-category-dialog').modal('hide');

@@ -1,0 +1,10 @@
+{
+  "name": "awesomecloud",
+  "version": "1.0.0",
+  "main": "jquery.awesomeCloud-0.2.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ]
+}

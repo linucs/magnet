@@ -1,0 +1,114 @@
+// Place all the styles related to the Boards controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.nav.board-tabs li {
+  padding-top: 30px;
+}
+
+.user-panel > .image > img {
+  height: 45px !important;
+}
+
+.sidebar-menu li > a {
+  overflow: inherit !important;
+}
+
+#cards-listing {
+  @media screen and (min-width: 1px) and (max-width: 767px) {
+    #grid[data-columns]::before {
+      content: '1 .col-xs-12';
+    }
+  }
+  @media screen and (min-width:768px) and (max-width: 991px) {
+    #grid[data-columns]::before {
+      content: '1 .col-sm-12';
+    }
+  }
+  @media screen and (min-width:992px) and (max-width: 1200px) {
+    #grid[data-columns]::before {
+      content: '2 .col-md-6';
+    }
+  }
+  @media screen and (min-width:1201px) and (max-width: 9999px) {
+    #grid[data-columns]::before {
+      content: '3 .col-lg-4';
+    }
+  }
+}
+
+#cards-listing .card {
+  .box {
+    border-top-style: solid;
+    .username {
+      max-width: 50%;
+    }
+    .card-info span {
+      margin-right: 10px;
+      line-height: 30px;
+    }
+    .box-tools {
+      text-align: right;
+      .btn-box-tool {
+        padding: 3px;
+      }
+      .card-bulk-select {
+        margin: 0 5px 0 3px;
+      }
+    }
+    .box-footer .box-comment i {
+      line-height: 20px;
+    }
+  }
+  .media-wrapper {
+    img {
+      width: 100%;
+    }
+    .icon {
+      position: absolute;
+      top: 50%;
+      -webkit-transform: translateY(-75%);
+      -ms-transform: translateY(-75%);
+      transform: translateY(-75%);
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: white;
+      opacity: 0.8;  /* Opacity for Modern Browsers */
+      filter: alpha(opacity=80);  /* Opacity for IE8 and lower */
+      zoom: 1;  /* Fix for IE7 */
+    }
+  }
+}
+
+#show-card-dialog {
+  .header {
+    margin-bottom: 10px;
+  }
+  .card-content {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    img {
+      width: 100%;
+    }
+    .player {
+      width: 100%;
+      height: 560px;
+    }
+    .caption {
+      margin-top: 1em;
+    }
+  }
+}
+
+#new-board-form, #edit-board-form {
+  .google-map {
+    height: 165px;
+  }
+}
+
+#board-embed {
+  .modal-body li {
+    margin-bottom: 10px;
+  }
+}

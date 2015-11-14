@@ -1,0 +1,2 @@
+- tag_cloud(@tags, (1..@limit).to_a) do |tag, weight|
+  %span{'data-weight' => weight}= tag.first

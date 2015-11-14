@@ -1,0 +1,23 @@
+%aside.main-sidebar
+  %section.sidebar
+    %ul.sidebar-menu
+      %li.header MAIN NAVIGATION
+      %li.treeview{class: current_page?(controller: '/boards') ? 'active' : nil}
+        = link_to boards_path do
+          %i.fa.fa-files-o
+          %span.hint--top(data-hint="Go to your collections listing page") My collections
+      - if can? :manage, Category
+        %li.treeview{class: current_page?(controller: '/categories') ? 'active' : nil}
+          = link_to categories_path do
+            %i.fa.fa-folder
+            %span.hint--top(data-hint="Go to the content folders listing page, to set the available collections categorizations options") Content folders
+      %li.treeview{class: current_page?(controller: '/campaigns') ? 'active' : nil}
+        = link_to campaigns_path do
+          %i.fa.fa-buysellads
+          %span.hint--top(data-hint="Go to your advertising campaigns listing page") My adv campaigns
+      - if current_user.admin?
+        %li.header ADMINISTRATION
+        %li
+          = link_to sidekiq_web_path, target: '_blank' do
+            %i.fa.fa-gears
+            %span.hint--top(data-hint="Go to Sidekiq management page") Background jobs

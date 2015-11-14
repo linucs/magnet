@@ -1,0 +1,46 @@
+.modal-dialog
+  .modal-content
+    .modal-header
+      %button(type="button" class="close" data-dismiss="modal")
+        %span(aria-hidden="true")
+          &times;
+        %span.sr-only
+          Close
+      %h4.modal-title
+        Custom asssets management
+    .modal-body
+      %p How can I upload files to the system?
+      %ol
+        %li
+          You'll need to learn mapping a network drive to a website:
+          %ul
+            %li
+              Read how to do it if you're using
+              %a(href="http://windows.microsoft.com/en-us/windows/create-shortcut-map-network-drive#1TC=windows-7" target="_blank")
+                Microsoft Windows
+            %li
+              Read how to do it if you're using
+              %a(href="https://support.apple.com/kb/ph18514" target="_blank")
+                an Apple Operating System
+            %li
+              Read how to do it if you're using
+              %a(href="http://ubuntuguide.org/wiki/WebDAV#WebDAV_Clients" target="_blank")
+                a Linux-based Operating System
+        %li
+          Now, map a network drive on your computer to this URL:
+          %a(href="#") http://#{request.host_with_port}/files
+        %li
+          When prompted, identify yourself using
+          %strong #{@board.id}/#{current_user.email}
+          as username, and the password you used to login here
+        %li
+          After a successful authentication, a new network drive will appear,
+          allowing you to transfer and delete files as usual
+        %li
+          Any file you upload to the system, will be published at:
+          %a(href="#")
+            http://#{request.host_with_port}/system/boards/#{@board.id}/&lt;my_filename&gt;
+      .alert.alert-info
+        Images, javascripts, style-sheets and other supporting assets
+        can be uploaded and stored in the system and then used when customizing
+        this board.

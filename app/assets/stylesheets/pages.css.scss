@@ -1,0 +1,55 @@
+// Place all the styles related to the pages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body.skin-black .wrapper {
+  background-color: #d2d6de;
+}
+
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+#latest-boards .thumbnail {
+  .media-wrapper {
+    height: 200px;
+    overflow: hidden;
+    img {
+      width: 100%;
+    }
+  }
+  .caption {
+    height: 120px;
+  }
+}
+
+.checkbox .boolean div {
+  margin-right: 10px;
+}
+
+.box-header, .box-footer {
+  .pull-right {
+    display: inline-table;
+    .pagination {
+      margin: 0;
+      margin-left: 20px;
+    }
+    .page_entries_info {
+      font-size: small;
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+}
+
+.sidebar-menu .treeview-menu > li > a > span {
+  white-space: normal !important;
+}
+
+.todo-list > li .tools .fa {
+  color: #dd4b39;
+  margin-right: 5px;
+  cursor: pointer;
+}

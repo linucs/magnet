@@ -1,0 +1,47 @@
+= simple_form_for :upload, url: upload_boards_path, remote: true do |f|
+  .box-body
+    %p
+      Create a batch of new collections, from a a tab-separated-values definition file
+      \-
+      %a(href="/files/upload.tsv" target="_blank") download
+      a sample
+    %label Upload a file
+    .row
+      .col-md-12
+        .fileinput.fileinput-new.input-group{"data-provides" => "fileinput"}
+          .form-control{"data-trigger" => "fileinput"}
+            %i.glyphicon.glyphicon-file.fileinput-exists
+            %span.fileinput-filename
+          %span.input-group-addon.btn.btn-default.btn-file
+            %span.fileinput-new Select file
+            %span.fileinput-exists Change
+            = f.file_field :file
+    .row
+      .col-md-3= f.input :include_text_only_cards, as: :boolean, input_html: {checked: true}
+      .col-md-3= f.input :discard_obscene_contents, as: :boolean, input_html: {checked: true}
+      .col-md-3= f.input :create_missing_categories, as: :boolean, input_html: {checked: false}
+      .col-md-3= f.input :poll_immediately, as: :boolean, input_html: {checked: true}
+    - if @upload_errors.try(:any?)
+      #upload-results.modal.fade
+        .modal-dialog
+          .modal-content
+            .modal-header
+              %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+                %span{"aria-hidden" => "true"} ×
+              %h4.modal-title Upload results
+            .modal-body
+              %p
+                We encountered a problem while trying to create new collections based on the provided definition file.
+                %br
+                Please take a look at the following list of errors and try to fix them before uploading:
+              %table.table
+                - @upload_errors.each do |error|
+                  %tr
+                    %td.small.text-danger= error
+            .modal-footer
+              %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
+      :javascript
+        $('#upload-results').modal();
+
+  .box-footer
+    = f.button :submit, "Upload"

@@ -1,0 +1,4 @@
+$('#campaigns').html('#{j render 'campaigns_listing' }');
+$('#edit-campaign-form').html('#{j render 'form' }');
+- if @campaign.valid?
+  $('#edit-campaign-dialog').modal('hide');

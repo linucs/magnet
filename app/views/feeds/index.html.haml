@@ -1,0 +1,29 @@
+.container
+  .row
+    .col-lg-8.col-lg-offset-2
+      %h1.page-header
+        Content feeds listing
+        %small for collection #{@board.name.truncate(20)}
+      = render_crumbs
+  .row
+    .col-lg-8.col-lg-offset-2
+      #feeds
+        = render 'feeds_listing'
+      .panel.panel-default
+        .panel-heading
+          Add a new content feed
+        .panel-body
+          #new-feed-form= render 'form'
+
+#edit-feed-dialog.modal.fade(tabindex="-1" role="dialog" aria-labelledby="Manage this feed" aria-hidden="true")
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button(type="button" class="close" data-dismiss="modal")
+          %span(aria-hidden="true")
+            &times;
+          %span.sr-only
+            Close
+        %h4.modal-title
+          Manage this content feed
+      #edit-feed-form.modal-body

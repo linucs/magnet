@@ -1,0 +1,11 @@
+- unless editing_in_place?
+  $('#feeds').html('#{j render 'feeds_listing' }');
+- if @feed.persisted?
+  - if editing_in_place?
+    document.location.reload();
+  - else
+    $('#new-feed-dialog').modal('hide');
+    $('#sidebar').html('#{j render 'board_sidebar' }');
+- else
+  $('#new-feed-form').html('#{j render 'form' }');
+  $('#new-feed-form .selectize').selectize({create: true});

@@ -1,0 +1,264 @@
+%section.content-header
+  %h1
+    #{@board.name}
+    %small
+      = @board.description.try(:truncate, 50)
+  %span.small
+    created #{time_ago_in_words(@board.created_at || Time.now)} ago, last updated #{time_ago_in_words(@board.updated_at || Time.now)} ago.
+  = render_crumbs
+
+%section.content
+  - alerts = @board.feeds.with_alerts
+  - if alerts.any?
+    - alerts.each do |f|
+      .box.box-danger
+        .box-header
+          %i.fa.fa-fw{class: "fa-#{f.authentication_provider.name}"}
+          = f.name
+          .box-tools
+            %button.btn.btn-box-tool(data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse")
+              %i.fa.fa-plus
+            %button.btn.btn-box-tool(data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove")
+              %i.fa.fa-times
+        .box-body= f.last_exception
+        .box-footer
+          .pull-right
+            = time_ago_in_words(f.polled_at || Time.now)
+            ago.
+          .clearfix
+
+  %ul.nav.nav-tabs.board-tabs(role="tablist")
+    %li.active
+      %a.text-center(href="#cards" data-toggle="tab" id="cards-tab")
+        %span.hint--top(data-hint="My collection contents")
+          %i.fa.fa-2x.fa-picture-o
+          .small Contents
+    %li
+      %a.text-center(href="#content-feeds" data-toggle="tab" id="content-feeds-tab")
+        %span.hint--top(data-hint="Let me decide how to scan Social Networks for interesting stuff")
+          %i.fa.fa-2x.fa-cloud-download
+          .small Feeds
+    %li.hidden-xs
+      %a.text-center(href="#board-analytics" data-toggle="tab" id="analytics-tab")
+        %span.hint--top(data-hint="My collection analytics dashboard")
+          %i.fa.fa-2x.fa-bar-chart
+          .small Stats
+    %li.hidden-xs
+      %a.text-center(href="#tagcloud" data-toggle="tab" id="tagcloud-tab")
+        %span.hint--top(data-hint="Let me understand how often hashtags are used")
+          %i.fa.fa-2x.fa-tag
+          .small Tag cloud
+    %li.pull-right.hidden-xs
+      = link_to '#', id: 'chromecast-btn', class: 'text-center', disabled: true do
+        %i.fa.fa-2x.fa-rss
+        .small Chromecast
+    %li.pull-right.hidden-xs
+      = link_to slideshow_path(@board, action: :wall), class: 'text-center', target: '_blank', disabled: !@board.enabled? do
+        %i.fa.fa-2x.fa-video-camera
+        .small Wall
+    %li.pull-right
+      = link_to slideshow_path(@board, action: :timeline), class: 'text-center', target: '_blank', disabled: !@board.enabled? do
+        %i.fa.fa-2x.fa-mobile
+        .small Timeline
+    %li.pull-right.hidden-xs
+      = link_to slideshow_path(@board, action: :deck), class: 'text-center', target: '_blank', disabled: !@board.enabled? do
+        %i.fa.fa-2x.fa-desktop
+        .small Deck
+  .tab-content
+    #cards.tab-pane.active
+      #cards-listing.box.box-solid= render 'cards_listing'
+    #content-feeds.tab-pane
+      #feeds.box.box-solid= render 'feeds/feeds_listing'
+    #board-analytics.tab-pane
+      #analytics.box.box-solid
+    #tagcloud.tab-pane
+      .box.box-solid
+        %a#print-cloud.btn.btn-primary.fa.fa-print.pull-right(href="#")
+        #tags(style="height: 800px")
+
+#edit-board-dialog.modal.fade(tabindex="-1" role="dialog" aria-labelledby="Manage this board" aria-hidden="true")
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button(type="button" class="close" data-dismiss="modal")
+          %span(aria-hidden="true")
+            &times;
+          %span.sr-only
+            Close
+        %h4.modal-title
+          Manage this collection
+      #edit-board-form
+
+#new-feed-dialog.modal.fade(tabindex="-1" role="dialog" aria-labelledby="Manage this feed" aria-hidden="true")
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button(type="button" class="close" data-dismiss="modal")
+          %span(aria-hidden="true")
+            &times;
+          %span.sr-only
+            Close
+        %h4.modal-title
+          Add a new content feed
+      #new-feed-form
+
+#edit-feed-dialog.modal.fade(tabindex="-1" role="dialog" aria-labelledby="Manage this feed" aria-hidden="true")
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button(type="button" class="close" data-dismiss="modal")
+          %span(aria-hidden="true")
+            &times;
+          %span.sr-only
+            Close
+        %h4.modal-title
+          Manage this content feed
+      #edit-feed-form
+
+#show-card-dialog.modal.fade(tabindex="-1" role="dialog" aria-labelledby="Card detail" aria-hidden="true")
+  .modal-dialog
+    .modal-content
+      .modal-body
+        #show-card-form
+        .row
+          .col-lg-12
+            %button(type="button" class="close" data-dismiss="modal")
+              %span(aria-hidden="true")
+                &times;
+              %span.sr-only
+                Close
+
+#edit-card-dialog.modal.fade(tabindex="-1" role="dialog" aria-labelledby="Manage this card" aria-hidden="true")
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button(type="button" class="close" data-dismiss="modal")
+          %span(aria-hidden="true")
+            &times;
+          %span.sr-only
+            Close
+        %h4.modal-title
+          Manage this card
+      #edit-card-form.modal-body
+
+#new-card-dialog.modal.fade(tabindex="-1" role="dialog" aria-labelledby="New card" aria-hidden="true")
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button(type="button" class="close" data-dismiss="modal")
+          %span(aria-hidden="true")
+            &times;
+          %span.sr-only
+            Close
+        %h4.modal-title
+          Add a new card
+      #new-card-form.modal-body
+
+#board-dialog.modal.fade(tabindex="-1" role="dialog" aria-labelledby="Custom assets" aria-hidden="true")
+  = render 'webdav'
+
+#board-embed.modal.fade(tabindex="-1" role="dialog" aria-labelledby="Board embedding" aria-hidden="true")
+  = render 'embed'
+
+- content_for :javascripts do
+  = javascript_include_tag '//code.highcharts.com/highcharts.js', 'http://code.highcharts.com/highcharts-more.js', 'http://code.highcharts.com/modules/exporting.js', 'chartkick'
+  = javascript_include_tag 'https://www.gstatic.com/cv/js/sender/v1/cast_sender.js'
+
+  :javascript
+    $(function() {
+      var analyticsLoaded = false;
+      var dispatcher = new WebSocketRails('#{Figaro.env.websocket_host.to_s + ':' + Figaro.env.websocket_port.to_s}/websocket');
+      var session = null;
+
+      dispatcher.on_open = function(data) {
+        console.log('Connection has been established: ', data);
+        var channel = dispatcher.subscribe('board-#{@board.id}');
+        var cards_count = 0;
+        channel.bind('card', function(card) {
+          cards_count += 1;
+          $('#polling-label').show();
+          $.flash('Scanning of content feed #' + card.feed_id + ' is running. There are ' + cards_count + ' new contents available. Please wait...', 'info');
+        });
+        channel.bind('polling-start', function(feed) {
+        });
+        channel.bind('polling-end', function(feed) {
+          $.flash('Scanning of content feed #' + feed.id + ' ended. <strong>#{j link_to('Click here to reload the page.', board_path(@board), remote: true, onclick: '$(".alert").alert("close")')}</strong>.', 'info');
+          $('#polling-label').hide();
+          cards_count = 0;
+        });
+      }
+
+      $('#show-card-dialog').on('hidden.bs.modal', function (e) {
+        $('#show-card-form').html('');
+      });
+
+      $('#analytics-tab').on('click', function (e) {
+        if(!analyticsLoaded)
+          $.get('#{analytics_board_path(@board)}', function() {
+            analyticsLoaded = true;
+          });
+      });
+
+      $('#tagcloud-tab').on('click', function (e) {
+        $.get('#{tag_cloud_board_path(@board)}');
+      });
+
+      $('#print-cloud').on('click', function(e) {
+        var pdf = new jsPDF("l", "mm", "a4");
+
+        pdf.addImage(document.getElementById('awesomeCloudtags').toDataURL("image/jpeg", 1.0), 'JPEG', 0, 0, 297, 210);
+        pdf.save('tagcloud.pdf')
+      });
+
+      if(!chrome.cast || !chrome.cast.isAvailable) {
+        setTimeout(function() {
+          if(chrome.cast && chrome.cast.isAvailable) {
+            $('#chromecast-btn').removeAttr('disabled');
+          }
+        }, 1000);
+      }
+
+      $('#chromecast-btn').on('click', function(e) {
+        var sessionRequest = new chrome.cast.SessionRequest('#{Figaro.env.chromecast_app_id}');
+        var apiConfig = new chrome.cast.ApiConfig(sessionRequest, sessionListener, receiverListener);
+
+        chrome.cast.initialize(apiConfig, onInitSuccess, onError);
+        e.preventDefault();
+      });
+
+      function sessionListener(e) {
+        session = e;
+      }
+
+      function receiverListener(e) {
+        if(e === 'available') {
+        }
+        else {
+          $.flash('No Chromecast devices found.', 'warning');
+        }
+      }
+
+      function onInitSuccess() {
+        sendMessage('#{@board.id}');
+      }
+
+      function onError(message) {
+        console.log(JSON.stringify(message));
+      }
+
+      function onSuccess(message) {
+        $.flash('Successufully connected to the Chromecast device: ' + message);
+      }
+
+      function sendMessage(message) {
+        if (session) {
+          session.sendMessage('#{Figaro.env.chromecast_app_namespace}', message, onSuccess.bind(this, 'started board display'), onError);
+        }
+        else {
+          chrome.cast.requestSession(function(e) {
+            session = e;
+            session.sendMessage('#{Figaro.env.chromecast_app_namespace}', message, onSuccess.bind(this, 'started board display'), onError);
+          }, onError);
+        }
+      }
+    });

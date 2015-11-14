@@ -1,0 +1,7 @@
+- unless @card.persisted?
+  $('#new-card-form').html('#{j render 'form' }');
+  $('#new-card-form .selectize').selectize();
+- else
+  $('#cards-listing').html('#{j render 'boards/cards_listing' }');
+  $('#new-card-dialog').modal('hide');
+  $.fn.rebindCardsListingPage();

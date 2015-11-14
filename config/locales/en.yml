@@ -1,0 +1,284 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  errors:
+    messages:
+      wrong_size: "is the wrong size (should be %{file_size})"
+      size_too_small: "is too small (should be at least %{file_size})"
+      size_too_big: "is too big (should be at most %{file_size})"
+  feeds:
+    options:
+      twitter_user_timeline: "Twitter: timeline of @"
+      twitter_home_timeline: "Twitter: my home timeline"
+      twitter_mentions_timeline: "Twitter: my mentions timeline"
+      twitter_search: "Twitter: tagged with #"
+      instagram_recent_media_of_user: "Instagram: recent posts from @"
+      instagram_user_feed: "Instagram: my home feed"
+      instagram_user_recent_media: "Instagram: my recent posts"
+      instagram_user_liked: "Instagram: my liked posts"
+      instagram_media_popular: "Instagram: most popular posts"
+      instagram_tag_recent_media: "Instagram: tagged with #"
+      tumblr_tag: "Tumblr: tagged with #"
+      tumblr_blog:  "Tumblr: posts from blog "
+      facebook_search: "Facebook: tagged with #"
+      facebook_my_feed: "Facebook: my home feed"
+      facebook_photos: "scan for photos"
+      facebook_videos: "scan for videos"
+      facebook_page: "Facebook: posts from page "
+      facebook_album: "Facebook: contents from album "
+      facebook_tags: "scan for mentions"
+      rss_feed: "News from "
+  activerecord:
+    errors:
+      models:
+        feed:
+          attributes:
+            enabled:
+              limit_reached: "There are yoo many enabled content feeds (%{count} max). Please consider upgrading your account, or disable other feeds before activating a new one."
+    models:
+      feed: Content feed
+      board: Collection
+      category: Folder
+  simple_form:
+    labels:
+      category:
+        image: 'Main image'
+        cover: 'Cover image'
+        parent_id: 'Parent category'
+      board:
+        category: 'Folder'
+        users: Board managers
+        max_tags_per_card: 'Maximum allowed tags'
+        options:
+          wall_width: Width (px)
+          wall_height: Height (px)
+          wall_page_size: Cards per round
+          wall_auto_slide: Sliding timeout
+          wall_custom_background_color: Background color
+          wall_custom_background_image_style: Cover image style
+          wall_background_image_size: Cover image size (px)
+          wall_custom_stylesheet_url: Stylesheet theme
+          wall_custom_javascript_url: Custom javascript URL
+          wall_custom_margin_top: Top spacing
+          wall_custom_header_url: Custom header URL
+          wall_custom_template_url: Custom card template URL
+          wall_custom_footer_url: Custom footer URL
+          wall_font_family: Font family
+          wall_font_size: Size
+          wall_center: Center vertically
+          timeline_custom_background_color: Background color
+          timeline_custom_background_image_style: Cover image style
+          timeline_custom_stylesheet_url: Stylesheet theme
+          timeline_custom_javascript_url: Custom javascript URL
+          timeline_custom_margin_top: Top spacing
+          timeline_custom_header_url: Custom header URL
+          timeline_custom_template_url: Custom card template URL
+          timeline_custom_footer_url: Custom footer URL
+          timeline_font_family: Font family
+          timeline_font_size: Size
+          deck_custom_background_color: Background color
+          deck_custom_background_image_style: Cover image style
+          deck_columns_width: Columns width
+          deck_cards_padding: Cards internal padding
+          deck_custom_stylesheet_url: Stylesheet theme
+          deck_custom_javascript_url: Custom javascript URL
+          deck_custom_margin_top: Top spacing
+          deck_custom_header_url: Custom header URL
+          deck_custom_template_url: Custom card template URL
+          deck_custom_footer_url: Custom footer URL
+          deck_font_family: Font family
+          deck_font_size: Size
+        icon: 'Icon image'
+        image: 'Main image'
+        cover: 'Cover image'
+      feed:
+        board_name: 'Collection name'
+        user: 'Feed owner'
+      card:
+        content: 'Textual content'
+        embed_code: 'HTML embedding code'
+        media_url: 'Original image/video URL'
+        thumbnail_image_url: 'Original thumbnail image URL'
+        original_content_url: 'Original content URL'
+        profile_image_url: "User's profile image URL"
+        custom_profile_image: '&nbsp;'
+        custom_thumbnail_image: '&nbsp;'
+        custom_media: '&nbsp;'
+      campaign:
+        board: Linked collection
+    include_blanks:
+      board:
+        polling_interval: 'No scheduled refresh'
+    options:
+      board:
+        polling_interval:
+          '1': 10 minutes
+          '2': 20 minutes
+          '3': 30 minutes
+          '4': 40 minutes
+          '5': 50 minutes
+    hints:
+      category:
+        enabled: 'Decide whether this folder should be publicly visible or not'
+        name: 'Give a name to this folder'
+        label: 'Set a label for this folder, to categorize it'
+        slug: 'Set the URL portion for this folder'
+        description: 'Fill in the full folder description'
+        image: 'Upload an image representing this folder'
+        cover: 'Upload a cover representing this folder'
+        parent_id: 'Make a subcategory, by setting its parent category'
+      board:
+        enabled: 'Decide whether this collection should be publicly visible or not'
+        include_text_only_cards: 'Also include contents without an attached image or video'
+        moderated: 'Do not publish any content, unless explicitly aproved'
+        discard_identical_images: 'Discard contents with identical images attached'
+        discard_obscene_contents: 'Discard anything with textual obscene contents'
+        name: 'Give a name to this collection'
+        folder: 'Categorize this collection'
+        slug: 'Set the URL portion for this collection'
+        label: 'Set a label for this collection, to categorize it'
+        description: 'Fill in the full collection description'
+        polling_interval: 'Decide how often contents should be refreshed?'
+        host: Publish using this host name
+        icon: 'Upload an image representing an icon for this collection'
+        image: 'Upload an image representing this collection'
+        cover: 'Upload a cover representing this collection'
+        trusted_users: 'Contents from these users will be automatically published <strong>(WARNING: takes precedence over explicit moderation!)</strong>'
+        banned_users: 'Contents from these users will be automatically discarded'
+        banned_words: 'Anything containing these words will be automatically discarded'
+        max_tags_per_card: 'Block spam tagged with an excessive number of terms'
+        users: 'Add any user your want to share this board with'
+        options:
+          wall_width: Screen width (px)
+          wall_height: Screen height (px)
+          wall_page_size: Set the size of the batch
+          wall_auto_slide: Set transition timing
+          wall_custom_background_color: Set the background color
+          wall_custom_background_image_style: Background image disposition
+          wall_background_image_size: Set the background image size
+          wall_custom_stylesheet_url: Use a standard theme or set a custom stylesheet URL
+          wall_custom_javascript_url: Add custom javascript
+          wall_custom_margin_top: Leave space at the top
+          wall_custom_header_url: Add a customized header
+          wall_custom_template_url: 'Use a customized card template (<a href="/tpl/wall/template.html" target="_blank">sample</a>)'
+          wall_custom_footer_url: Add a customized footer
+          wall_font_family: Set a customized font family to use
+          wall_center: Check to center slides
+          timeline_custom_background_color: Set the background color
+          timeline_custom_background_image_style: Background image disposition
+          timeline_custom_stylesheet_url: Use a standard theme or set a custom stylesheet URL
+          timeline_custom_javascript_url: Add custom javascript
+          timeline_custom_margin_top: Leave space at the top
+          timeline_custom_header_url: Add a customized header
+          timeline_custom_template_url: 'Use a customized card template (<a href="/tpl/timeline/template.html" target="_blank">sample</a>)'
+          timeline_custom_footer_url: Add a customized footer
+          timeline_font_family: Set a customized font family to use
+          deck_custom_background_color: Set the background color
+          deck_custom_background_image_style: Background image disposition
+          deck_columns_width: Set a width for each deck column (CSS units)
+          deck_cards_padding: Set a spacing between cards (CSS units)
+          deck_custom_stylesheet_url: Use a standard theme or set a custom stylesheet URL
+          deck_custom_javascript_url: Add custom javascript
+          deck_custom_margin_top: Leave space at the top
+          deck_custom_header_url: Add a customized header
+          deck_custom_template_url: 'Use a customized card template (<a href="/tpl/deck/template.html" target="_blank">sample</a>)'
+          deck_custom_footer_url: Add a customized
+          deck_font_family: Set a customized font family to use
+          google_analytics_code: Google UA web property (UA-XXXXXX-YY)
+          google_analytics_domain: Google UA domain
+      feed:
+        enabled: 'Decide whether contents from this feed should be scanned or not'
+        name: 'Optionally give a meaningful name to this feed'
+        label: 'Set a label for all contents downloaded from this feed, to categorize them'
+        board_name: 'Optionally choose a name for the newly created collection'
+        twitter_user_timeline: 'Collect contents from Twitter timeline of this user: <strong>do not add any leading "@"</strong>'
+        twitter_home_timeline: 'Collect contents from my Twitter home timeline'
+        twitter_mentions_timeline: 'Collect tweets in which I am mentioned'
+        twitter_search: 'Collect tweets with this hashtag: <strong>do not add any leading "#"</strong>'
+        instagram_recent_media_of_user: 'Collect recent Instagram posts from this user: <strong>do not add any leading "@"</strong>'
+        instagram_user_feed: 'Collect contents from my Instagram home feed'
+        instagram_user_recent_media: 'Collect my recent posts on Instagram'
+        instagram_user_liked: 'Collect my liked posts on Instagram'
+        instagram_media_popular: 'Collect Instagram most popular posts'
+        instagram_tag_recent_media: 'Collect Instagram posts tagged with this hashtag: <strong>do not add any leading "#"</strong>'
+        tumblr_tag: 'Collect contents from Tumblr posts with this hashtag: <strong>do not add any leading "#"</strong>'
+        tumblr_blog:  'Collect contents from this Tumblr blog: <strong>do not add any trailing ".tumblr.com"</strong>'
+        facebook_my_feed: 'Collect contents from my Facebook home feed'
+        facebook_photos: 'Also search for photos while scanning posts'
+        facebook_videos: 'Also search for videos while scanning posts'
+        facebook_page: "Collect posts from this Facebook page ID"
+        facebook_album: "Collect contents from this Facebook album ID"
+        facebook_tags: 'Also search for mentions, while scanning posts'
+        rss_feed: 'Collect articles from this RSS feed'
+        user: "Use this user's social account when downloading contents"
+        live_streaming: "Set to enable live streaming for this feed"
+      card:
+        provider_name: 'Tell the system where this content is located'
+        content_type: 'Set a primary type for the content'
+        from: "The content publisher's name"
+        profile_image_url: 'Content producer avatar image URL'
+        online: 'Decide whether this card should be publicly visible or not'
+        content: 'Textual content for this card'
+        embed_code: 'HTML embedding snippet (customized external players)'
+        media_url: 'This is where the image/video is accessible'
+        thumbnail_image_url: 'This is where the thumbnail is accessible'
+        label: 'Set a label for this card, to categorize it'
+        original_content_url: 'This is where the content is actually accessible'
+        content_source: 'Type of rich media audio/video'
+        notes: "Custom note appended to this card (editor's usage)"
+      campaign:
+        enabled: 'Decide whether this campaign should be active or not'
+        name: 'Give a name to this campaign'
+        board: 'Show this campaign inside one of your collections'
+        threshold: 'Set the percentage of page impressions on which this campaing should be displayed'
+        content: 'Insert the HTML code snippet used to display this campaing inside the web page'
+    placeholders:
+      board:
+        host: live.example.com
+        options:
+          wall_width: 1024px, 800px
+          wall_height: 768px, 600px
+          wall_page_size: 10, 20, 50
+          wall_auto_slide: 5 10
+          wall_custom_background_color: '#ffffff, rgb(), white'
+          wall_background_image_size: 1024x768, 1280x800
+          wall_custom_javascript_url: http://example.com/js/custom.js
+          wall_custom_margin_top: 200px, 20%
+          wall_custom_header_url: http://example.com/custom-header.html
+          wall_custom_template_url: http://example.com/custom-card-template.html
+          wall_custom_footer_url: http://example.com/custom-footer.html
+          timeline_custom_background_color: '#ffffff, rgb(), white'
+          timeline_custom_javascript_url: http://example.com/js/custom.js
+          timeline_custom_margin_top: 200px, 20%
+          timeline_custom_header_url: http://example.com/custom-header.html
+          timeline_custom_template_url: http://example.com/custom-card-template.html
+          timeline_custom_footer_url: http://example.com/custom-footer.html
+          deck_custom_background_color: '#ffffff, rgb(), white'
+          deck_columns_width: 250px, 20%
+          deck_cards_padding: 10px, 5pt
+          deck_custom_javascript_url: http://example.com/js/custom.js
+          deck_custom_margin_top: 200px, 20%
+          deck_custom_header_url: http://example.com/custom-header.html
+          deck_custom_template_url: http://example.com/custom-card-template.html
+          deck_custom_footer_url: http://example.com/custom-footer.html
+          google_analytics_code: UA-XXXXXX-YY
+          google_analytics_domain: live.example.com

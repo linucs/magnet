@@ -1,0 +1,6 @@
+- unless @category.persisted?
+  $('#new-category-form').html('#{j render 'form' }');
+  $('#new-category-form .selectize').selectize();
+- else
+  $('#categories').html('#{j render 'categories_listing' }');
+  $('#new-category-dialog').modal('hide');

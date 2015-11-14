@@ -1,0 +1,65 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require boards
+ *= require categories
+ *= require feeds
+ *= require pages
+ *= require_self
+ */
+
+$icon-font-path: "bootstrap-sass-official/assets/fonts/bootstrap/";
+
+@import 'bootstrap-sass-official/assets/stylesheets/bootstrap-sprockets';
+@import 'bootstrap-sass-official/assets/stylesheets/bootstrap';
+@import 'jasny-bootstrap/dist/css/jasny-bootstrap';
+@import 'AdminLTE';
+@import 'skins/_all-skins';
+@import 'hint';
+@import 'font-awesome/css/font-awesome';
+@import 'pace/themes/black/pace-theme-minimal';
+@import 'selectize/dist/css/selectize';
+@import 'selectize/dist/css/selectize.bootstrap3';
+@import 'iCheck/skins/all';
+@import 'ionicons/css/ionicons';
+@import 'bootstrap-colorpicker/css/colorpicker';
+@import 'outdated-browser/outdatedbrowser/outdatedbrowser';
+@import 'dropzone/dist/dropzone';
+
+html, body {
+  height: 100%;
+}
+
+.fa-hover a:hover .fa {
+  font-size: 20px;
+  vertical-align: -4px;
+}
+
+.help-block {
+  font-size: x-small;
+}
+
+.colorpicker.dropdown-menu {
+  z-index: 1099 !important;
+}
+
+body > :not(.pace),body:before,body:after {
+  -webkit-transition: opacity .4s ease-in-out;
+  -moz-transition: opacity .4s ease-in-out;
+  -o-transition: opacity .4s ease-in-out;
+  -ms-transition: opacity .4s ease-in-out;
+  transition: opacity .4s ease-in-out
+}
+
+body:not(.pace-done) > :not(.pace),body:not(.pace-done):before,body:not(.pace-done):after {
+  opacity: 0.1
+}

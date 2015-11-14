@@ -1,0 +1,12 @@
+---
+:pidfile: ./tmp/pids/sidekiq.pid
+:logfile: ./log/sidekiq.log
+:queues:
+  - default
+  - [fast_poll, 2]
+  - slow_poll
+:blocking:
+  - fast_poll
+:limits:
+  slow_poll: 5
+  fast_poll: 10

@@ -1,0 +1,10 @@
+.box-body
+  %ul.todo-list
+    = render(@campaigns) || alert('No advertising campaigns have been created, yet.')
+.box-footer
+  .pull-right
+    %span.page_entries_info= page_entries_info @campaigns
+    = paginate @campaigns, params: {controller: 'campaigns', action: 'index'}, remote: true
+  .clearfix
+  %br
+  .text-center= link_to 'Add a campaign', new_campaign_path, remote: true, class: 'btn btn-primary'

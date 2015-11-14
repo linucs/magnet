@@ -1,0 +1,88 @@
+%section.content-header
+  %h1
+    My social collections
+  %p
+    Collect, moderate and show posts from various social networks, grouping them as content collections.
+  = render_crumbs
+
+%section.content
+  .row
+    .col-md-3
+      = link_to 'Add a collection', new_board_path, remote: true, class: 'btn btn-primary btn-block margin-bottom'
+      .box.box-solid
+        .box-header.with-border
+          %h3.box-title Folders
+        .box-body.no-padding
+          %ul.nav.nav-pills.nav-stacked
+            %li
+              = link_to boards_path, remote: true do
+                %span.hint--top(data-hint="View all your collections, regardless of the folder they belongs to") Any folder
+            - Category.all.each do |c|
+              %li
+                = link_to boards_path('q[category_id_eq]' => c.id), remote: true do
+                  %span.hint--top{:'data-hint' => "View only collections categorized under the #{c.name} folder"}= c.name
+      .box.box-solid
+        .box-header.with-border
+          %h3.box-title Filters
+        .box-body.no-padding
+          %ul.nav.nav-pills.nav-stacked
+            %li
+              = link_to boards_path('q[enabled_eq]' => false), remote: true do
+                %i.fa.fa-circle-o.text-red
+                %span.hint--top(data-hint="View only disabled collections (not publicly available)") Disabled collections
+            %li
+              = link_to boards_path('q[moderated_eq]' => true), remote: true do
+                %i.fa.fa-circle-o.text-yellow
+                %span.hint--top(data-hint="View only moderated collections (contents in these collections must be approved before going online)") Moderated collections
+            %li
+              = link_to boards_path do
+                %span.hint--top(data-hint="Reset any filtering setting above") Reset filters
+    .col-md-9
+      .box.box-primary
+        .box-header
+          %h3.box-title Collections listing
+          .box-tools.pull-right
+            .has-feedback
+              = form_for :q, url: boards_path, remote: true, :method => :get do |f|
+                = f.text_field :name_cont, class: 'form-control input-sm', placeholder: 'Search...'
+                %span.fa.fa-search.form-control-feedback
+        #boards
+          = render 'boards_listing'
+      - if can?(:upload, Board) && current_user.authentication_providers.any?
+        .box.box-warning
+          .box-header
+            %h3.box-title Add new collections
+          #board-upload-form
+            = render 'upload_form'
+
+#new-board-dialog.modal.fade(tabindex="-1" role="dialog" aria-labelledby="New board" aria-hidden="true")
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button(type="button" class="close" data-dismiss="modal")
+          %span(aria-hidden="true")
+            &times;
+          %span.sr-only
+            Close
+        %h4.modal-title
+          Add a new collection
+      #new-board-form
+
+#edit-board-dialog.modal.fade(tabindex="-1" role="dialog" aria-labelledby="Manage this board" aria-hidden="true")
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button(type="button" class="close" data-dismiss="modal")
+          %span(aria-hidden="true")
+            &times;
+          %span.sr-only
+            Close
+        %h4.modal-title
+          Manage this collection
+      #edit-board-form
+
+- content_for :javascripts do
+  :javascript
+    $(function() {
+      $('#new-board-form .selectize').selectize();
+    });

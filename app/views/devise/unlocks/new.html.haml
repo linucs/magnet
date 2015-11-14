@@ -1,0 +1,19 @@
+.login-box
+  .login-logo
+    %b>Mag
+    NET
+  / /.login-logo
+  .login-box-body
+    %p.login-box-msg Resend unlock instructions
+    = simple_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|
+      = f.error_notification
+      = f.full_error :unlock_token
+      = f.input :email, label: false, wrapper_html: {class: 'has-feedback'} do
+        = f.input_field :email, placeholder: 'E-mail', class: 'form-control', autofocus: true
+        %span.glyphicon.glyphicon-envelope.form-control-feedback
+      .row
+        .col-xs-12
+          = f.button :submit, 'Resend unlock instructions', class: 'btn-block'
+  / /.login-box-body
+  .box-footer= render 'devise/shared/links'
+/ /.login-box

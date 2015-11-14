@@ -1,0 +1,14 @@
+= simple_form_for(@campaign, remote: true) do |f|
+  .modal-body
+    = f.error_notification
+
+    - if @campaign.persisted?
+      = f.input :enabled
+    = f.input :name
+    .row
+      .col-md-6= f.association :board, collection: current_user.boards, include_blank: 'select...'
+      .col-md-6= f.input :threshold, as: :select, collection: 10.step(100, 10).map { |v| ["#{v}%", v] }
+    = f.input :content, as: :text, input_html: { rows: 10 }
+
+  .modal-footer
+    = f.button :submit

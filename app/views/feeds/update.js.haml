@@ -1,0 +1,6 @@
+$('#feeds').html('#{j render 'feeds_listing' }');
+$('#edit-feed-form').html('#{j render 'form' }');
+$('#edit-feed-form .selectize').selectize({create: true});
+- if @feed.valid?
+  $('#edit-feed-dialog').modal('hide');
+$('#sidebar').html('#{j render 'board_sidebar' }');

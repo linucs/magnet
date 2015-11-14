@@ -1,0 +1,79 @@
+/*
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+* or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the bottom of the
+* compiled file so the styles you add here take precedence over styles defined in any styles
+* defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+* file per style scope.
+*
+*= require_self
+*/
+
+$icon-font-path: "bootstrap-sass-official/assets/fonts/bootstrap/";
+@import 'font-awesome/css/font-awesome';
+
+.magnet-container {
+	@import 'bootstrap-sass-official/assets/stylesheets/bootstrap-sprockets';
+	@import 'bootstrap-sass-official/assets/stylesheets/bootstrap';
+	@import 'RRSSB/css/rrssb';
+	@import 'angular-rrssb/dist/angular-rrssb';
+	@import 'angular-social/angular-social';
+	@import 'fancybox/source/jquery.fancybox';
+
+	.card {
+		width: 20%;
+		padding: 5px;
+		display: none;
+		&.loaded {
+			display: block;
+		}
+	}
+
+	.panel {
+		margin: 0;
+		.panel-heading {
+			padding: 10px;
+			.img-profile {
+				width: 40px;
+				margin-right: 10px;
+			}
+		}
+		.panel-body {
+			padding: 10px;
+		}
+		.media-wrapper {
+			.img-preview {
+				display: block;
+				width: 100%;
+				height: auto;
+			}
+			.play-wrapper {
+				background-image: url(/img/play.png);
+				background-repeat: no-repeat;
+				background-position: center;
+				.img-preview {
+					opacity: 0.4;
+					filter: alpha(opacity=40); /* For IE8 and earlier */
+				}
+			}
+		}
+		.panel-footer {
+			padding: 10px;
+			.img-provider {
+				margin-right: 10px;
+			}
+		}
+		.share {
+			margin: 0px 10px;
+			min-height: 25px;
+		}
+	}
+
+	.fancybox-title .ng-social {
+		margin-top: 10px;
+	}
+}

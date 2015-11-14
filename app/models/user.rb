@@ -1,0 +1,55 @@
+class User < ActiveRecord::Base
+  has_and_belongs_to_many :boards
+  has_many :feeds do
+    def with_alerts
+      @alerts ||= where('last_exception IS NOT NULL')
+    end
+  end
+
+  before_save :ensure_authentication_token
+
+  def ensure_authentication_token
+    if authentication_token.blank?
+      self.authentication_token = generate_authentication_token
+    end
+  end
+
+  def self.create_from_omniauth(params)
+    attributes = {
+      email: params['info']['email'],
+      password: Devise.friendly_token
+    }
+
+    create(attributes)
+  end
+
+  has_many :authentications, class_name: 'UserAuthentication', dependent: :destroy
+  has_many :authentication_providers, through: :authentications
+
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable,
+         :confirmable, :lockable, :omniauthable
+
+  def is_connected_to?(provider_name)
+    authentications.joins(:authentication_provider).exists?(authentication_providers: { name: provider_name })
+  end
+
+  def cards_count(provider)
+    boards.inject(0) { |sum, b| sum + b.all_cards.by_provider(provider).count }
+  end
+
+  def to_s
+    email
+  end
+
+  private
+
+  def generate_authentication_token
+    loop do
+      token = Devise.friendly_token
+      break token unless User.find_by(authentication_token: token)
+    end
+  end
+end

@@ -1,0 +1,28 @@
+%li.sortable-item{'data-item-id' => feed.id}
+  %i.fa.fa-fw{class: "fa-#{feed.authentication_provider.name}"}
+  %span.text
+    - if feed.polling? || feed.live_streaming?
+      = feed.name
+      - if feed.live_streaming?
+        %span.label.label-danger live streaming
+      - else
+        %span.label.label-info scanning
+    - else
+      = link_to edit_board_feed_path(@board, feed), remote: true do
+        %span.hint--right(data-hint="Manage this feed")= feed.name
+      %span.small
+        \-
+        - if feed.polled_at
+          last scanned #{time_ago_in_words(feed.polled_at)} ago,
+        #{feed.cards.count} card(s)
+    - unless feed.enabled?
+      %span.label.label-warning disabled
+  .tools
+    - if current_user.admin? && feed.authentication_provider.allows_live_streaming?
+      = link_to toggle_streaming_board_feed_path(@board, feed), :method => :put, :data => { :confirm => 'Are you sure?' }, remote: true do
+        %span.hint--left(data-hint="Toggle live streaming from this feed")
+          %i.fa.text-danger{class: feed.live_streaming? ? 'fa-pause' : 'fa-play'}
+    - unless feed.polling?
+      = link_to [@board, feed], :method => :delete, :data => { :confirm => 'Are you sure?' }, remote: true do
+        %span.hint--left(data-hint="Remove this feed from the system (downloaded contents will not be deleted)")
+          %i.fa.fa-trash

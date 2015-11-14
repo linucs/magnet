@@ -1,0 +1,21 @@
+{
+  "name": "bootstrap-colorpicker",
+  "main": [
+    "./js/bootstrap-colorpicker.js",
+    "./css/colorpicker.css"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/theblacksmith/bootstrap-colorpicker.git"
+  },
+  "homepage": "https://github.com/theblacksmith/bootstrap-colorpicker",
+  "_release": "cb9cc697a6",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "cb9cc697a6ec9a87d85f230586871df94b9186f1"
+  },
+  "_source": "git://github.com/theblacksmith/bootstrap-colorpicker.git",
+  "_target": "*",
+  "_originalSource": "bootstrap-colorpicker"
+}

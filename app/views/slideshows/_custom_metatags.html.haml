@@ -1,0 +1,9 @@
+%meta{:content => @board.name, :name => "og:title"}/
+%meta{:content => @board.description, :name => "og:description"}/
+%meta{:content => @board.image.url, :name => "og:image"}/
+%meta{:content => @board.host.present? ? @board.host : request.original_url, :name => "og:url"}/
+%meta{:content => "photo", :name => "twitter:card"}
+%meta{:content => @board.name, :name => "twitter:title"}
+%meta{:content => @board.description, :name => "twitter:description"}
+%meta{:content => @board.image.url, :name => "twitter:image"}
+%meta{:content => @board.host.present? ? @board.host : request.original_url, :name => "twitter:url"}

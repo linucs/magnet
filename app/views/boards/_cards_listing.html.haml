@@ -1,0 +1,69 @@
+.box-header
+  %nav.navbar.navbar-default
+    .navbar-header
+      %button.navbar-toggle.collapsed{'data-target' => '#cards-navbar-collapse', 'data-toggle' => 'collapse', 'type' => 'button'}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+    #cards-navbar-collapse.collapse.navbar-collapse
+      - if Figaro.env.enable_elasticsearch_indexing.to_b
+        = form_for :s, url: board_path(@board), remote: true, :method => :get, html: {class: 'navbar-form navbar-left'} do |f|
+          = f.text_field :content, class: 'form-control input-sm', placeholder: 'Search content...', autofocus: true
+      - else
+        = form_for :q, url: board_path(@board), remote: true, :method => :get, html: {class: 'navbar-form navbar-left'} do |f|
+          = f.text_field :from_eq, class: 'form-control input-sm', placeholder: 'Search a user...', autofocus: true
+      = form_tag bulk_update_board_cards_path(board_id: @board), remote: true, id: 'bulk-update-form' do
+        = hidden_field_tag 'page', params[:page]
+        - if params[:q]
+          - params[:q].each do |k, v|
+            = hidden_field_tag "q[#{k}]", v
+        %ul.nav.navbar-nav
+          %li
+            = link_to board_path(@board), remote: true do
+              %i.fa.fa-fw.fa-refresh
+              Reload
+          %li
+            = link_to '#', onclick: '$(".card-bulk-select").trigger("click")' do
+              %i.fa.fa-fw.fa-check-square-o
+              Select/un-select all
+          %li.dropdown
+            %a.dropdown-toggle{'data-toggle' => 'dropdown', :href => '#'}
+              Bulk actions
+              %span.caret
+            %ul.dropdown-menu
+              %li
+                = link_to '#', class: 'bulk-action submit-on-click', :data => { :confirm => 'Are you sure?' }, 'data-action' => 'refresh' do
+                  %i.fa.fa-refresh
+                  Refresh selected cards
+              %li
+                = link_to '#', class: 'bulk-action submit-on-click', :data => { :confirm => 'Are you sure?' }, 'data-action' => 'publish' do
+                  %i.fa.fa-thumbs-o-up
+                  Publish selected cards
+              %li
+                = link_to '#', class: 'bulk-action submit-on-click', :data => { :confirm => 'Are you sure?' }, 'data-action' => 'un-publish' do
+                  %i.fa.fa-thumbs-o-down
+                  Un-publish selected cards
+              %li.divider
+              %li
+                = link_to '#', class: 'bulk-action submit-on-click', :data => { :confirm => 'Are you sure?' }, 'data-action' => 'delete' do
+                  %i.fa.fa-times
+                  Delete selected cards
+      %ul.nav.navbar-nav.navbar-right
+        %li
+          = link_to new_board_card_path(@board), remote: true do
+            %i.fa.fa-fw.fa-plus
+            Add a custom content
+  .pull-right
+    %span.page_entries_info.hidden-xs
+      = page_entries_info @cards, entry_name: 'card'
+    = paginate @cards, params: {controller: 'boards', action: 'show', id: @board.id}, remote: true
+.box-body
+  #grid.row(data-columns)= render(collection: @cards, partial: 'boards/card_thumbnail', as: :card)
+.box-footer
+  .pull-right
+    = paginate @cards, params: {controller: 'boards', action: 'show', id: @board.id}, remote: true
+  - unless @cards.any?
+    %p.text-center
+      %a.btn.btn-primary(onclick="(function() {$('#content-feeds-tab').tab('show');})()" aria-controls="home") Add contents to this collection
+  .clearfix

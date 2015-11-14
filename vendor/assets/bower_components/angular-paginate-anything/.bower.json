@@ -1,0 +1,34 @@
+{
+  "name": "angular-paginate-anything",
+  "version": "4.0.1",
+  "main": "dist/paginate-anything-tpls.js",
+  "dependencies": {
+    "angular": "latest"
+  },
+  "devDependencies": {
+    "angular-mocks": "latest",
+    "jasmine-as-promised": "latest"
+  },
+  "ignore": [
+    "**/.*",
+    "**/*.json",
+    "node_modules",
+    "bower_components",
+    "test",
+    "img",
+    "src",
+    "Gruntfile.js",
+    "package.json",
+    "karma.conf.js"
+  ],
+  "homepage": "https://github.com/begriffs/angular-paginate-anything",
+  "_release": "4.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v4.0.1",
+    "commit": "4114c542c413325da936f26f5c1233249712b357"
+  },
+  "_source": "git://github.com/begriffs/angular-paginate-anything.git",
+  "_target": "*",
+  "_originalSource": "angular-paginate-anything"
+}

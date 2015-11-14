@@ -1,0 +1,23 @@
+.login-box
+  .login-logo
+    %b>Mag
+    NET
+  / /.login-logo
+  .login-box-body
+    %p.login-box-msg Sign in to start your session
+    = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      = f.input :email, label: false, wrapper_html: {class: 'has-feedback'} do
+        = f.input_field :email, placeholder: 'E-mail', class: 'form-control', autofocus: true
+        %span.glyphicon.glyphicon-envelope.form-control-feedback
+      = f.input :password, label: false, wrapper_html: {class: 'has-feedback'} do
+        = f.input_field :password, placeholder: 'Password', class: 'form-control'
+        %span.glyphicon.glyphicon-lock.form-control-feedback
+      .row
+        .col-xs-8
+          - if devise_mapping.rememberable?
+            = f.input :remember_me, as: :boolean, wrapper_html: {class: 'icheck'}
+        .col-xs-4
+          = f.button :submit, 'Login', class: 'btn-block'
+  / /.login-box-body
+  .box-footer= render 'devise/shared/links'
+/ /.login-box

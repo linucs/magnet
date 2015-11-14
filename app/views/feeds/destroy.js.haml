@@ -1,0 +1,3 @@
+$('#feeds').html('#{j render 'feeds_listing' }');
+$('#sidebar').html('#{j render 'board_sidebar' }');
+$.get('#{board_path(@board)}');

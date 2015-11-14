@@ -1,0 +1,165 @@
+%aside.main-sidebar
+  %section.sidebar
+    .user-panel
+      .pull-left.image
+        = image_tag @board.banner_url || '1x1.png'
+      .pull-left.info
+        %p Manage this collection
+        %a(href="#")
+          %i.fa.fa-fw.fa-arrow-circle-left
+          = link_to 'BACK', boards_path
+    %ul.sidebar-menu
+      %li.header INSIGHTS
+      %li.treeview
+        = link_to board_path(@board, :order => 'most_liked'), remote: true do
+          %i.fa.fa-heart.fa-fw
+          %span.hint--top(data-hint="Filter all the contents shown in the listing on the right, and show the most liked ones first") Most liked contents
+      %li.treeview
+        = link_to board_path(@board, :order => 'most_shared'), remote: true do
+          %i.fa.fa-share.fa-fw
+          %span.hint--top(data-hint="Filter all the contents shown in the listing on the right, and show the most shared ones first") Most shared contents
+      %li.treeview
+        %a(href="#")
+          %i.fa.fa-fw.fa-filter
+          %i.fa.fa-angle-left.pull-right
+          %span.hint--top(data-hint="Click to open the filtering option menu")
+            Filters
+        %ul.treeview-menu
+          %li.treeview
+            = link_to board_path(@board, 'q[pinned_eq]' => true), remote: true do
+              %i.fa.fa-bookmark.fa-fw
+              %span.hint--top(data-hint="Filter all the contents shown in the listing on the right, and show only cards you have pinned as highlighted, among the other ones") Pinned contents
+          - @board.feeds.each do |feed|
+            %li.treeview{id: "sidebar-feed-#{feed.id}"}
+              = link_to board_path(@board, 'q[feed_id_eq]' => feed.id), remote: true do
+                %i.fa.fa-fw{class: "fa-#{feed.authentication_provider.name}"}
+                %span.hint--top{:'data-hint' => "Filter all the contents shown in the listing on the right, and show only #{feed.name}"}= feed.name
+          - AuthenticationProvider.all.each do |p|
+            %li.treeview
+              = link_to board_path(@board, 'q[provider_name_eq]' => p.name), remote: true do
+                %i.fa.fa-fw{class: "fa-#{p.name}"}
+                %span.hint--top{:'data-hint' => "Filter all the contents shown in the listing on the right, and show only contents coming from #{p.title}"} Only from #{p.title}
+      %li.header CONTENT MODERATION
+      %li.treeview
+        = link_to board_path(@board, 'q[online_eq]' => true), remote: true do
+          %i.fa.fa-globe.fa-fw
+          %span.hint--top(data-hint="Show all the cards currently visible online") Currently online
+      %li.treeview
+        = link_to board_path(@board, 'q[online_eq]' => false, 'q[user_id_eq]' => current_user.id), remote: true do
+          %i.fa.fa-shield.fa-fw
+          %span.hint--top(data-hint="Show all the cards automatically blocked by the blacklisting and moderation engine, waiting for explicit approval from me, before being published online") Waiting from me
+      %li.treeview
+        = link_to board_path(@board, 'q[online_eq]' => false), remote: true do
+          %i.fa.fa-shield.fa-fw
+          %span.hint--top(data-hint="Show all the cards automatically blocked by the blacklisting and moderation engine, waiting for explicit approval from anyone managing this collection, before being published online") All waiting approval
+      %li.treeview
+        %a(href="#")
+          %i.fa.fa-fw.fa-star-o
+          %i.fa.fa-angle-left.pull-right
+          %span.hint--top(data-hint="Filter all the contents shown in the listing on the right, based on the editorial rating")
+            Editorial ratings
+        %ul.treeview-menu
+          - (0..5).each do |i|
+            %li.treeview
+              = link_to board_path(@board, 'q[rating_eq]' => i), remote: true do
+                %i.fa.fa-star.fa-fw
+                %span.hint--top(data-hint="Show only contents rated as #{i + 1}") #{i + 1} stars
+          %li.treeview
+            = link_to board_path(@board) do
+              %i.fa.fa-remove.fa-fw
+              %span.hint--top(data-hint="Remove all filtering options, and show all the cards belonging to this collection") Reset filters
+      %li.header SETTINGS
+      %li.treeview
+        %a(href="#")
+          %i.fa.fa-fw.fa-th-large
+          %i.fa.fa-angle-left.pull-right
+          %span.hint--top(data-hint="Click to open the collection layout options menu")
+            Layout options
+        %ul.treeview-menu
+          %li
+            = link_to options_board_path(@board, in_place: true), remote: true do
+              %i.fa.fa-desktop
+              %span.hint--top(data-hint="Let me decide how the Deck view of this collection should be layed out") Deck settings
+          %li
+            = link_to options_board_path(@board, section: 'timeline', in_place: true), remote: true do
+              %i.fa.fa-mobile
+              %span.hint--top(data-hint="Let me decide how the Timeline view of this collection should be layed out") Timeline settings
+          %li
+            = link_to options_board_path(@board, section: 'wall', in_place: true), remote: true do
+              %i.fa.fa-video-camera
+              %span.hint--top(data-hint="Let me decide how the Wall view of this collection should be layed out") Wall settings
+          %li
+            %a(href="javascript:void(0)" onclick="$('#board-embed').modal('show');")
+              %i.fa.fa-share-square-o
+              %span.hint--top(data-hint="Learn how to embed your collection inside external web sites") External embedding
+      %li.treeview
+        %a(href="#")
+          %i.fa.fa-fw.fa-wrench
+          %i.fa.fa-angle-left.pull-right
+          %span.hint--top(data-hint="Click to open the collection settings options menu")
+            Board configuration
+        %ul.treeview-menu
+          %li.treeview
+            = link_to edit_board_path(@board, in_place: true), remote: true do
+              %i.fa.fa-gears.fa-fw
+              %span.hint--top(data-hint="Let me decide whether this collection slideshows (Deck, Timeline or Wall layouts) should be publicly visible, and change or remove its cover and main image") Collection settings
+          %li.treeview
+            = link_to filters_board_path(@board, in_place: true), remote: true do
+              %i.fa.fa-filter.fa-fw
+              %span.hint--top(data-hint="Let me decide how to filter incoming contents (stopwords, blocked users)") Content filtering
+          %li.treeview
+            = link_to users_board_path(@board, in_place: true), remote: true do
+              %i.fa.fa-user-md.fa-fw
+              %span.hint--top(data-hint="Let me share this collection management capabilities with other users in the system") Share with others
+      %li.treeview
+        %a(href="#")
+          %i.fa.fa-fw.fa-gamepad
+          %i.fa.fa-angle-left.pull-right
+          %span.hint--top(data-hint="Click to open the remote wall control menu")
+            Wall remote control
+        %ul.treeview-menu
+          %li.treeview
+            = link_to wall_board_path(@board, remote: 'reload'), method: :put, remote: true do
+              %i.fa.fa-fw.fa-repeat
+              %span.hint--top(data-hint="Reload the wall page") Reload the wall
+          %li.treeview
+            = link_to wall_board_path(@board, remote: 'togglePause'), method: :put, remote: true do
+              %i.fa.fa-fw.fa-pause
+              %span.hint--top(data-hint="Pause and resume wall projection") Toggle pause
+          %li.treeview
+            = link_to wall_board_path(@board, remote: 'toggleAutoSlide'), method: :put, remote: true do
+              %i.fa.fa-fw.fa-play
+              %span.hint--top(data-hint="Pause and resume auto sliding") Toggle auto sliding
+          %li.treeview
+            = link_to wall_board_path(@board, remote: 'next'), method: :put, remote: true do
+              %i.fa.fa-fw.fa-forward
+              %span.hint--top(data-hint="Go to next slide") Next slide
+          %li.treeview
+            = link_to wall_board_path(@board, remote: 'prev'), method: :put, remote: true do
+              %i.fa.fa-fw.fa-backward
+              %span.hint--top(data-hint="Go to previous slide") Previous slide
+      - unless Figaro.env.disable_uploads.to_b
+        %li.treeview
+          %a(href="javascript:void(0)" onclick="$('#board-dialog').modal('show');")
+            %i.fa.fa-folder-open-o
+            %span.hint--top(data-hint="Learn how to upload custom assets to the system") Custom assets
+      - if Sidekiq::is_running?
+        - if current_user.admin? && @board.feeds.any?
+          %li.header SOCIAL NETWORKS SCANNING
+          %li.treeview
+            -# polled_at = @board.polled_at
+            = link_to poll_board_path(@board), remote: true do
+              %i.fa.fa-refresh.fa-fw
+              %span.hint--top(data-hint="Force the system to re-scan Social Networks, find and download newer contents") Scan for newer contents
+          %li.treeview
+            = link_to poll_board_path(@board, oldest: true), remote: true do
+              %i.fa.fa-refresh.fa-fw
+              %span.hint--top(data-hint="Force the system to re-scan Social Networks, find and download older contents")  Scan for older contents
+        %li.treeview
+          = link_to '#' do
+            #polling-label.label.label-info{style: @board.polling? ? nil : 'display: none'} Scanning, please wait...
+
+      - else
+        %li.treeview
+          = link_to '#' do
+            %span.label.label-danger Scanning process is not running

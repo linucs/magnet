@@ -1,0 +1,102 @@
+.box-body
+  .row
+    - linked_identities = 0
+    - AuthenticationProvider.all.each do |provider|
+      - if provider.needs_authentication?
+        .col-md-3.col-xs-6
+          - if current_user.is_connected_to?(provider.name)
+            - linked_identities += 1
+            .info-box
+              .info-box-icon{class: "btn-#{provider.name}"}
+                %i.ion{class: "ion-social-#{provider.name}"}
+              .info-box-content
+                .info-box-text
+                  #{provider.title} contents
+                .info-box-number
+                  = @board.all_cards.by_provider(provider.name).count
+          - else
+            .info-box
+              .info-box-icon.bg-red
+                %i.ion{class: "ion-social-#{provider.name}"}
+              .info-box-content
+                .info-box-text
+                  #{provider.title} contents
+                .info-box-number
+                  = @board.all_cards.by_provider(provider.name).count
+                .pull-right
+                  = link_to user_omniauth_authorize_path(:provider => provider.name), class: 'small-box-footer', title: "To populate your boards, please link your #{provider.title} account" do
+                    connect
+                    %i.fa.fa-fw.fa-arrow-circle-right
+  - if @board.cards.any?
+    .row
+      .col-md-6
+        .panel.panel-default
+          .panel-body
+            .chart-responsive= pie_chart charts_board_path(@board, chart_id: 'topics_summary', format: :json), library: {title: {text: "#{@board.name}: topics summary"}}
+      .col-md-6
+        .panel.panel-default
+          .panel-body
+            .chart-responsive= bar_chart charts_board_path(@board, chart_id: 'hashtags', format: :json), library: {title: {text: "#{@board.name}: hashtags summary"}, xAxis: {title: {text: 'top hashtags'}}, yAxis: {title: {text: 'occurrences'}}}
+    .row
+      .col-md-12
+        .panel.panel-default
+          .panel-body
+            #buzz.chart-responsive
+    - AuthenticationProvider.all.each do |provider|
+      - if @board.has_feeds_from?(provider)
+        .row
+          .col-md-12
+            .box.box-info
+              .box-header
+                %h3.box-title #{provider.title} stats
+              .box-body
+                .row
+                  .col-md-4
+                    .panel.panel-default
+                      .panel-body
+                        .chart-responsive= bar_chart charts_board_path(@board, chart_id: 'top_influencers', options: {provider_name: provider.name}, format: :json), library: {title: {text: "#{@board.name}: top influencers on #{provider.title}"}, yAxis: {title: {text: 'engagement deviation'}}}
+                  .col-md-4
+                    .panel.panel-default
+                      .panel-body
+                        .chart-responsive= bar_chart charts_board_path(@board, chart_id: 'top_contributors', options: {provider_name: provider.name}, format: :json), library: {title: {text: "#{@board.name}: top contributors on #{provider.title}"}, yAxis: {title: {text: 'contributions'}}}
+                  .col-md-4
+                    .panel.panel-default
+                      .panel-body
+                        .chart-responsive= bar_chart charts_board_path(@board, chart_id: 'most_engaging_people', options: {provider_name: provider.name}, format: :json), library: {title: {text: "#{@board.name}: most engaging on #{provider.title}"}, yAxis: {title: {text: 'direct engagement'}}}
+                .row
+                  - if provider.allows_likes?
+                    .col-md-4
+                      .panel.panel-default
+                        .panel-body
+                          .chart-responsive= bar_chart charts_board_path(@board, chart_id: 'most_liked_people', options: {provider_name: provider.name}, format: :json), library: {title: {text: "#{@board.name}: most liked on #{provider.title}"}, yAxis: {title: {text: 'likes received'}}}
+                  - if provider.allows_sharing?
+                    .col-md-4
+                      .panel.panel-default
+                        .panel-body
+                          .chart-responsive= bar_chart charts_board_path(@board, chart_id: 'most_shared_people', options: {provider_name: provider.name}, format: :json), library: {title: {text: "#{@board.name}: most shared on #{provider.title}"}, yAxis: {title: {text: 'contributions shared by others'}}}
+                  - if provider.allows_comments?
+                    .col-md-4
+                      .panel.panel-default
+                        .panel-body
+                          .chart-responsive= bar_chart charts_board_path(@board, chart_id: 'most_commented_people', options: {provider_name: provider.name}, format: :json), library: {title: {text: "#{@board.name}: most commented on #{provider.title}"}, yAxis: {title: {text: 'comments received'}}}
+
+:javascript
+  var url = '#{charts_board_path(@board, chart_id: 'buzz', format: :json)}';
+
+  $.get(url, function(data) {
+    var result = $.map(data, function(series, i) {
+      series.data = $.map(series.data, function(item, j) {
+        date = new Date(item[0].year, item[0].month, item[0].day, item[0].hour || 0, item[0].minute || 0);
+        return [[date, item[1]]];
+      });
+      return series;
+    });
+    new Chartkick.AreaChart("buzz", result, {
+      stacked: true,
+      library: {
+        title: {text: '#{@board.name}: buzz on these topics', style: 'font.size: 14px'},
+        xAxis: {title: {text: 'time'}},
+        yAxis: {title: {text: 'contents produced'}}
+      }
+    });
+  });

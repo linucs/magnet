@@ -1,0 +1,53 @@
+= simple_form_for(@category, remote: true) do |f|
+  .modal-body
+    = f.error_notification
+
+    = hidden_field_tag :page, params[:page]
+    - if @category.persisted?
+      = f.input :enabled, as: :boolean
+    .row
+      .col-md-6= f.input :name
+      .col-md-6= f.input :label
+    = f.input :description
+    .row
+      - if @category.persisted?
+        .col-md-6= f.input :slug
+      .col-md-6= f.input :parent_id, as: :select, collection: Category.all, include_blank: 'this is a root category'
+    - unless Figaro.env.disable_uploads.to_b
+      .row
+        .col-md-6
+          .form-group.file.category_image{class: f.object.errors[:image].any? ? 'has-error': nil}
+            %div= f.label :image
+            .fileinput.fileinput-new{"data-provides" => "fileinput"}
+              .fileinput-new.thumbnail{:style => "width: 120px; height: 90px;"}
+                = image_tag @category.image.url
+              .fileinput-preview.fileinput-exists.thumbnail{:style => "max-width: 120px; max-height: 90px;"}
+              %div
+                %span.btn.btn-default.btn-xs.btn-file
+                  %span.fileinput-new Select image
+                  %span.fileinput-exists Change
+                  = f.input_field :image, as: :file
+                %a.btn.btn-default.btn-xs.fileinput-exists{"data-dismiss" => "fileinput", :href => "#"} Remove
+            = f.error :image
+            = f.hint :image
+          - if @category.persisted?
+            = f.input :remove_image, as: :boolean, label: 'Remove image'
+        .col-md-6
+          .form-group.file.category_cover{class: f.object.errors[:cover].any? ? 'has-error': nil}
+            %div= f.label :cover
+            .fileinput.fileinput-new{"data-provides" => "fileinput"}
+              .fileinput-new.thumbnail{:style => "width: 120px; height: 90px;"}
+                = image_tag @category.cover.url
+              .fileinput-preview.fileinput-exists.thumbnail{:style => "max-width: 120px; max-height: 90px;"}
+              %div
+                %span.btn.btn-default.btn-xs.btn-file
+                  %span.fileinput-new Select image
+                  %span.fileinput-exists Change
+                  = f.input_field :cover, as: :file
+                %a.btn.btn-default.btn-xs.fileinput-exists{"data-dismiss" => "fileinput", :href => "#"} Remove
+            = f.error :cover
+            = f.hint :cover
+          - if @category.persisted?
+            = f.input :remove_cover, as: :boolean, label: 'Remove cover'
+  .modal-footer
+    = f.button :submit
