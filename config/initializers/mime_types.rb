@@ -3,4 +3,10 @@
 # Add new mime types for use in respond_to blocks:
 # Mime::Type.register "text/richtext", :rtf
 
-Mime::Type.register 'application/vnd.magnet+json', :json
+api_mime_types = %W(
+  application/vnd.magnet+json
+  application/json
+)
+
+Mime::Type.unregister :json
+Mime::Type.register 'application/json', :json, api_mime_types

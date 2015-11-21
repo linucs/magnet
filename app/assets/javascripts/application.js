@@ -31,7 +31,7 @@
 //= require dropzone/dist/dropzone
 //= require jquery-geocomplete/jquery.geocomplete
 //= require salvattore/dist/salvattore
-//= require app
+//= require admin-lte/dist/js/app
 //= require boards
 //= require categories
 //= require feeds
