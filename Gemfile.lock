@@ -446,6 +446,7 @@ GEM
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
     staccato (0.4.2)
+    swagger-blocks (1.2.0)
     therubyracer (0.12.1)
       libv8 (~> 3.16.14.0)
       ref
@@ -593,6 +594,7 @@ DEPENDENCIES
   sinatra (~> 1.4.5)
   spring
   staccato (~> 0.4.2)
+  swagger-blocks
   therubyracer
   turbolinks
   twitter (~> 5.14.0)

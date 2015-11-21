@@ -1,6 +1,114 @@
 require 'html/sanitizer'
 
 class Card
+  PER_PAGE = 48
+
+  include Swagger::Blocks
+
+  swagger_schema :Card do
+    key :required, [:id]
+    key :description, 'A representation of a downloaded post or tweet'
+    property :id do
+      key :type, :integer
+      key :description, 'internal ID'
+    end
+    property :provider_name do
+      key :type, :string
+      key :description, 'internal identifier for the social network provider this content was fetched from'
+      key :enum, [:twitter, :instagram, :facebook, :tumblr]
+    end
+    property :external_id do
+      key :type, :string
+      key :description, 'the provider-dependent original ID of this post'
+    end
+    property :content do
+      key :type, :string
+      key :description, 'textual content of this post'
+    end
+    property :content_type do
+      key :type, :string
+      key :description, 'internal code representing the type of this post'
+      key :enum, [:video, :audio, :image, :text, :html]
+    end
+    property :content_source do
+      key :type, :string
+      key :description, 'original source of this post'
+      key :enum, [:youtube, :vimeo, :vine, :spotify, :facebook]
+    end
+    property :from do
+      key :type, :from
+      key :description, 'name of the editor of this content'
+    end
+    property :location do
+      key :type, :array
+      key :description, 'geo-location of this post'
+      items do
+        key :type, :float
+      end
+    end
+    property :media_url do
+      key :type, :string
+      key :description, 'content media (image, video) URL'
+    end
+    property :original_content_url do
+      key :type, :string
+      key :description, 'the provider-dependent URL the content is available'
+    end
+    property :media_tag do
+      key :type, :string
+      key :description, 'the HTML tag snippet needed to display the post'
+    end
+    property :thumbnail_image_url do
+      key :type, :string
+      key :description, 'thumbnail image URL'
+    end
+    property :tags do
+      key :type, :array
+      key :description, 'how this post was tagged'
+      items do
+        key :type, :string
+      end
+    end
+    property :label do
+      key :type, :string
+      key :description, 'label for this card (taken from the feed label, when specified)'
+    end
+    property :rating do
+      key :type, :integer
+      key :description, 'card editorial rating'
+      key :minimum, '0'
+      key :maximum, '5'
+    end
+    property :profile_url do
+      key :type, :string
+      key :description, 'URL of the content editor\'s profile page'
+    end
+    property :profile_image_url do
+      key :type, :string
+      key :description, 'content editor profile image URL'
+    end
+    property :likes_count do
+      key :type, :integer
+      key :description, 'number of liked received by the post'
+    end
+    property :shares_count do
+      key :type, :integer
+      key :description, 'how many times this post was shared'
+    end
+    property :created_at do
+      key :type, :datetime
+      key :description, 'when this content was originally created'
+    end
+    property :polled_at do
+      key :type, :datetime
+      key :description, 'when this content was last fetched'
+    end
+    property :label do
+      key :type, :string
+      key :description, 'label for this card (taken from the feed label, when specified)'
+    end
+  end
+
   include Mongoid::Document
   include Mongoid::Timestamps
 
@@ -72,7 +180,6 @@ class Card
   # validates_presence_of :feed_id
   validates :content_type, inclusion: { in: %w(video audio image text html) }
 
-  PER_PAGE = 48
   paginates_per PER_PAGE
 
   def for_board(id)

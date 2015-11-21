@@ -25,7 +25,8 @@ class API::BaseController < ApplicationController
   def authenticate_user_from_token!
     @start_time = Time.now
     user = authenticate_with_http_token { |t, _o| User.find_by_authentication_token(t) if t.present? }
-    user ||= User.find_by_authentication_token(params[:user_token]) if params[:user_token].present?
+    token = params[:user_token] || params[:api_key]
+    user ||= User.find_by_authentication_token(token) if token.present?
 
     if user
       request.env['devise.skip_trackable'] = true

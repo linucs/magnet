@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   end
 
   namespace :api, path: '/', constraints: { subdomain: 'api' } do
+    resources :docs, only: [:index]
     resources :categories, only: [:index, :show], concerns: :collectable do
       get 'tree', on: :collection
     end

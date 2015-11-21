@@ -45,6 +45,7 @@ gem 'gon', '~> 5.2.3'
 gem 'letter_opener', '~> 1.3.0'
 gem 'google-webfonts-rails', '~> 0.0.4'
 gem 'non-stupid-digest-assets', '~> 1.0.4'
+gem 'swagger-blocks'
 
 gem 'figaro', '~> 1.0.0'
 gem 'websocket-rails', '~> 0.7.0'
