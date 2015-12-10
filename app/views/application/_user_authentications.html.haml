@@ -1,14 +1,15 @@
 - linked_identities = 0
 - AuthenticationProvider.all.each do |provider|
-  - authentication = current_user.authentications.where(:authentication_provider_id => provider.id).first
-  - if authentication.try(:updated_at)
-    = link_to user_authentication_path(authentication), :method => :delete, title: "Your #{provider.title} account is connected", :data => { :confirm => "You are about to disconnect from #{provider.title}. Are you sure?" }, :class => "btn btn-block btn-#{provider.name}" do
-      %i.fa.fa-fw{class: "fa-#{provider.name}"}
-      disconnect from #{provider.title}
-    - linked_identities += 1
-    -# = simple_form_for identity, :remote => true do |f|
-      -# .switch.switch-large= f.check_box :enabled, :class => 'submit-on-change'
-  - else
-    = link_to user_omniauth_authorize_path(:provider => provider.name),title: "To populate your boards, please link your #{provider.title} account", :class => "btn btn-block btn-danger" do
-      %i.fa.fa-fw{class: "fa-#{provider.name}"}
-      connect to #{provider.title}
+  - if provider.needs_authentication?
+    - authentication = current_user.authentications.where(:authentication_provider_id => provider.id).first
+    - if authentication.try(:updated_at)
+      = link_to user_authentication_path(authentication), :method => :delete, title: "Your #{provider.title} account is connected", :data => { :confirm => "You are about to disconnect from #{provider.title}. Are you sure?" }, :class => "btn btn-block btn-#{provider.name}" do
+        %i.fa.fa-fw{class: "fa-#{provider.name}"}
+        disconnect from #{provider.title}
+      - linked_identities += 1
+      -# = simple_form_for identity, :remote => true do |f|
+        -# .switch.switch-large= f.check_box :enabled, :class => 'submit-on-change'
+    - else
+      = link_to user_omniauth_authorize_path(:provider => provider.name),title: "To populate your boards, please link your #{provider.title} account", :class => "btn btn-block btn-danger" do
+        %i.fa.fa-fw{class: "fa-#{provider.name}"}
+        connect to #{provider.title}
