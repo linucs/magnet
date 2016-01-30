@@ -1,5 +1,5 @@
 # Magnet
-An open source Social Hub, that can be used to collect, moderate and display posts from various social-network.
+An open source Social Hub, used to collect, moderate and display posts from Social Networks.
 
 ## Main features
 - Content fetching from Facebook, Twitter (streaming API are supported), Instagram, Tumblr or a RSS feed
@@ -11,7 +11,7 @@ An open source Social Hub, that can be used to collect, moderate and display pos
 - Adv campaings can be injected inside the flow of downloaded posts
 
 ## Why did you do this? There are a number of Social Hubs out there!
-I'm probably somehow depressed, and coding has always kept my brain busy at night, that's it :)
+I'm probably somehow depressed, and coding has always kept my mind busy at night, that's it :)
 
 ## Requirements
 - MRI 2.1.5 - other versions/VMs are untested but might work fine
@@ -22,7 +22,7 @@ I'm probably somehow depressed, and coding has always kept my brain busy at nigh
 - [Logstash](https://www.elastic.co/products/logstash) 1.5.0 (optional)
 
 ## Getting started
-See the Getting Started wiki page and follow the simple setup process.
+Follow the simple setup process explained in the [Wiki](https://github.com/develon/magnet/wiki).
 
 ## Acknowledgements
 While developing even a simple application, it'a easy to forget of how many hours people spent developing those awesome libraries included in the project buildfiles.
