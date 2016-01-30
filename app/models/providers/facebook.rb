@@ -1,5 +1,5 @@
 class Providers::Facebook
-  MAX_POSTS = 50
+  MAX_POSTS = 30
 
   class Client
     def initialize(feed)

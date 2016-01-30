@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   require 'sidekiq/web'
-  require 'sidetiq/web'
+  require 'sidekiq/cron/web'
 
   unless Figaro.env.disable_uploads.to_b
     mount DAV4Rack::Handler.new(

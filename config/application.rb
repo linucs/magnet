@@ -31,7 +31,7 @@ module Magnet
     config.assets.precompile << %r(bootstrap-sass/assets/fonts/bootstrap/[\w-]+\.(?:eot|svg|ttf|woff2?)$)
     # Minimum Sass number precision required by bootstrap-sass
     ::Sass::Script::Number.precision = [8, ::Sass::Script::Number.precision].max
-    
+
     config.assets.precompile << %r(.*.(?:eot|svg|ttf|woff|woff2)$)
     config.middleware.use Rack::Throttle::Interval, :cache => Redis.new, :key_prefix => :throttle
 
@@ -44,5 +44,7 @@ module Magnet
           :expose => ['Content-Range', 'Accept-Ranges']
       end
     end
+
+    config.active_record.raise_in_transactional_callbacks = true
   end
 end

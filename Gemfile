@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.5'
+gem 'rails', '~> 4.2.5'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
 gem 'mysql2'
@@ -50,11 +50,12 @@ gem 'swagger-blocks'
 gem 'figaro', '~> 1.0.0'
 gem 'websocket-rails', '~> 0.7.0'
 gem 'faye-websocket', '0.10.0'
-gem 'sidekiq', '~> 3.3.0'
+gem 'sidekiq', '>= 3.4.2'
 gem 'sidekiq-benchmark', '~> 0.4.1'
-gem 'sidekiq-failures', '~> 0.4.3'
+gem 'sidekiq-failures', '~> 0.4.5'
 gem 'sidekiq-limit_fetch', '~> 2.4.2'
-gem 'sidetiq', '~> 0.6.3'
+gem 'sidekiq-logging-json', '~> 0.0.14'
+gem 'sidekiq-cron', '~> 0.3.1'
 gem 'redis-rails', '~> 4.0.0'
 gem 'redis', git: 'git@github.com:develon/redis-rb.git'
 gem 'mechanize', '~> 2.7.3'
@@ -63,7 +64,6 @@ gem 'rack-cors', '~> 0.3.1'
 gem 'obscenity', '~> 1.0.2'
 gem 'sinatra', '~> 1.4.5', require: nil
 gem 'logstasher', '~> 0.6.2'
-gem 'sidekiq-logging-json', '~> 0.0.14'
 gem 'dav4rack', '~> 0.3.0'
 gem 'chewy', github: 'toptal/chewy' # '~> 0.8.1' FIXME dynamic indexes are still experimental!
 gem 'chartkick', '~> 1.3.2'
@@ -81,7 +81,7 @@ gem 'ransack', '~> 1.5.1'
 gem 'geocoder', '~> 1.2.6'
 gem 'staccato', '~> 0.4.2'
 
-gem 'devise', '~> 3.5.2'
+gem 'devise', '>= 3.5.4'
 gem 'recaptcha', '~> 0.6.0', require: 'recaptcha/rails'
 gem 'domp', '~> 0.0.7', group: :development
 gem 'omniauth-twitter', '~> 1.2.1'
@@ -127,4 +127,5 @@ end
 group :development, :test do
   gem 'rspec-rails', '~> 3.1.0'
   gem 'factory_girl_rails', '~> 4.5.0'
+  gem 'bundler-audit', require: false
 end
