@@ -104,7 +104,7 @@ class Providers::Tumblr
     def post_raw_url
       if photo_card? && @post.photos.any?
         @post.photos.first['alt_sizes'].first['url']
-      elsif video_card?
+      elsif video_card? && card_embed_code
         card_embed_code[/iframe.*?src="(.*?)"/i, 1] || card_embed_code[/video.*?src="(.*?)"/i, 1]
       end
     end
@@ -225,7 +225,7 @@ class Providers::Tumblr
           client.tumblr_blog_posts(offset).each { |p| parser.parse(p) }
           client.tumblr_tag_posts(before).each { |p| parser.parse(p) }
         rescue => e
-          feed.update_attribute(:last_exception, e.message)
+          feed.handle_polling_exception(e)
           Raven.capture_exception(e)
         ensure
           feed.update_attribute(:polling, false)

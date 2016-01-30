@@ -22,6 +22,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     create
   end
 
+  def failure
+    fail failure_message
+  end
+
   private
 
   def create

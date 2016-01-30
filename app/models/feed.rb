@@ -36,7 +36,7 @@ class Feed < ActiveRecord::Base
   rescue => e
     update_attribute(:enabled, false)
     Raven.capture_exception(e)
-    NotificationMailer.token_expired(self).deliver
+    NotificationMailer.token_expired(self).deliver_now
     raise
   end
 
@@ -151,6 +151,11 @@ class Feed < ActiveRecord::Base
 
   def send_notification(msg, obj = self)
     WebsocketRails["board-#{board_id}"].trigger(msg, obj)
+  end
+
+  def handle_polling_exception(e)
+    update_attribute(:last_exception, e.message)
+    NotificationMailer.polling_exception(self, e).deliver_now if user.notify_exceptions?
   end
 
   private

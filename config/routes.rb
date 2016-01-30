@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   require 'sidekiq/web'
-  require 'sidetiq/web'
+  require 'sidekiq/cron/web'
 
   unless Figaro.env.disable_uploads.to_b
     mount DAV4Rack::Handler.new(
@@ -51,7 +51,7 @@ Rails.application.routes.draw do
 
   resources :campaigns
 
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  devise_for :users, controllers: { registrations: 'users/registrations', omniauth_callbacks: 'users/omniauth_callbacks' }
   devise_scope :user do
     delete '/users/authentications/:id' => 'users/omniauth_callbacks#destroy', as: :user_authentication
   end
@@ -64,9 +64,9 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   match 'go/:id', to: 'slideshows#deck', via: [:get, :post]
-  match 'go/:id/:action', to: 'slideshows', as: 'slideshow', via: [:get, :post], constraints: { action: /(deck|timeline|wall)/ }
+  match 'go/:id/:action', controller: 'slideshows', as: 'slideshow', via: [:get, :post], constraints: { action: /(deck|timeline|wall)/ }
   get 'embed/:id/:layout/sample', to: 'slideshows#sample', as: 'slideshow_sample', constraints: { layout: /(deck|timeline)/ }
-  match 'embed/:id/:action', to: 'slideshows', as: 'slideshow_embed', via: [:get, :post], constraints: { action: /(deck|timeline|wall)/ }, embed: true
+  match 'embed/:id/:action', controller: 'slideshows', as: 'slideshow_embed', via: [:get, :post], constraints: { action: /(deck|timeline|wall)/ }, embed: true
 
   authenticated :user do
     root :to => "pages#dashboard", :as => "dashboard"
