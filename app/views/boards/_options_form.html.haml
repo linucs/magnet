@@ -25,7 +25,7 @@
             .row
               .col-md-6= o.input :wall_custom_margin_top, required: false
               .col-md-6= o.input :wall_center, as: :boolean, required: false
-            = o.input :wall_custom_stylesheet_url, as: :select, collection: Board::WALL_STANDARD_THEMES.merge(@board.options.wall_custom_stylesheet_url => @board.options.wall_custom_stylesheet_url), required: false, input_html: {class: 'selectize'}
+            = o.input :wall_custom_stylesheet_url, as: :select, collection: customizable_collection_select(Board::WALL_STANDARD_THEMES, @board.options.wall_custom_stylesheet_url), required: false, input_html: {class: 'selectize'}
           .col-md-4
             .row
               .col-sm-8
@@ -64,7 +64,7 @@
                 = o.input :timeline_font_family, as: :select, collection: CUSTOM_FONT_FAMILIES.keys, include_blank: 'select...', required: false
               .col-sm-4
                 = o.input :timeline_font_size, as: :select, collection: Board::CUSTOM_FONT_SIZES, include_blank: 'select...', required: false
-            = o.input :timeline_custom_stylesheet_url, as: :select, collection: Board::TIMELINE_STANDARD_THEMES.merge(@board.options.timeline_custom_stylesheet_url => @board.options.timeline_custom_stylesheet_url), required: false, input_html: {class: 'selectize'}
+            = o.input :timeline_custom_stylesheet_url, as: :select, collection: customizable_collection_select(Board::TIMELINE_STANDARD_THEMES, @board.options.timeline_custom_stylesheet_url), required: false, input_html: {class: 'selectize'}
             = o.input :timeline_custom_javascript_url, as: :url, required: false
           .col-md-4
             = o.input :timeline_custom_header_url, as: :url, required: false
@@ -96,7 +96,7 @@
               .col-sm-4
                 = o.input :deck_font_size, as: :select, collection: Board::CUSTOM_FONT_SIZES, include_blank: 'select...', required: false
             = o.input :deck_cards_padding, required: false
-            = o.input :deck_custom_stylesheet_url, as: :select, collection: Board::DECK_STANDARD_THEMES.merge(@board.options.deck_custom_stylesheet_url => @board.options.deck_custom_stylesheet_url), required: false, input_html: {class: 'selectize'}
+            = o.input :deck_custom_stylesheet_url, as: :select, collection: customizable_collection_select(Board::DECK_STANDARD_THEMES, @board.options.deck_custom_stylesheet_url), required: false, input_html: {class: 'selectize'}
             = o.input :deck_custom_javascript_url, as: :url, required: false
           .col-md-4
             = o.input :deck_custom_header_url, as: :url, required: false

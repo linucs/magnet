@@ -13,4 +13,8 @@ module BoardsHelper
       yield tag, classes[index.nan? ? 0 : index.round]
     end
   end
+
+  def customizable_collection_select(c, v)
+    c.values.include?(v) ? c : c.merge(v => v)
+  end
 end
