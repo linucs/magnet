@@ -114,7 +114,8 @@ class Providers::Rss
           rss = client.rss_feed
           rss.entries.each { |e| parser.parse(rss, e) }
         rescue => e
-          feed.update_attribute(:last_exception, e.message)
+          feed.handle_polling_exception(e)
+          Raven.capture_exception(e)
         ensure
           feed.update_attributes(polling: false, polled_at: Time.now)
         end

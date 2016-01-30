@@ -60,6 +60,8 @@ en:
       category: Folder
   simple_form:
     labels:
+      user:
+        notify_exceptions: 'Notify download failures'
       category:
         image: 'Main image'
         cover: 'Cover image'
@@ -137,6 +139,8 @@ en:
           '4': 40 minutes
           '5': 50 minutes
     hints:
+      user:
+        notify_exceptions: 'Send me an email when contents cannot be collected from Social Networks'
       category:
         enabled: 'Decide whether this folder should be publicly visible or not'
         name: 'Give a name to this folder'

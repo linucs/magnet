@@ -12,18 +12,124 @@ class Board < ActiveRecord::Base
   DEFAULT_WALL_PAGE_SIZE = 30
   DEFAULT_WALL_AUTO_SLIDE = 10_000
   DECK_STANDARD_THEMES = {
-    'Googlish' => 'deck/themes/todc-bootstrap.css'
+    'Googlish' => 'deck/themes/todc-bootstrap.css',
+    'Cerulean' => 'deck/themes/cerulean.css',
+    'Cosmo' => 'deck/themes/cosmo.css',
+    'Cyborg' => 'deck/themes/cyborg.css',
+    'Darkly' => 'deck/themes/darkly.css',
+    'Flatly' => 'deck/themes/flatly.css',
+    'Darkly' => 'deck/themes/darkly.css',
+    'Journal' => 'deck/themes/journal.css',
+    'Lumen' => 'deck/themes/lumen.css',
+    'Paper' => 'deck/themes/paper.css',
+    'Readable' => 'deck/themes/readable.css',
+    'Sandstone' => 'deck/themes/sandstone.css',
+    'Simplex' => 'deck/themes/simplex.css',
+    'Slate' => 'deck/themes/slate.css',
+    'Spacelab' => 'deck/themes/spacelab.css',
+    'Superhero' => 'deck/themes/superhero.css',
+    'United' => 'deck/themes/united.css',
+    'Yeti' => 'deck/themes/yeti.css'
   }
   TIMELINE_STANDARD_THEMES = {
-    'Googlish' => 'deck/themes/todc-bootstrap.css'
+    'Googlish' => 'deck/themes/todc-bootstrap.css',
+    'Cerulean' => 'deck/themes/cerulean.css',
+    'Cosmo' => 'deck/themes/cosmo.css',
+    'Cyborg' => 'deck/themes/cyborg.css',
+    'Darkly' => 'deck/themes/darkly.css',
+    'Flatly' => 'deck/themes/flatly.css',
+    'Darkly' => 'deck/themes/darkly.css',
+    'Journal' => 'deck/themes/journal.css',
+    'Lumen' => 'deck/themes/lumen.css',
+    'Paper' => 'deck/themes/paper.css',
+    'Readable' => 'deck/themes/readable.css',
+    'Sandstone' => 'deck/themes/sandstone.css',
+    'Simplex' => 'deck/themes/simplex.css',
+    'Slate' => 'deck/themes/slate.css',
+    'Spacelab' => 'deck/themes/spacelab.css',
+    'Superhero' => 'deck/themes/superhero.css',
+    'United' => 'deck/themes/united.css',
+    'Yeti' => 'deck/themes/yeti.css'
   }
   WALL_STANDARD_THEMES = {
-    'Googlish' => 'deck/themes/todc-bootstrap.css'
+    'Googlish' => 'deck/themes/todc-bootstrap.css',
+    'Cerulean' => 'deck/themes/cerulean.css',
+    'Cosmo' => 'deck/themes/cosmo.css',
+    'Cyborg' => 'deck/themes/cyborg.css',
+    'Darkly' => 'deck/themes/darkly.css',
+    'Flatly' => 'deck/themes/flatly.css',
+    'Darkly' => 'deck/themes/darkly.css',
+    'Journal' => 'deck/themes/journal.css',
+    'Lumen' => 'deck/themes/lumen.css',
+    'Paper' => 'deck/themes/paper.css',
+    'Readable' => 'deck/themes/readable.css',
+    'Sandstone' => 'deck/themes/sandstone.css',
+    'Simplex' => 'deck/themes/simplex.css',
+    'Slate' => 'deck/themes/slate.css',
+    'Spacelab' => 'deck/themes/spacelab.css',
+    'Superhero' => 'deck/themes/superhero.css',
+    'United' => 'deck/themes/united.css',
+    'Yeti' => 'deck/themes/yeti.css'
   }
   TIMELINE_BACKGROUND_STYLES = [:scrolling_from_top, :full_screen, :parallax]
   WALL_BACKGROUND_STYLES = [:full_screen, :parallax]
 
   CUSTOM_FONT_SIZES = %w(8px 9px 10px 11px 12px 14px 16px 18px 20px 22px 24px 26px 28px 30px 32px 34px 36px 38px 40px)
+
+  include Swagger::Blocks
+
+  swagger_schema :Board do
+    key :required, [:id, :name, :slug]
+    key :description, 'A representation of a board categorization, by a particolar subject or topic'
+    property :id do
+      key :type, :integer
+      key :description, 'internal ID'
+    end
+    property :name do
+      key :type, :string
+      key :description, 'editorial name'
+    end
+    property :slug do
+      key :type, :string
+      key :description, 'URL slug'
+    end
+    property :description do
+      key :type, :string
+      key :description, 'extended description'
+    end
+    property :full_street_address do
+      key :type, :string
+      key :description, 'event street adddress (to be used when the board contents are referred to a specific place)'
+    end
+    property :latitude do
+      key :type, :float
+      key :description, 'event location latitude (to be used when the board contents are referred to a specific place)'
+    end
+    property :longitude do
+      key :type, :float
+      key :description, 'event location longitude (to be used when the board contents are referred to a specific place)'
+    end
+    property :label do
+      key :type, :string
+      key :description, 'label (can be used as a tag)'
+    end
+    property :icon_url do
+      key :type, :string
+      key :description, 'icon image URL'
+    end
+    property :image_url do
+      key :type, :string
+      key :description, 'main image URL'
+    end
+    property :cover_url do
+      key :type, :string
+      key :description, 'cover image URL'
+    end
+    property :category_id do
+      key :type, :integer
+      key :description, 'internal ID of the category this board belongs to'
+    end
+  end
 
   include RankedModel
   ranks :row_order

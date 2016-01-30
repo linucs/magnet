@@ -1,9 +1,6 @@
 class MaintenanceWorker
   include Sidekiq::Worker
-  include Sidetiq::Schedulable
   include Sidekiq::Benchmark::Worker
-
-  recurrence { daily }
 
   def perform
     benchmark do |bm|

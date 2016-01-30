@@ -1,0 +1,7 @@
+maintenance:
+  cron: "0 0 * * *"
+  class: "MaintenanceWorker"
+
+poll:
+  cron: "*/10 * * * *"
+  class: "PollWorker"

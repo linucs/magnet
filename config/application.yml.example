@@ -11,21 +11,25 @@
 #   stripe_publishable_key: pk_live_9lcthxpSIHbGwmdO941O1XVU
 
 # Twitter app configuration (see https://apps.twitter.com/)
+# Example callback URL: http://www.example.com/users/auth/twitter/callback
 twitter_title: 'Twitter'
 twitter_app_id:
 twitter_app_secret:
 
 # Instagram app configuration (see https://instagram.com/developer/clients/manage/)
+# Example callback URL: http://www.example.com/users/auth/instagram/callback
 instagram_title: 'Instagram'
 instagram_app_id:
 instagram_app_secret:
 
 # Tumblr app configuration (see https://www.tumblr.com/oauth/apps)
+# Example callback URL: http://www.example.com/users/auth/tumblr/callback
 tumblr_title: 'Tumblr'
 tumblr_app_id:
 tumblr_app_secret:
 
 # Facebook app configuration (see https://developers.facebook.com/apps/)
+# Example callback URL: http://www.example.com/users/auth/facebook/callback
 facebook_title: 'Facebook'
 facebook_app_id:
 facebook_app_secret:
@@ -34,6 +38,7 @@ facebook_app_secret:
 rss_title: 'the publisher website'
 
 # Chromecast (see https://cast.google.com/publish/)
+# Example Receiver Application URL: http://www.example.com/chromecast.html
 chromecast_app_id:
 chromecast_app_namespace:
 
@@ -41,15 +46,19 @@ chromecast_app_namespace:
 notification_mailer_sender: 'Support Team <noreply@example.com>'
 
 # Disable file uploads (HTTP uploads + WebDAV access)
-# disable_uploads: 'false'
+# disable_uploads: 'false' # use 'true', '1', 'false', '0'
 
 # Parse posts to find URLs linking to images
-# search_images_in_content: 'false'
+# search_images_in_content: 'false' # use 'true', '1', 'false', '0'
 
 # GA configuration
-# enable_google_analytics: 'false'
+# enable_google_analytics: 'false' # use 'true', '1', 'false', '0'
 # google_analytics_code: 'UA-XXXXXXXX-Y'
 # google_analytics_domain: 'magnet.dev'
+
+# reCAPTCHA configuration
+google_recaptcha_key:
+google_recaptcha_secret:
 
 # Public URL
 web_host: 'http://magnet.dev'

@@ -17,6 +17,7 @@
         %span.glyphicon.glyphicon-lock.form-control-feedback
       .row
         .col-xs-12
+          .recaptcha= recaptcha_tags
           = f.button :submit, 'Sign up', class: 'btn-block'
   / /.register-box-body
   .box-footer= render 'devise/shared/links'

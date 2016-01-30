@@ -6,4 +6,11 @@ class NotificationMailer < ActionMailer::Base
 
     mail to: @feed.user.email, subject: "Expired #{@feed.authentication_provider.title} credentials"
   end
+
+  def polling_exception(f, e)
+    @feed = f
+    @exception = e
+
+    mail to: @feed.user.email, subject: "Unreliable #{@feed.authentication_provider.title} connection"
+  end
 end

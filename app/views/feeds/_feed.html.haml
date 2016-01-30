@@ -12,6 +12,7 @@
         %span.hint--right(data-hint="Manage this feed")= feed.name
       %span.small
         \-
+        feed ##{feed.id},
         - if feed.polled_at
           last scanned #{time_ago_in_words(feed.polled_at)} ago,
         #{feed.cards.count} card(s)
