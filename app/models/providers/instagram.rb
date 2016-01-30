@@ -197,7 +197,7 @@ class Providers::Instagram
           client.instagram_media_popular(max_id).each { |p| parser.parse(p) }
           client.instagram_tag_recent_media(max_id).each { |p| parser.parse(p) }
         rescue => e
-          feed.update_attribute(:last_exception, e.message)
+          feed.handle_polling_exception(e)
           Raven.capture_exception(e)
         ensure
           feed.update_attribute(:polling, false)

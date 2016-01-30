@@ -270,7 +270,7 @@ class Providers::Twitter
           client.mentions_timeline_tweets(max_id).each { |t| parser.parse(t) }
           client.search_tweets(max_id).each { |t| parser.parse(t) }
         rescue => e
-          feed.update_attribute(:last_exception, e.message)
+          feed.handle_polling_exception(e)
           Raven.capture_exception(e)
         ensure
           feed.update_attribute(:polling, false)
@@ -289,7 +289,7 @@ class Providers::Twitter
             client.search_tweets { |t| yield(client, t) ? parser.parse(t) : break }
             feed.update_attribute(:live_streaming, false)
           rescue => e
-            feed.update_attribute(:last_exception, e.message)
+            feed.handle_polling_exception(e)
             Raven.capture_exception(e)
           ensure
             feed.update_attribute(:polling, false)

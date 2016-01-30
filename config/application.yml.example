@@ -56,6 +56,10 @@ notification_mailer_sender: 'Support Team <noreply@example.com>'
 # google_analytics_code: 'UA-XXXXXXXX-Y'
 # google_analytics_domain: 'magnet.dev'
 
+# reCAPTCHA configuration
+google_recaptcha_key:
+google_recaptcha_secret:
+
 # Public URL
 web_host: 'http://magnet.dev'
 

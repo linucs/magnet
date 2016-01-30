@@ -330,7 +330,7 @@ class Providers::Facebook
           client.facebook_page(max_id).each { |p| parser.parse(p) }
           client.facebook_album(max_id).each { |p| parser.parse(p) }
         rescue => e
-          feed.update_attribute(:last_exception, e.message)
+          feed.handle_polling_exception(e)
           Raven.capture_exception(e)
         ensure
           feed.update_attribute(:polling, false)

@@ -1,0 +1,22 @@
+%p
+  Dear #{@feed.user.email},
+  %br
+  we're currently experiencing an unexpected behaviour while trying to
+  access #{@feed.authentication_provider.title} contents, on behalf of your
+  %i= @feed.name
+  social feed.
+%p
+  This is what #{@feed.authentication_provider.title} responded when trying to update your contents collection:
+  %pre= @exception.message
+  Please access your
+  = link_to "collection management page", board_url(@feed.board)
+  to solve this problem.
+%p
+  Sincerly,
+  %br
+  Customer Support team
+%p
+  %small
+    NOTE: you can disable failure notifications on your
+    = link_to 'profile page', edit_user_registration_url
+    \: uncheck "Notify download failures" and press the "Update" button.
