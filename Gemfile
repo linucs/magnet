@@ -82,6 +82,7 @@ gem 'geocoder', '~> 1.2.6'
 gem 'staccato', '~> 0.4.2'
 
 gem 'devise', '>= 3.5.4'
+gem 'devise_account_expireable', '~> 0.0.2'
 gem 'recaptcha', '~> 0.6.0', require: 'recaptcha/rails'
 gem 'domp', '~> 0.0.7', group: :development
 gem 'omniauth-twitter', '~> 1.2.1'

@@ -47,4 +47,10 @@ module Magnet
 
     config.active_record.raise_in_transactional_callbacks = true
   end
+
+  def self.capture_exception(e, context = {})
+    Raven.user_context context[:user] if context[:user].is_a?(Hash)
+    Raven.extra_context context[:extra] if context[:extra].is_a?(Hash)
+    Raven.capture_exception(e)
+  end
 end

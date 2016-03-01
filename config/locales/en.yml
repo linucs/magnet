@@ -61,6 +61,8 @@ en:
   simple_form:
     labels:
       user:
+        admin: 'Administrator'
+        max_feeds: 'Maximum number of feeds'
         notify_exceptions: 'Notify download failures'
       category:
         image: 'Main image'
@@ -140,7 +142,10 @@ en:
           '5': 50 minutes
     hints:
       user:
-        notify_exceptions: 'Send me an email when contents cannot be collected from Social Networks'
+        admin: 'Flag this user as a platform administrator'
+        max_feeds: 'Limit the number of concurrent active feeds for this user'
+        expires_at: 'Set an expiration date for this user account'
+        notify_exceptions: 'Send an email when contents cannot be collected from Social Networks'
       category:
         enabled: 'Decide whether this folder should be publicly visible or not'
         name: 'Give a name to this folder'

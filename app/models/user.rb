@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   has_and_belongs_to_many :boards
-  has_many :feeds do
+  has_many :feeds, dependent: :nullify do
     def with_alerts
       @alerts ||= where('last_exception IS NOT NULL')
     end
@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable, :lockable, :omniauthable
+         :confirmable, :lockable, :omniauthable, :account_expireable
 
   def is_connected_to?(provider_name)
     authentications.joins(:authentication_provider).exists?(authentication_providers: { name: provider_name })

@@ -127,7 +127,7 @@ class Providers::Twitter
         Rails.logger.info "Cannot save card #{@tweet._id} for feed #{@feed.id}: #{@card.errors.full_messages}" unless @card.for_board(@feed.board_id).save
       rescue Moped::Errors::OperationFailure => f
       rescue => e
-        Raven.capture_exception(e)
+        Magnet.capture_exception(e, user: { email: @feed.user.to_s }, extra: { feed: @feed.name, tweet: tweet.to_s })
       end
       @card
     end
@@ -271,7 +271,7 @@ class Providers::Twitter
           client.search_tweets(max_id).each { |t| parser.parse(t) }
         rescue => e
           feed.handle_polling_exception(e)
-          Raven.capture_exception(e)
+          Magnet.capture_exception(e, user: { email: feed.user.to_s }, extra: { feed: feed.name })
         ensure
           feed.update_attribute(:polling, false)
           feed.update_attribute(:polled_at, Time.now)
@@ -290,7 +290,7 @@ class Providers::Twitter
             feed.update_attribute(:live_streaming, false)
           rescue => e
             feed.handle_polling_exception(e)
-            Raven.capture_exception(e)
+            Magnet.capture_exception(e, user: { email: feed.user.to_s }, extra: { feed: feed.name })
           ensure
             feed.update_attribute(:polling, false)
             feed.update_attribute(:polled_at, Time.now)

@@ -79,6 +79,7 @@ class BoardsController < ApplicationController
   end
 
   def poll
+    authorize! :poll, @board
     @board.poll(oldest: params[:oldest].present?)
     respond_with(@board) do |format|
       format.js { render nothing: true }

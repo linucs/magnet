@@ -1,0 +1,19 @@
+%li
+  %span.text
+    = link_to edit_user_path(user), remote: true do
+      %span.hint--right(data-hint="Let me change this users's settings")
+        = user.email
+    - if user.admin?
+      %span.label.label-info admin
+    - if user.locked_at?
+      %span.label.label-warning locked
+    - if user.expired?
+      %span.label.label-warning expired
+  .tools
+    = link_to edit_user_path(user), remote: true do
+      %span.hint--left(data-hint="Let me change this users's settings")
+        %i.fa.fa-edit.text-muted
+    - unless user == current_user
+      = link_to user, :method => :delete, :data => { :confirm => 'Are you sure?' }, remote: true do
+        %span.hint--left(data-hint="Remove this user from the system")
+          %i.fa.fa-trash

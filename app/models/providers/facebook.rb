@@ -256,7 +256,7 @@ class Providers::Facebook
         Rails.logger.info "Cannot save card #{@post.id} for feed #{@feed.id}: #{@card.errors.full_messages}" unless @card.for_board(@feed.board_id).save
       rescue Moped::Errors::OperationFailure => f
       rescue => e
-        Raven.capture_exception(e)
+        Magnet.capture_exception(e, user: { email: @feed.user.to_s }, extra: { feed: @feed.name, post: post.to_s })
       end
       @card
     end
@@ -331,7 +331,7 @@ class Providers::Facebook
           client.facebook_album(max_id).each { |p| parser.parse(p) }
         rescue => e
           feed.handle_polling_exception(e)
-          Raven.capture_exception(e)
+          Magnet.capture_exception(e, user: { email: feed.user.to_s }, extra: { feed: feed.name })
         ensure
           feed.update_attribute(:polling, false)
           feed.update_attribute(:polled_at, Time.now)

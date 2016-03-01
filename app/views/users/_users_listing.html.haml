@@ -1,0 +1,8 @@
+.box-body
+  %ul.todo-list
+    = render(@users) || alert('No users to show.')
+.box-footer
+  .pull-right
+    %span.page_entries_info= page_entries_info @users
+    = paginate @users, params: {controller: 'users', action: 'index'}, remote: true
+  .clearfix

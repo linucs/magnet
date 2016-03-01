@@ -55,7 +55,7 @@ class Providers::Rss
         Rails.logger.info "Cannot save card #{@entry.entry_id} for feed #{@feed.id}: #{@card.errors.full_messages}" unless @card.for_board(@feed.board_id).save
       rescue Moped::Errors::OperationFailure => f
       rescue => e
-        Raven.capture_exception(e)
+        Magnet.capture_exception(e, user: { email: @feed.user.to_s }, extra: { feed: @feed.name, entry: entry.to_s })
       end
       @card
     end
@@ -106,18 +106,19 @@ class Providers::Rss
     end
 
     def poll(feed, oldest = false)
-      if feed.enabled? && !feed.polling?
-        client = Client.new(feed)
-        parser = Parser.new(feed)
+      if feed.pollable?
         begin
-          feed.update_attributes(polling: true, last_exception: nil)
+          client = Client.new(feed)
+          parser = Parser.new(feed)
           rss = client.rss_feed
+
           rss.entries.each { |e| parser.parse(rss, e) }
         rescue => e
           feed.handle_polling_exception(e)
-          Raven.capture_exception(e)
+          Magnet.capture_exception(e, user: { email: feed.user.to_s }, extra: { feed: feed.name })
         ensure
-          feed.update_attributes(polling: false, polled_at: Time.now)
+          feed.update_attribute(:polling, false)
+          feed.update_attribute(:polled_at, Time.now)
         end
       end
     end

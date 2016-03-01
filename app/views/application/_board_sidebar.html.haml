@@ -107,10 +107,11 @@
             = link_to filters_board_path(@board, in_place: true), remote: true do
               %i.fa.fa-filter.fa-fw
               %span.hint--top(data-hint="Let me decide how to filter incoming contents (stopwords, blocked users)") Content filtering
-          %li.treeview
-            = link_to users_board_path(@board, in_place: true), remote: true do
-              %i.fa.fa-user-md.fa-fw
-              %span.hint--top(data-hint="Let me share this collection management capabilities with other users in the system") Share with others
+          - if can? :read, User
+            %li.treeview
+              = link_to users_board_path(@board, in_place: true), remote: true do
+                %i.fa.fa-user-md.fa-fw
+                %span.hint--top(data-hint="Let me share this collection management capabilities with other users in the system") Share with others
       %li.treeview
         %a(href="#")
           %i.fa.fa-fw.fa-gamepad
@@ -144,10 +145,9 @@
             %i.fa.fa-folder-open-o
             %span.hint--top(data-hint="Learn how to upload custom assets to the system") Custom assets
       - if Sidekiq::is_running?
-        - if current_user.admin? && @board.feeds.any?
+        - if can?(:poll, @board) && @board.feeds.any?
           %li.header SOCIAL NETWORKS SCANNING
           %li.treeview
-            -# polled_at = @board.polled_at
             = link_to poll_board_path(@board), remote: true do
               %i.fa.fa-refresh.fa-fw
               %span.hint--top(data-hint="Force the system to re-scan Social Networks, find and download newer contents") Scan for newer contents
