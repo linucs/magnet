@@ -37,6 +37,7 @@ en:
       instagram_user_liked: "Instagram: my liked posts"
       instagram_media_popular: "Instagram: most popular posts"
       instagram_tag_recent_media: "Instagram: tagged with #"
+      instagram_media_search: "Instagram: posted within "
       tumblr_tag: "Tumblr: tagged with #"
       tumblr_blog:  "Tumblr: posts from blog "
       facebook_search: "Facebook: tagged with #"
@@ -229,6 +230,7 @@ en:
         instagram_user_liked: 'Collect my liked posts on Instagram'
         instagram_media_popular: 'Collect Instagram most popular posts'
         instagram_tag_recent_media: 'Collect Instagram posts tagged with this hashtag: <strong>do not add any leading "#"</strong>'
+        instagram_media_search: 'Collect Instagram posts closer than this distance from the board location (in meters)'
         tumblr_tag: 'Collect contents from Tumblr posts with this hashtag: <strong>do not add any leading "#"</strong>'
         tumblr_blog:  'Collect contents from this Tumblr blog: <strong>do not add any trailing ".tumblr.com"</strong>'
         facebook_my_feed: 'Collect contents from my Facebook home feed'

@@ -105,6 +105,19 @@ class Providers::Instagram
       end
     end
 
+    def instagram_media_search?
+      @feed.options.instagram_media_search.present? && @feed.board.latitude.present? && @feed.board.longitude.present?
+    end
+
+    def instagram_media_search(_max_id = nil, n = max_posts)
+      if instagram_media_search?
+        options = { distance: @feed.options.instagram_media_search.to_f, count: n }
+        client.media_search(@feed.board.latitude, @feed.board.longitude, options)
+      else
+        []
+      end
+    end
+
     def instagram_media(id)
       client.media_item(id)
     end
@@ -176,10 +189,18 @@ class Providers::Instagram
       {
         instagram_tag_recent_media: [:string, '#'],
         instagram_recent_media_of_user: [:string, '@'],
-        instagram_user_feed: [:boolean, "<i class='iconic-check'></i>", "<i class='iconic-x'></i>"],
-        instagram_user_recent_media: [:boolean, "<i class='iconic-check'></i>", "<i class='iconic-x'></i>"],
-        instagram_user_liked: [:boolean, "<i class='iconic-check'></i>", "<i class='iconic-x'></i>"],
-        instagram_media_popular: [:boolean, "<i class='iconic-check'></i>", "<i class='iconic-x'></i>"]
+        instagram_user_feed: [:boolean],
+        instagram_user_recent_media: [:boolean],
+        instagram_user_liked: [:boolean],
+        instagram_media_popular: [:boolean],
+        instagram_media_search: [:select, {
+          'a range of 100 mt.' => 100,
+          'a range of 300 mt.' => 300,
+          'a range of 500 mt.' => 500,
+          'a range of 1000 mt.' => 1000,
+          'a range of 2000 mt.' => 2000,
+          'a range of 5000 mt.' => 5000
+        }]
       }
     end
 
@@ -196,6 +217,7 @@ class Providers::Instagram
           client.instagram_user_liked(max_id).each { |p| parser.parse(p) }
           client.instagram_media_popular(max_id).each { |p| parser.parse(p) }
           client.instagram_tag_recent_media(max_id).each { |p| parser.parse(p) }
+          client.instagram_media_search(max_id).each { |p| parser.parse(p) }
         rescue => e
           feed.handle_polling_exception(e)
           Magnet.capture_exception(e, user: { email: feed.user.to_s }, extra: { feed: feed.name })

@@ -311,10 +311,10 @@ class Providers::Facebook
       {
         facebook_page: [:string],
         facebook_album: [:string],
-        facebook_photos: [:boolean, "<i class='iconic-check'></i>", "<i class='iconic-x'></i>"],
-        facebook_videos: [:boolean, "<i class='iconic-check'></i>", "<i class='iconic-x'></i>"],
-        facebook_my_feed: [:boolean, "<i class='iconic-check'></i>", "<i class='iconic-x'></i>"],
-        facebook_tags: [:boolean, "<i class='iconic-check'></i>", "<i class='iconic-x'></i>"]
+        facebook_photos: [:boolean],
+        facebook_videos: [:boolean],
+        facebook_my_feed: [:boolean],
+        facebook_tags: [:boolean]
         # :facebook_search => [:string, '#']
       }
     end

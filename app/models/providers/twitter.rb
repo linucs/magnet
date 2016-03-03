@@ -253,8 +253,8 @@ class Providers::Twitter
       {
         twitter_search: [:string, '#'],
         twitter_user_timeline: [:string, '@'],
-        twitter_home_timeline: [:boolean, "<i class='iconic-check'></i>", "<i class='iconic-x'></i>"],
-        twitter_mentions_timeline: [:boolean, "<i class='iconic-check'></i>", "<i class='iconic-x'></i>"]
+        twitter_home_timeline: [:boolean],
+        twitter_mentions_timeline: [:boolean]
       }
     end
 
