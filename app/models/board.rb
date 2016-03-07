@@ -526,7 +526,7 @@ class Board < ActiveRecord::Base
           _id: 1,
           count: { '$subtract' => [
             { '$divide' => [{ '$add' => ['$likes', '$shares', '$comments'] }, mean['count']] },
-            mean['likes']**2 + mean['shares']**2 + mean['comments']**2
+            mean['likes'].to_f**2 + mean['shares'].to_f**2 + mean['comments'].to_f**2
           ]
             }
         }

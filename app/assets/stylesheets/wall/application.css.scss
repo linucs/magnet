@@ -21,6 +21,17 @@ $icon-font-path: "bootstrap-sass-official/assets/fonts/bootstrap/";
 @import 'reveal.js/css/reveal';
 @import 'fancybox/source/jquery.fancybox';
 
+@mixin word-wrap() {
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	-ms-word-break: break-all;
+	word-break: break-word;
+	-ms-hyphens: auto;
+	-moz-hyphens: auto;
+	-webkit-hyphens: auto;
+	hyphens: auto;
+}
+
 .magnet-container {
 	.debug {
 		outline: dashed 1px red;
@@ -63,6 +74,7 @@ $icon-font-path: "bootstrap-sass-official/assets/fonts/bootstrap/";
 	.panel {
 		.panel-heading {
 			padding: 0.2em;
+			@include word-wrap();
 			.img-profile {
 				margin-right: 0.5em;
 				height: 1.5em;
@@ -72,7 +84,7 @@ $icon-font-path: "bootstrap-sass-official/assets/fonts/bootstrap/";
 		.panel-body {
 			padding: 0.2em;
 			overflow: hidden;
-			word-wrap: break-word;
+			@include word-wrap();
 		}
 		.panel-footer {
 			padding: 0.2em;

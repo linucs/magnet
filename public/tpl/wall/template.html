@@ -21,8 +21,7 @@
         </span>
       </div>
       <div ng-show="card.content && card.content.length > 0" ng-switch="card.content_type" class="panel-body">
-        <p ng-switch-when="html" ng-bind-html="card.content | to_trusted">
-        <p ng-switch-default ng-bind-html="card.content | linky:'_blank'">
+        <p ng-switch-default ng-bind-html="card.content | to_trusted">
       </div>
       <div ng-show="card.provider_name" class="panel-footer">
         <a ng-href="{{card.original_content_url}}" target="_blank">

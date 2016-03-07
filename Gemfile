@@ -112,6 +112,7 @@ gem 'cancancan', '~> 1.10.1'
 group :development do
   gem 'pry'
   gem 'pry-rails'
+  gem 'pry-byebug'
   gem 'web-console', '~> 2.0'
   gem 'quiet_assets'
   gem 'better_errors'

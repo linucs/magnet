@@ -48,6 +48,7 @@ en:
       facebook_album: "Facebook: contents from album "
       facebook_tags: "scan for mentions"
       rss_feed: "News from "
+      default_profile_image_url: "Default profile image"
   activerecord:
     errors:
       models:
@@ -125,9 +126,6 @@ en:
         thumbnail_image_url: 'Original thumbnail image URL'
         original_content_url: 'Original content URL'
         profile_image_url: "User's profile image URL"
-        custom_profile_image: '&nbsp;'
-        custom_thumbnail_image: '&nbsp;'
-        custom_media: '&nbsp;'
       campaign:
         board: Linked collection
     include_blanks:
@@ -240,6 +238,7 @@ en:
         facebook_album: "Collect contents from this Facebook album ID"
         facebook_tags: 'Also search for mentions, while scanning posts'
         rss_feed: 'Collect articles from this RSS feed'
+        default_profile_image_url: 'When missing in the RSS feed, use this image URL as a profile icon'
         user: "Use this user's social account when downloading contents"
         live_streaming: "Set to enable live streaming for this feed"
       card:

@@ -2,6 +2,14 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@mixin vertical-align($position: relative) {
+  position: $position;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
 .nav.board-tabs li {
   padding-top: 30px;
 }
@@ -42,6 +50,7 @@
     border-top-style: solid;
     .username {
       max-width: 50%;
+      padding-right: 5px;
     }
     .card-info span {
       margin-right: 10px;
@@ -65,11 +74,8 @@
       width: 100%;
     }
     .icon {
-      position: absolute;
-      top: 50%;
-      -webkit-transform: translateY(-75%);
-      -ms-transform: translateY(-75%);
-      transform: translateY(-75%);
+      @include vertical-align($position: absolute);
+      height: 140px;
       left: 0;
       right: 0;
       text-align: center;

@@ -1,7 +1,7 @@
 %div
   .card{:'data-card-id' => card.id, :'data-external-id' => card.external_id, class: "#{card.provider_name} #{card.content_type} #{card.content_source} #{card.online? ? 'online' : 'offline'} #{card.pinned? ? 'pinned' : 'un-pinned'}"}
     .box.box-widget{class: card_box_class(card)}
-      .box-header.with-border
+      .box-header.with-border.word-wrap
         .user-block
           = image_tag card.profile_image_url, class: 'img-circle'
           %span.username
@@ -50,7 +50,7 @@
             %span.hint--top{:'data-hint' => "Change or update this card's content"}
               %i.fa.fa-edit
           = check_box_tag 'card_ids[]', card.id, nil, class: 'card-bulk-select'
-      .box-body{:style => "display: block;"}
+      .box-body.word-wrap{:style => "display: block;"}
         - if !card.is_text?
           .media-wrapper.pad
             = link_to board_card_path(@board, card), remote: true do

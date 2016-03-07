@@ -1,17 +1,16 @@
-.row.header
+.row.header.word-wrap
   .col-xs-2
     = image_tag card.profile_image_url, class: 'img-responsive img-rounded'
   .col-xs-8.user-data
     %p
-      %small
-        = link_to card.from, card.profile_url, target: '_blank'
-        %br
-        = l(card.created_at, format: :short)
+      = link_to card.from, card.profile_url, target: '_blank'
+      %br
+      = l(card.created_at, format: :short)
   .col-xs-2
     .pull-right
       = link_to card.original_content_url, target: '_blank' do
         %i.fa.fa-2x{class: "fa-#{card.provider_name}"}
-.row.card-content
+.row.card-content.word-wrap
   .col-xs-12
     = card_media_tag(card)
     - if card.content.present?

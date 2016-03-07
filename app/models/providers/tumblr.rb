@@ -167,7 +167,7 @@ class Providers::Tumblr
           "https://vine.co/v/#{vine_uid(post_raw_url)}"
         elsif card_content_source == 'youtube'
           card_embed_code
-        else
+        elsif card_embed_code
           card_embed_code[/source.*?src="(.*?)"/i, 1]
         end
       else
