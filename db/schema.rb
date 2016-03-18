@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160130161650) do
+ActiveRecord::Schema.define(version: 20160316000208) do
 
   create_table "authentication_providers", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -50,6 +50,8 @@ ActiveRecord::Schema.define(version: 20160130161650) do
     t.float    "latitude",                 limit: 24
     t.float    "longitude",                limit: 24
     t.text     "trusted_users",            limit: 65535
+    t.datetime "start_polling_at"
+    t.datetime "end_polling_at"
   end
 
   add_index "boards", ["category_id"], name: "index_boards_on_category_id", using: :btree
@@ -65,14 +67,16 @@ ActiveRecord::Schema.define(version: 20160130161650) do
   add_index "boards_users", ["user_id", "board_id"], name: "index_boards_users_on_user_id_and_board_id", unique: true, using: :btree
 
   create_table "campaigns", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.integer  "row_order",  limit: 4
+    t.string   "name",                limit: 255
+    t.integer  "row_order",           limit: 4
     t.boolean  "enabled"
-    t.integer  "threshold",  limit: 4
-    t.text     "content",    limit: 65535
-    t.integer  "board_id",   limit: 4
+    t.integer  "threshold",           limit: 4
+    t.text     "content",             limit: 65535
+    t.integer  "board_id",            limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "start_displaying_at"
+    t.datetime "end_displaying_at"
   end
 
   add_index "campaigns", ["board_id"], name: "index_campaigns_on_board_id", using: :btree
@@ -182,6 +186,7 @@ ActiveRecord::Schema.define(version: 20160130161650) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "notify_exceptions",                  default: true
+    t.datetime "expires_at"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree

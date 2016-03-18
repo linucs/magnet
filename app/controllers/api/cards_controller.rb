@@ -75,7 +75,7 @@ class API::CardsController < API::BaseController
             end
     paginate(cards.count, Card::PER_PAGE, allow_render: false) do |limit, offset|
       @cards = cards.offset(offset).limit(limit)
-      @board.campaigns.triggered_on(params[:adv] || 100).rank(:row_order).each { |c| @ads << c.as_card }
+      @board.campaigns.triggered_on(params[:adv] || 100).rank(:row_order).each { |c| @ads << c.as_card if c.displayable? }
       track_event("User #{current_user.id}", 'List cards', @board.name, 2 * offset + limit)
       respond_with(@cards)
     end

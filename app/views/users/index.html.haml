@@ -1,0 +1,31 @@
+%section.content-header
+  %h1
+    Platform users
+  %p
+    Manage user accounts on this platform.
+  = render_crumbs
+
+%section.content
+  .box.box-primary
+    .box-header
+      %h3.box-title Users listing
+      .box-tools.pull-right
+        .has-feedback
+          = form_for :q, url: users_path, remote: true, :method => :get do |f|
+            = f.text_field :email_cont, class: 'form-control input-sm', placeholder: 'Search...'
+            %span.fa.fa-search.form-control-feedback
+    #users
+      = render 'users_listing'
+
+#edit-user-dialog.modal.fade(tabindex="-1" role="dialog" aria-labelledby="Manage this user" aria-hidden="true")
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button(type="button" class="close" data-dismiss="modal")
+          %span(aria-hidden="true")
+            &times;
+          %span.sr-only
+            Close
+        %h4.modal-title
+          Manage this user
+      #edit-user-form

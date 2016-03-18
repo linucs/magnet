@@ -35,7 +35,7 @@ facebook_app_id:
 facebook_app_secret:
 
 # RSS configuration
-rss_title: 'the publisher website'
+rss_title: 'a public RSS feed'
 
 # Chromecast (see https://cast.google.com/publish/)
 # Example Receiver Application URL: http://www.example.com/chromecast.html

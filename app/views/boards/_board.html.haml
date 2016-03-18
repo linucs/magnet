@@ -1,21 +1,25 @@
 %li.sortable-item{'data-item-id' => board.id}
-  %span.handle
+  %span.handle.hint--right(data-hint="Drag this handle to change items ordering in the list")
     %i.fa.fa-ellipsis-v
     %i.fa.fa-ellipsis-v
+  - unless board.enabled?
+    %span.hint--right(data-hint="This collection is offline")
+      %i.fa.fa-fw.fa-power-off.text-info
+  - unless board.pollable? && board.enabled?
+    %span.hint--right(data-hint="Contents in this collection are not currently being updated")
+      %i.fa.fa-fw.fa-ban.text-info
+  - if board.moderated?
+    %span.hint--right(data-hint="Contents in this collection must be manually approved before going online")
+      %i.fa.fa-fw.fa-filter.text-info
   %span.text
     = link_to board do
       %span.hint--right(data-hint="Manage this collection and its contents")= board.name
-    (ID ##{board.id})
     - if board.category
       %span.small
         \-
         in #{board.category.name}
     - if board.label.present?
       %span.label.label-default= board.label
-    - unless board.enabled?
-      %span.label.label-warning disabled
-    - if board.moderated?
-      %span.label.label-info moderated
   .tools
     - unless board.polling?
       = link_to edit_board_path(board, page: params[:page]), remote: true do

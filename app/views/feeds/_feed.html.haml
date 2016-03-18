@@ -1,5 +1,9 @@
 %li.sortable-item{'data-item-id' => feed.id}
-  %i.fa.fa-fw{class: "fa-#{feed.authentication_provider.name}"}
+  %span.hint--right{'data-hint' => "This feed is configured to scan contents from #{feed.authentication_provider.title}"}
+    %i.fa.fa-fw{class: "fa-#{feed.authentication_provider.name}"}
+  - unless feed.enabled?
+    %span.hint--right(data-hint="This content feed has been disabled")
+      %i.fa.fa-fw.fa-power-off.text-info
   %span.text
     - if feed.polling? || feed.live_streaming?
       = feed.name
@@ -16,8 +20,6 @@
         - if feed.polled_at
           last scanned #{time_ago_in_words(feed.polled_at)} ago,
         #{feed.cards.count} card(s)
-    - unless feed.enabled?
-      %span.label.label-warning disabled
   .tools
     - if current_user.admin? && feed.authentication_provider.allows_live_streaming?
       = link_to toggle_streaming_board_feed_path(@board, feed), :method => :put, :data => { :confirm => 'Are you sure?' }, remote: true do

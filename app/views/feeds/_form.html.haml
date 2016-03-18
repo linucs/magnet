@@ -16,21 +16,27 @@
               - input_type = v[0]
               %li.col-sm-6
                 - if input_type == :boolean
-                  .form-group.boolean.optional{class: "k #{f.object.errors[:base].empty? ? nil : 'has-error'}"}
+                  .form-group.boolean.optional{class: "#{k} #{f.object.errors[:base].empty? ? nil : 'has-error'}"}
                     .checkbox
                       = o.label k do
                         = o.check_box k, class: v[3]
                         = @feed.option_label(k)
                     = f.hint k
+                - elsif input_type == :select
+                  .form-group.select.optional{class: "#{k} #{f.object.errors[:base].empty? ? nil : 'has-error'}"}
+                    = o.label @feed.option_label(k), :required => false
+                    .input-group
+                      = o.input_field k, :as => :select, :include_blank => true, collection: v[1], :class => "#{v[2]} form-control"
+                    = f.hint k
                 - else
-                  .form-group.string.optional{class: "k #{f.object.errors[:base].empty? ? nil : 'has-error'}"}
+                  .form-group.string.optional{class: "#{k} #{f.object.errors[:base].empty? ? nil : 'has-error'}"}
                     = o.label @feed.option_label(k), :required => false
                     .input-group
                       - if v[1].present?
-                        %span.input-group-addon= v[1]
+                        %span.input-group-addon= v[1].html_safe
                       = o.input_field k, :as => input_type, :include_blank => true, :class => "#{v[3]} #{input_type == :date ? 'form-control input-sm' : 'form-control'}"
                       - if v[2].present?
-                        %span.input-group-addon= v[2]
+                        %span.input-group-addon= v[2].html_safe
                     = f.hint k
     .row
       - unless @board

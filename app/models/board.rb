@@ -257,8 +257,12 @@ class Board < ActiveRecord::Base
     end
   end
 
+  def pollable?(from = Time.zone.now, to = Time.zone.now)
+    (start_polling_at.nil? || from >= start_polling_at) && (end_polling_at.nil? || to < end_polling_at)
+  end
+
   def poll(options = {})
-    feeds.each { |f| f.poll(options) }
+    feeds.each { |f| f.poll(options) } if pollable? || options[:force]
   end
 
   def cards(c = nil)
@@ -526,7 +530,7 @@ class Board < ActiveRecord::Base
           _id: 1,
           count: { '$subtract' => [
             { '$divide' => [{ '$add' => ['$likes', '$shares', '$comments'] }, mean['count']] },
-            mean['likes']**2 + mean['shares']**2 + mean['comments']**2
+            mean['likes'].to_f**2 + mean['shares'].to_f**2 + mean['comments'].to_f**2
           ]
             }
         }

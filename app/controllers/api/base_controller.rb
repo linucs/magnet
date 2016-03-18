@@ -25,7 +25,7 @@ class API::BaseController < ApplicationController
   def authenticate_user_from_token!
     @start_time = Time.now
     user = authenticate_with_http_token { |t, _o| User.find_by_authentication_token(t) if t.present? }
-    token = params[:user_token] || params[:api_key]
+    token = request.headers['X-API-KEY'] || params[:api_key] || params[:user_token]
     user ||= User.find_by_authentication_token(token) if token.present?
 
     if user

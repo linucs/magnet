@@ -4,11 +4,14 @@
 
     - if @campaign.persisted?
       = f.input :enabled
+      .row
+        .col-md-6= f.input :start_displaying_at, as: :date_picker, data: { showClear: true, showClose: true, showTodayButton: true }
+        .col-md-6= f.input :end_displaying_at, as: :date_picker, data: { showClear: true, showClose: true, showTodayButton: true }
     = f.input :name
     .row
       .col-md-6= f.association :board, collection: current_user.boards, include_blank: 'select...'
       .col-md-6= f.input :threshold, as: :select, collection: 10.step(100, 10).map { |v| ["#{v}%", v] }
-    = f.input :content, as: :text, input_html: { rows: 10 }
+    = f.input :content, as: :text, input_html: { rows: 5 }
 
   .modal-footer
     = f.button :submit

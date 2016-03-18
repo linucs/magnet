@@ -2,18 +2,21 @@
   %span.handle
     %i.fa.fa-ellipsis-v
     %i.fa.fa-ellipsis-v
+  - unless campaign.enabled?
+    %span.hint--right(data-hint="This campaign is offline")
+      %i.fa.fa-fw.fa-power-off.text-info
+  - unless campaign.displayable?
+    %span.hint--right(data-hint="Ads in this campaign are not currently being displayed")
+      %i.fa.fa-fw.fa-ban.text-info
   %span.text
     = link_to edit_campaign_path(campaign), remote: true do
       %span.hint--right(data-hint="Let me change this adv campaign's main options")
         = campaign.name
-    - unless campaign.enabled?
-      %span.label.label-warning disabled
-    - else
-      - if campaign.board
-        %span.small
-          \-
-          displayed for #{campaign.threshold}% of impressions, in
-          = link_to campaign.board.name, board_path(campaign.board)
+    - if campaign.enabled? && campaign.board
+      %span.small
+        \-
+        displayed for #{campaign.threshold}% of impressions, in
+        = link_to campaign.board.name, board_path(campaign.board)
   .tools
     = link_to edit_campaign_path(campaign), remote: true do
       %span.hint--left(data-hint="Let me change this adv campaign's main options")

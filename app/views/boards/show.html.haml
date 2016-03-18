@@ -3,8 +3,6 @@
     #{@board.name}
     %small
       = @board.description.try(:truncate, 50)
-  %span.small
-    created #{time_ago_in_words(@board.created_at || Time.now)} ago, last updated #{time_ago_in_words(@board.updated_at || Time.now)} ago.
   = render_crumbs
 
 %section.content
@@ -48,22 +46,24 @@
         %span.hint--top(data-hint="Let me understand how often hashtags are used")
           %i.fa.fa-2x.fa-tag
           .small Tag cloud
-    %li.pull-right.hidden-xs
-      = link_to '#', id: 'chromecast-btn', class: 'text-center', disabled: true do
-        %i.fa.fa-2x.fa-rss
-        .small Chromecast
-    %li.pull-right.hidden-xs
-      = link_to slideshow_path(@board, action: :wall), class: 'text-center', target: '_blank', disabled: !@board.enabled? do
-        %i.fa.fa-2x.fa-video-camera
-        .small Wall
-    %li.pull-right
-      = link_to slideshow_path(@board, action: :timeline), class: 'text-center', target: '_blank', disabled: !@board.enabled? do
-        %i.fa.fa-2x.fa-mobile
-        .small Timeline
-    %li.pull-right.hidden-xs
-      = link_to slideshow_path(@board, action: :deck), class: 'text-center', target: '_blank', disabled: !@board.enabled? do
-        %i.fa.fa-2x.fa-desktop
-        .small Deck
+    - if @board.enabled?
+      %li.pull-right.hidden-xs
+        = link_to '#', id: 'chromecast-btn', class: 'text-center', disabled: true do
+          %i.fa.fa-2x.fa-rss
+          .small Chromecast
+      %li.pull-right.hidden-xs
+        = link_to slideshow_path(@board, action: :wall), class: 'text-center', target: '_blank' do
+          %span.hint--left(data-hint="Open the Wall layout view of this collection")
+            %i.fa.fa-2x.fa-video-camera
+            .small Wall
+      %li.pull-right
+        = link_to slideshow_path(@board, action: :timeline), class: 'text-center', target: '_blank', disabled: !@board.enabled? do
+          %i.fa.fa-2x.fa-mobile
+          .small Timeline
+      %li.pull-right.hidden-xs
+        = link_to slideshow_path(@board, action: :deck), class: 'text-center', target: '_blank', disabled: !@board.enabled? do
+          %i.fa.fa-2x.fa-desktop
+          .small Deck
   .tab-content
     #cards.tab-pane.active
       #cards-listing.box.box-solid= render 'cards_listing'

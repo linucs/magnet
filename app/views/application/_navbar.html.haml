@@ -27,10 +27,10 @@
                   - alerts.each do |f|
                     %li
                       = link_to board_path(f.board_id) do
-                        %h6
-                          %i.fa.fa-fw{class: "fa-#{f.authentication_provider.name}"}
-                          = f.name
-                        = f.last_exception.truncate(20)
+                        %i.fa.fa-fw{class: "fa-#{f.authentication_provider.name}"}
+                        = f.name
+                        %br
+                        = f.last_exception
                         %span.pull-right.text-muted.small= time_ago_in_words(f.polled_at || Time.now)
             - else
               %li.footer

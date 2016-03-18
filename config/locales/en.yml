@@ -37,6 +37,7 @@ en:
       instagram_user_liked: "Instagram: my liked posts"
       instagram_media_popular: "Instagram: most popular posts"
       instagram_tag_recent_media: "Instagram: tagged with #"
+      instagram_media_search: "Instagram: posted within "
       tumblr_tag: "Tumblr: tagged with #"
       tumblr_blog:  "Tumblr: posts from blog "
       facebook_search: "Facebook: tagged with #"
@@ -47,6 +48,7 @@ en:
       facebook_album: "Facebook: contents from album "
       facebook_tags: "scan for mentions"
       rss_feed: "News from "
+      default_profile_image_url: "Default profile image"
   activerecord:
     errors:
       models:
@@ -61,12 +63,16 @@ en:
   simple_form:
     labels:
       user:
+        admin: 'Administrator'
+        max_feeds: 'Maximum number of feeds'
         notify_exceptions: 'Notify download failures'
       category:
         image: 'Main image'
         cover: 'Cover image'
         parent_id: 'Parent category'
       board:
+        start_polling_at: 'Start scanning'
+        end_polling_at: 'Stop scanning'
         category: 'Folder'
         users: Board managers
         max_tags_per_card: 'Maximum allowed tags'
@@ -122,11 +128,10 @@ en:
         thumbnail_image_url: 'Original thumbnail image URL'
         original_content_url: 'Original content URL'
         profile_image_url: "User's profile image URL"
-        custom_profile_image: '&nbsp;'
-        custom_thumbnail_image: '&nbsp;'
-        custom_media: '&nbsp;'
       campaign:
         board: Linked collection
+        start_displaying_at: 'Start displaying'
+        end_displaying_at: 'Stop displaying'
     include_blanks:
       board:
         polling_interval: 'No scheduled refresh'
@@ -140,7 +145,10 @@ en:
           '5': 50 minutes
     hints:
       user:
-        notify_exceptions: 'Send me an email when contents cannot be collected from Social Networks'
+        admin: 'Flag this user as a platform administrator'
+        max_feeds: 'Limit the number of concurrent active feeds for this user'
+        expires_at: 'Set an expiration date for this user account'
+        notify_exceptions: 'Send an email when contents cannot be collected from Social Networks'
       category:
         enabled: 'Decide whether this folder should be publicly visible or not'
         name: 'Give a name to this folder'
@@ -152,6 +160,8 @@ en:
         parent_id: 'Make a subcategory, by setting its parent category'
       board:
         enabled: 'Decide whether this collection should be publicly visible or not'
+        start_polling_at: 'Start downloading contents at a given time'
+        end_polling_at: 'Stop downloading contents at a given time'
         include_text_only_cards: 'Also include contents without an attached image or video'
         moderated: 'Do not publish any content, unless explicitly aproved'
         discard_identical_images: 'Discard contents with identical images attached'
@@ -161,6 +171,7 @@ en:
         slug: 'Set the URL portion for this collection'
         label: 'Set a label for this collection, to categorize it'
         description: 'Fill in the full collection description'
+        full_street_address: 'The location where this event takes place (if any)'
         polling_interval: 'Decide how often contents should be refreshed?'
         host: Publish using this host name
         icon: 'Upload an image representing an icon for this collection'
@@ -224,6 +235,7 @@ en:
         instagram_user_liked: 'Collect my liked posts on Instagram'
         instagram_media_popular: 'Collect Instagram most popular posts'
         instagram_tag_recent_media: 'Collect Instagram posts tagged with this hashtag: <strong>do not add any leading "#"</strong>'
+        instagram_media_search: 'Collect Instagram posts closer than this distance from the board location (in meters)'
         tumblr_tag: 'Collect contents from Tumblr posts with this hashtag: <strong>do not add any leading "#"</strong>'
         tumblr_blog:  'Collect contents from this Tumblr blog: <strong>do not add any trailing ".tumblr.com"</strong>'
         facebook_my_feed: 'Collect contents from my Facebook home feed'
@@ -233,6 +245,7 @@ en:
         facebook_album: "Collect contents from this Facebook album ID"
         facebook_tags: 'Also search for mentions, while scanning posts'
         rss_feed: 'Collect articles from this RSS feed'
+        default_profile_image_url: 'When missing in the RSS feed, use this image URL as a profile icon'
         user: "Use this user's social account when downloading contents"
         live_streaming: "Set to enable live streaming for this feed"
       card:
@@ -251,6 +264,8 @@ en:
         notes: "Custom note appended to this card (editor's usage)"
       campaign:
         enabled: 'Decide whether this campaign should be active or not'
+        start_displaying_at: 'Start displaying ads at a given time'
+        end_displaying_at: 'Stop displaying ads at a given time'
         name: 'Give a name to this campaign'
         board: 'Show this campaign inside one of your collections'
         threshold: 'Set the percentage of page impressions on which this campaing should be displayed'

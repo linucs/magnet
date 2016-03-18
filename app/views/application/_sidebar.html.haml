@@ -17,6 +17,11 @@
           %span.hint--top(data-hint="Go to your advertising campaigns listing page") My adv campaigns
       - if current_user.admin?
         %li.header ADMINISTRATION
+        - if can? :manage, Category
+          %li
+            = link_to users_path do
+              %i.fa.fa-users
+              %span.hint--top(data-hint="Manage platform users") Users
         %li
           = link_to sidekiq_web_path, target: '_blank' do
             %i.fa.fa-gears

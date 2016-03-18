@@ -35,7 +35,7 @@ class Feed < ActiveRecord::Base
     user_authentication.try(:refresh_token!, Time.now + 1.day)
   rescue => e
     update_attribute(:enabled, false)
-    Raven.capture_exception(e)
+    Magnet.capture_exception(e, user: { email: user.to_s }, extra: { feed: name })
     NotificationMailer.token_expired(self).deliver_now
     raise
   end
@@ -61,7 +61,7 @@ class Feed < ActiveRecord::Base
   end
 
   def pollable?
-    if Feed.where(id: id, enabled: true, polling: false, live_streaming: false).update_all(polling: true, last_exception: nil) > 0
+    if user && !user.expired? && Feed.where(id: id, enabled: true, polling: false, live_streaming: false).update_all(polling: true, last_exception: nil) > 0
       reload
       true
     else
@@ -89,7 +89,7 @@ class Feed < ActiveRecord::Base
   end
 
   def streamable?
-    if Feed.where(id: id, enabled: true, polling: false, live_streaming: true).update_all(polling: true, last_exception: nil) > 0
+    if user && !user.expired? && Feed.where(id: id, enabled: true, polling: false, live_streaming: true).update_all(polling: true, last_exception: nil) > 0
       reload
       true
     else

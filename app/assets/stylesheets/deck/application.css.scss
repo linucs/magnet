@@ -24,6 +24,17 @@ $icon-font-path: "bootstrap-sass-official/assets/fonts/bootstrap/";
 	@import 'angular-social/angular-social';
 	@import 'fancybox/source/jquery.fancybox';
 
+	@mixin word-wrap() {
+	  overflow-wrap: break-word;
+	  word-wrap: break-word;
+	  -ms-word-break: break-all;
+	  word-break: break-word;
+	  -ms-hyphens: auto;
+	  -moz-hyphens: auto;
+	  -webkit-hyphens: auto;
+	  hyphens: auto;
+	}
+
 	.card {
 		width: 20%;
 		padding: 5px;
@@ -36,7 +47,8 @@ $icon-font-path: "bootstrap-sass-official/assets/fonts/bootstrap/";
 	.panel {
 		margin: 0;
 		.panel-heading {
-			padding: 10px;
+			padding: 10px;;
+			@include word-wrap();
 			.img-profile {
 				width: 40px;
 				margin-right: 10px;
@@ -44,6 +56,7 @@ $icon-font-path: "bootstrap-sass-official/assets/fonts/bootstrap/";
 		}
 		.panel-body {
 			padding: 10px;
+			@include word-wrap();
 		}
 		.media-wrapper {
 			.img-preview {

@@ -18,10 +18,12 @@
 //= require awesomecloud/jquery.awesomeCloud-0.2
 //= require angular/angular
 //= require websocket_rails/main
+//= require moment/min/moment.min
 //= require bootstrap-sass-official/assets/javascripts/bootstrap-sprockets
 //= require bootstrap-hover-dropdown/bootstrap-hover-dropdown.min
 //= require bootstrap-rating-input/build/bootstrap-rating-input.min
 //= require bootstrap-colorpicker/js/bootstrap-colorpicker
+//= require eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min
 //= require jasny-bootstrap/dist/js/jasny-bootstrap
 //= require pace/pace.min
 //= require selectize/dist/js/standalone/selectize

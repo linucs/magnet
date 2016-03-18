@@ -23,7 +23,7 @@ module CardsHelper
         video_html5_tag(card.media_url)
       end
     elsif card.is_image?
-      image_tag card.media_url, class: 'img-responsive'
+      image_tag(card.media_url, class: 'img-responsive') if card.media_url.present?
     else
       card.embed_code
     end

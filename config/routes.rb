@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     concerns :collectable
   end
 
-  resources :categories
+  resources :categories, except: :show
 
   resources :boards do
     post 'upload', on: :collection
@@ -49,7 +49,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :campaigns
+  resources :campaigns, except: :show
 
   devise_for :users, controllers: { registrations: 'users/registrations', omniauth_callbacks: 'users/omniauth_callbacks' }
   devise_scope :user do
@@ -59,6 +59,8 @@ Rails.application.routes.draw do
   authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
   end
+
+  resources :users, except: [:show, :new, :create]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

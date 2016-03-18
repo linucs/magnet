@@ -94,7 +94,7 @@ class Providers::Tumblr
         Rails.logger.info "Cannot save card #{@post.id} for feed #{@feed.id}: #{@card.errors.full_messages}" unless @card.for_board(@feed.board_id).save
       rescue Moped::Errors::OperationFailure => f
       rescue => e
-        Raven.capture_exception(e)
+        Magnet.capture_exception(e, user: { email: @feed.user.to_s }, extra: { feed: @feed.name, post: post.to_s })
       end
       @card
     end
@@ -167,7 +167,7 @@ class Providers::Tumblr
           "https://vine.co/v/#{vine_uid(post_raw_url)}"
         elsif card_content_source == 'youtube'
           card_embed_code
-        else
+        elsif card_embed_code
           card_embed_code[/source.*?src="(.*?)"/i, 1]
         end
       else
@@ -226,7 +226,7 @@ class Providers::Tumblr
           client.tumblr_tag_posts(before).each { |p| parser.parse(p) }
         rescue => e
           feed.handle_polling_exception(e)
-          Raven.capture_exception(e)
+          Magnet.capture_exception(e, user: { email: feed.user.to_s }, extra: { feed: feed.name })
         ensure
           feed.update_attribute(:polling, false)
           feed.update_attribute(:polled_at, Time.now)
