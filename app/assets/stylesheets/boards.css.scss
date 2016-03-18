@@ -5,9 +5,10 @@
 @mixin vertical-align($position: relative) {
   position: $position;
   top: 50%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+  left: 50%;
+  -webkit-transform: translate(-50%);
+  -ms-transform: translate(-50%);
+  transform: translate(-50%);
 }
 
 .nav.board-tabs li {
@@ -70,19 +71,21 @@
     }
   }
   .media-wrapper {
+    position: relative;
     img {
       width: 100%;
     }
     .icon {
       @include vertical-align($position: absolute);
-      height: 140px;
-      left: 0;
-      right: 0;
-      text-align: center;
       color: white;
       opacity: 0.8;  /* Opacity for Modern Browsers */
       filter: alpha(opacity=80);  /* Opacity for IE8 and lower */
       zoom: 1;  /* Fix for IE7 */
+      i {
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+      }
     }
   }
 }
@@ -109,12 +112,19 @@
 
 #new-board-form, #edit-board-form {
   .google-map {
-    height: 165px;
+    height: 190px;
   }
 }
 
 #board-embed {
   .modal-body li {
     margin-bottom: 10px;
+  }
+}
+
+.sidebar-form {
+  border: none !important;
+  p {
+    color: white;
   }
 }

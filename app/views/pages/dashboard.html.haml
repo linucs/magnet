@@ -22,8 +22,10 @@
                   -# .switch.switch-large= f.check_box :enabled, :class => 'submit-on-change'
               .icon
                 %i.ion{class: "ion-social-#{provider.name}"}
-              .small-box-footer
-                Connected
+              = link_to new_board_feed_path(:board, authentication_provider_id: provider.id, in_place: true), remote: true, class: "small-box-footer btn btn-lg" do
+                %span.hint--bottom{:'data-hint' => "Set up a content feed to fetch posts from #{provider.title}"}
+                  add contents
+                  %i.fa.fa-fw.fa-plus
           - else
             .small-box.bg-red
               .inner
@@ -32,9 +34,10 @@
                   cards from #{provider.title}
               .icon
                 %i.ion{class: "ion-social-#{provider.name}"}
-              = link_to user_omniauth_authorize_path(:provider => provider.name), class: 'small-box-footer', title: "To populate your boards, please link your #{provider.title} account" do
-                connect to #{provider.title}
-                %i.fa.fa-fw.fa-arrow-circle-right
+              = link_to user_omniauth_authorize_path(:provider => provider.name), class: 'small-box-footer btn btn-lg' do
+                %span.hint--bottom{:'data-hint' => "Link your #{provider.title} account to be able to fetch contents"}
+                  connect
+                  %i.fa.fa-fw.fa-arrow-circle-right
   - if linked_identities == 0
     .alert.alert-info
       %h4
@@ -43,5 +46,19 @@
       Click on the connect links above to create a trusted connection with your social accounts on Twitter, Facebook, instagram and Tumbrl.
       %br
       You'll then be able to create new content feeds, download posts and organize then in collections.
+
+  #new-feed-dialog.modal.fade(tabindex="-1" role="dialog" aria-labelledby="Manage this feed" aria-hidden="true")
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button(type="button" class="close" data-dismiss="modal")
+            %span(aria-hidden="true")
+              &times;
+            %span.sr-only
+              Close
+          %h4.modal-title
+            Create a new collection of contents
+        #new-feed-form.modal-body
+
 
   #latest-boards= render 'latest_boards'

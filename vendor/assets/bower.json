@@ -37,6 +37,7 @@
     "jspdf": "latest",
     "dropzone": "latest",
     "jquery-geocomplete": "latest",
-    "salvattore": "latest"
+    "salvattore": "latest",
+    "eonasdan-bootstrap-datetimepicker": "latest"
   }
 }

@@ -8,7 +8,7 @@
       .col-md-6= f.input :notify_exceptions
     .row
       .col-md-6= f.input :max_feeds
-      .col-md-6= f.input :expires_at, as: :date, html5: true, disabled: @user == current_user
+      .col-md-6= f.input :expires_at, as: :date_picker, data: { showClear: true, showClose: true, showTodayButton: true }, disabled: @user == current_user
     .row
       .col-md-4= f.input :confirmed_at, disabled: true, as: :string
       .col-md-4= f.input :sign_in_count, disabled: true
@@ -16,7 +16,7 @@
     .row
       .col-md-4= f.input :current_sign_in_at, disabled: true, as: :string
       .col-md-4= f.input :last_sign_in_at, disabled: true, as: :string
-      .col-md-4= f.input :locked_at, as: :date, html5: true
+      .col-md-4= f.input :locked_at, disabled: true, as: :string
     - if @user.feeds.any?
       %table.table(style="max-height: 200px; overflow-y: auto; display: inline-block")
         %caption User's content feeds summary

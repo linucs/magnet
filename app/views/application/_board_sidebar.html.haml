@@ -7,7 +7,17 @@
         %p Manage this collection
         %a(href="#")
           %i.fa.fa-fw.fa-arrow-circle-left
-          = link_to 'BACK', boards_path
+          %strong= link_to 'BACK', boards_path
+    .sidebar-form
+      %p.small
+        %strong ID/slug: #{@board.id}/#{@board.slug}
+        %br
+        created #{time_ago_in_words(@board.created_at || Time.now)} ago.
+        %br
+        last updated #{time_ago_in_words(@board.updated_at || Time.now)} ago.
+        - unless @board.pollable? && @board.enabled? && Sidekiq::is_running?
+          %br
+          %strong.text-danger contents are not being updated.
     %ul.sidebar-menu
       %li.header INSIGHTS
       %li.treeview
@@ -158,7 +168,6 @@
         %li.treeview
           = link_to '#' do
             #polling-label.label.label-info{style: @board.polling? ? nil : 'display: none'} Scanning, please wait...
-
       - else
         %li.treeview
           = link_to '#' do

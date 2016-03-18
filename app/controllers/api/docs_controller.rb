@@ -27,6 +27,20 @@ class API::DocsController < ApplicationController
     key :basePath, '/'
     key :consumes, ['application/vnd.magnet+json', 'application/json']
     key :produces, ['application/json']
+    security_definition :api_key do
+      key :type, :apiKey
+      key :name, :api_key
+      key :in, :query
+    end
+    security_definition :token do
+      key :type, :apiKey
+      key :name, :'X-API-KEY'
+      key :in, :header
+    end
+    security do
+      key :api_key, []
+      key :token, []
+    end
   end
 
   # A list of all classes that have swagger_* declarations.

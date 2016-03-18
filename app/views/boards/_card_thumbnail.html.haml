@@ -60,7 +60,7 @@
                 = image_tag '1x1.png', class: 'img-responsive', style: 'width: 100%', title: 'Click to open a detailed view of this card'
               - if card.is_video? || card.is_audio? || card.is_html?
                 .icon
-                  %i.fa.fa-5x.fa-play-circle-o{style: "#{card.thumbnail_image_url.present? ? nil : 'color: black'}"}
+                  %i.fa.fa-5x.fa-youtube-play{style: "#{card.thumbnail_image_url.present? ? nil : 'color: black'}"}
         - if card.content.present?
           %p
             = auto_link(card.content.try(:truncate, 140), html: { target: '_blank' } )

@@ -71,6 +71,8 @@ en:
         cover: 'Cover image'
         parent_id: 'Parent category'
       board:
+        start_polling_at: 'Start scanning'
+        end_polling_at: 'Stop scanning'
         category: 'Folder'
         users: Board managers
         max_tags_per_card: 'Maximum allowed tags'
@@ -128,6 +130,8 @@ en:
         profile_image_url: "User's profile image URL"
       campaign:
         board: Linked collection
+        start_displaying_at: 'Start displaying'
+        end_displaying_at: 'Stop displaying'
     include_blanks:
       board:
         polling_interval: 'No scheduled refresh'
@@ -156,6 +160,8 @@ en:
         parent_id: 'Make a subcategory, by setting its parent category'
       board:
         enabled: 'Decide whether this collection should be publicly visible or not'
+        start_polling_at: 'Start downloading contents at a given time'
+        end_polling_at: 'Stop downloading contents at a given time'
         include_text_only_cards: 'Also include contents without an attached image or video'
         moderated: 'Do not publish any content, unless explicitly aproved'
         discard_identical_images: 'Discard contents with identical images attached'
@@ -165,6 +171,7 @@ en:
         slug: 'Set the URL portion for this collection'
         label: 'Set a label for this collection, to categorize it'
         description: 'Fill in the full collection description'
+        full_street_address: 'The location where this event takes place (if any)'
         polling_interval: 'Decide how often contents should be refreshed?'
         host: Publish using this host name
         icon: 'Upload an image representing an icon for this collection'
@@ -257,6 +264,8 @@ en:
         notes: "Custom note appended to this card (editor's usage)"
       campaign:
         enabled: 'Decide whether this campaign should be active or not'
+        start_displaying_at: 'Start displaying ads at a given time'
+        end_displaying_at: 'Stop displaying ads at a given time'
         name: 'Give a name to this campaign'
         board: 'Show this campaign inside one of your collections'
         threshold: 'Set the percentage of page impressions on which this campaing should be displayed'

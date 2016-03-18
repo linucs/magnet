@@ -146,7 +146,11 @@ class BoardsController < ApplicationController
   end
 
   def board_params
-    params.require(:board).permit(:name, :slug, :row_order_position, :description, :icon, :remove_icon, :image, :remove_image, :cover, :remove_cover, :enabled, :label, :moderated, :include_text_only_cards, :discard_identical_images, :discard_obscene_contents, :polling_interval, :category_id, :trusted_users, :banned_users, :banned_words, :max_tags_per_card, :host, :full_street_address, :latitude, :longitude, user_ids: []).tap do |whitelisted|
+    params.require(:board).permit(:name, :slug, :row_order_position, :description, :icon, :remove_icon, :image, :remove_image,
+    :cover, :remove_cover, :enabled, :label, :moderated, :include_text_only_cards, :discard_identical_images,
+    :discard_obscene_contents, :polling_interval, :category_id, :trusted_users, :banned_users, :banned_words,
+    :max_tags_per_card, :host, :full_street_address, :latitude, :longitude, :start_polling_at, :end_polling_at,
+    user_ids: []).tap do |whitelisted|
       whitelisted[:options] = (@board.try(:options) || {}).to_h.merge(params[:board][:options] || {})
     end
   end

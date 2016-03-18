@@ -1,22 +1,29 @@
 GIT
+  remote: git://github.com/develon/date_picker.git
+  revision: 2144b7f6caf75f9df9f048074393018e3e9d8a45
+  specs:
+    date_picker (0.0.8)
+      rails (>= 4.0.3)
+
+GIT
+  remote: git://github.com/develon/redis-rb.git
+  revision: 64c05a4bddb46ae97fe73fd18455da85dad25d71
+  specs:
+    redis (3.2.1)
+
+GIT
+  remote: git://github.com/foxsoft/remotipart.git
+  revision: 80de04c699ec4a60cf7178b28851be9c7ad2d876
+  specs:
+    remotipart (1.2.1)
+
+GIT
   remote: git://github.com/toptal/chewy.git
   revision: 875fdf79acaa912bf4f1b557ff90d6a9e6c57c96
   specs:
     chewy (0.8.3)
       activesupport (>= 3.2)
       elasticsearch (>= 1.0.0)
-
-GIT
-  remote: git@github.com:develon/redis-rb.git
-  revision: 64c05a4bddb46ae97fe73fd18455da85dad25d71
-  specs:
-    redis (3.2.1)
-
-GIT
-  remote: https://github.com/foxsoft/remotipart.git
-  revision: 80de04c699ec4a60cf7178b28851be9c7ad2d876
-  specs:
-    remotipart (1.2.1)
 
 GEM
   remote: https://rubygems.org/
@@ -591,6 +598,7 @@ DEPENDENCIES
   clean_pagination (~> 1.0.0)
   coffee-rails (~> 4.0.0)
   crummy (~> 1.8.0)
+  date_picker!
   dav4rack (~> 0.3.0)
   devise (>= 3.5.4)
   devise_account_expireable (~> 0.0.2)

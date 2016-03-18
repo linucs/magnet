@@ -1,19 +1,20 @@
 %li.sortable-item{'data-item-id' => category.id}
-  %span.handle
+  %span.handle.hint--right(data-hint="Drag this handle to change items ordering in the list")
     %i.fa.fa-ellipsis-v
     %i.fa.fa-ellipsis-v
+  - unless category.enabled?
+    %span.hint--right(data-hint="This folder is offline")
+      %i.fa.fa-fw.fa-power-off.text-info
   %span.text
     = link_to edit_category_path(category), remote: true do
       %span.hint--right(data-hint="Let me change this folder's main options")
         = category.path.join('/')
     - if category.label.present?
       %span.label.label-default= category.label
-    - unless category.enabled?
-      %span.label.label-warning disabled
   .tools
     = link_to edit_category_path(category), remote: true do
       %span.hint--left(data-hint="Let me change this folder's main options")
-        %i.fa.fa-edit.text-muted
+        %i.fa.fa-edit
     = link_to category, :method => :delete, :data => { :confirm => 'Are you sure?' }, remote: true do
       %span.hint--left(data-hint="Remove this folder from the system")
         %i.fa.fa-trash
