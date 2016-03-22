@@ -211,7 +211,7 @@ class Card
   end
 
   def profile_image_url
-    custom_profile_image.present? ? custom_profile_image : self[:profile_image_url]
+    custom_profile_image.present? ? custom_profile_image.url : self[:profile_image_url]
   end
 
   def profile_url
