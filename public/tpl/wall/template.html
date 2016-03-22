@@ -17,7 +17,7 @@
       <div class="panel-heading" ng-show="card.from">
         <img ng-src="{{card.profile_image_url}}" class="img-profile">
         <span class="small">
-          <a ng-href="{{card.profile_url}}" target="_blank">{{card.from}}</a>
+          <a ng-href="{{card.profile_url || card.original_content_url}}" target="_blank">{{card.from}}</a>
         </span>
       </div>
       <div ng-show="card.content && card.content.length > 0" ng-switch="card.content_type" class="panel-body">
