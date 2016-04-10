@@ -43,7 +43,7 @@
             %li.treeview{id: "sidebar-feed-#{feed.id}"}
               = link_to board_path(@board, 'q[feed_id_eq]' => feed.id), remote: true do
                 %i.fa.fa-fw{class: "fa-#{feed.authentication_provider.name}"}
-                %span.hint--top{:'data-hint' => "Filter all the contents shown in the listing on the right, and show only #{feed.name}"}= feed.name
+                %span.hint--top{:'data-hint' => "Filter all the contents shown in the listing on the right, and show only #{feed.name}"}= feed.name.try(:truncate, 25)
           - AuthenticationProvider.all.each do |p|
             %li.treeview
               = link_to board_path(@board, 'q[provider_name_eq]' => p.name), remote: true do

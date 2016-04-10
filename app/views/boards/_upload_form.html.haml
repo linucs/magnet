@@ -1,11 +1,11 @@
 = simple_form_for :upload, url: upload_boards_path, remote: true do |f|
   .box-body
     %p
-      Create a batch of new collections, from a a tab-separated-values definition file
+      Create a batch of new collections, from a a tab-separated-values definition file.
+    %label
+      Upload a file
       \-
-      %a(href="/files/upload.tsv" target="_blank") download
-      a sample
-    %label Upload a file
+      %a(href="/files/upload.tsv" target="_blank") download a sample
     .row
       .col-md-12
         .fileinput.fileinput-new.input-group{"data-provides" => "fileinput"}
@@ -44,4 +44,5 @@
         $('#upload-results').modal();
 
   .box-footer
-    = f.button :submit, "Upload"
+    .pull-right= f.button :submit, 'Confirm'
+    .clearfix

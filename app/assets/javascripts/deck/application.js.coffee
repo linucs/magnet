@@ -92,7 +92,7 @@ angular
             )
           )
   ])
-  .controller('CardsCtrl', ['$scope', '$location', 'Board', ($scope, $location, Board) ->
+  .controller('CardsCtrl', ['$scope', '$location', '$templateCache', '$compile', 'Board', ($scope, $location, $templateCache, $compile, Board) ->
     $scope.$location = $location
     $scope.cards_url = "#{gon.api_host}/boards/#{gon.board_id}/cards.json"
     $scope.cards_url_params = {
@@ -113,12 +113,9 @@ angular
         @title ||= "<div></div>"
       afterShow: () ->
         scope = angular.element(@element).scope()
-        fbox = $('.fancybox-title')
-        angular.element(fbox).injector().invoke(['$compile', '$templateCache', ($compile, $templateCache) ->
-          template = $templateCache.get('share.html')
-          fbox.append $compile(angular.element(template))(scope)
-          scope.$digest()
-        ])
+        template = $templateCache.get('share.html')
+        fbox = $('.fancybox-title').append($compile(angular.element(template))(scope))
+        scope.$digest()
       helpers :
         title:
           type: 'inside'
