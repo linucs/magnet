@@ -81,7 +81,7 @@ angular
         success []
     { get }
   ])
-  .controller('CardsCtrl', ['$scope', '$location', ($scope, $location) ->
+  .controller('CardsCtrl', ['$scope', '$location', '$templateCache', '$compile', ($scope, $location, $templateCache, $compile) ->
     $scope.$location = $location
     $scope.board_id = gon.board_id
     $scope.board_name = gon.board_name
@@ -96,12 +96,9 @@ angular
         @title ||= "<div></div>"
       afterShow: () ->
         scope = angular.element(@element).scope()
-        fbox = $('.fancybox-title')
-        angular.element(fbox).injector().invoke(['$compile', '$templateCache', ($compile, $templateCache) ->
-          template = $templateCache.get('share.html')
-          fbox.append $compile(angular.element(template))(scope)
-          scope.$digest()
-        ])
+        template = $templateCache.get('share.html')
+        fbox = $('.fancybox-title').append($compile(angular.element(template))(scope))
+        scope.$digest()
       helpers :
         title:
           type: 'inside'

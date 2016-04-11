@@ -16,9 +16,10 @@
 $icon-font-path: "bootstrap-sass-official/assets/fonts/bootstrap/";
 @import 'font-awesome/css/font-awesome';
 
+@import 'bootstrap-sass-official/assets/stylesheets/bootstrap-sprockets';
+@import 'bootstrap-sass-official/assets/stylesheets/bootstrap';
+
 .magnet-container {
-	@import 'bootstrap-sass-official/assets/stylesheets/bootstrap-sprockets';
-	@import 'bootstrap-sass-official/assets/stylesheets/bootstrap';
 	@import 'RRSSB/css/rrssb';
 	@import 'angular-rrssb/dist/angular-rrssb';
 	@import 'angular-social/angular-social';
@@ -36,6 +37,7 @@ $icon-font-path: "bootstrap-sass-official/assets/fonts/bootstrap/";
 	}
 
 	.card {
+		width: 100%;
 		padding: 5px;
 	}
 

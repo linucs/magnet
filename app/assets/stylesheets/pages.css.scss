@@ -50,6 +50,8 @@ body.skin-black .wrapper {
 
 .sidebar-menu .treeview-menu > li > a > span {
   white-space: normal !important;
+  word-break: break-word;
+  padding-right: 40px;
 }
 
 .todo-list > li .tools .fa {

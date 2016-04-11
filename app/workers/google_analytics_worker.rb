@@ -1,5 +1,6 @@
 class GoogleAnalyticsWorker
   include Sidekiq::Worker
+  sidekiq_options retry: 5
 
   def perform(code, options = {})
     defaults = {
