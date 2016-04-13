@@ -203,7 +203,7 @@ en:
           timeline_custom_stylesheet_url: Use a standard theme or set a custom stylesheet URL
           timeline_custom_javascript_url: Add custom javascript
           timeline_custom_margin_top: Leave space at the top
-          timeline_custom_header_url: Add a customized header
+          timeline_custom_header_url: 'Add a customized header (<a href="/tpl/timeline/header.html" target="_blank">sample</a>)'
           timeline_custom_template_url: 'Use a customized card template (<a href="/tpl/timeline/template.html" target="_blank">sample</a>)'
           timeline_custom_footer_url: Add a customized footer
           timeline_font_family: Set a customized font family to use
@@ -214,7 +214,7 @@ en:
           deck_custom_stylesheet_url: Use a standard theme or set a custom stylesheet URL
           deck_custom_javascript_url: Add custom javascript
           deck_custom_margin_top: Leave space at the top
-          deck_custom_header_url: Add a customized header
+          deck_custom_header_url: 'Add a customized header (<a href="/tpl/deck/header.html" target="_blank">sample</a>)'
           deck_custom_template_url: 'Use a customized card template (<a href="/tpl/deck/template.html" target="_blank">sample</a>)'
           deck_custom_footer_url: Add a customized
           deck_font_family: Set a customized font family to use

@@ -2,7 +2,7 @@ class CampaignsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_campaign, only: [:edit, :update, :destroy]
 
-  add_crumb('Advertising campaigns') { |instance| instance.send :campaigns_path }
+  add_crumb('Adv campaigns') { |instance| instance.send :campaigns_path }
 
   respond_to :js
 
@@ -26,6 +26,7 @@ class CampaignsController < ApplicationController
 
   def create
     @campaign = Campaign.new(campaign_params)
+    @campaign.team_id = current_user.team_id
     authorize! :create, @campaign
     @campaign.save
     respond_with(@campaign) do |format|
@@ -54,11 +55,11 @@ class CampaignsController < ApplicationController
   private
 
   def load_campaigns
-    @campaigns = Campaign.rank(:row_order).page(params[:page])
+    @campaigns = Campaign.of_teammates(current_user).rank(:row_order).page(params[:page])
   end
 
   def set_campaign
-    @campaign = Campaign.find(params[:id])
+    @campaign = Campaign.of_teammates(current_user).find(params[:id])
   end
 
   def campaign_params

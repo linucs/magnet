@@ -1,0 +1,216 @@
+- case action_name
+- when 'index'
+  :javascript
+    $(function() {
+      tour = new Tour({
+        duration: 10000,
+        steps: [
+          {
+            element: "#tutorial-btn",
+            title: "Welcome!",
+            content: "This is the usage tutorial, which will guide you in performing the most basic operations on your social collections.<br><br>At any time, click here to open this tutorial again.",
+            placement: 'bottom'
+          },
+          {
+            element: ".notifications-menu",
+            title: "The notification menu",
+            content: "Check out notifications in this menu to get datails about errors and/or unexpected exceptions being raised when downloading contents.<br><br>Click to open the menu and choose the relevant message to get more details about the selected notification.",
+            placement: "left"
+          },
+          {
+            element: ".user-menu",
+            title: "Your profile settings",
+            content: "Click here to access your profile settings page, or to log-out from the system.",
+            placement: "left"
+          },
+          {
+            element: "#facebook-info-box",
+            title: "Connect to Facebook",
+            content: "Do you want to create collections containing posts from Facebook?<br><br>Click here to connect your Facebook social account and let the system download contents on your behalf.",
+            placement: "bottom"
+          },
+          {
+            element: "#twitter-info-box",
+            title: "Connect to Twitter",
+            content: "Do you want to create collections containing tweets?<br><br>Click here to connect your Twitter social account and let the system download contents on your behalf.",
+            placement: "bottom"
+          },
+          {
+            element: "#instagram-info-box",
+            title: "Connect to Instagram",
+            content: "Do you want to create collections containing posts from Instagram?<br><br>Click here to connect your Instagram social account and let the system download contents on your behalf.",
+            placement: "bottom"
+          },
+          {
+            element: "#tumblr-info-box",
+            title: "Connect to Tumblr",
+            content: "Do you want to create collections containing posts from Tumblr?<br><br>Click here to connect your Tumblr social account and let the system download contents on your behalf.",
+            placement: "bottom"
+          },
+          {
+            element: "#boards",
+            title: "Collections listing",
+            content: "Once created, this is where all your collections are listed.<br><br>Click on the icons at the end of each row, to perform management actions on collection (change settings, moderation options, sharing, or delete it)",
+            placement: "top"
+          },
+          {
+            element: "#category-filters",
+            title: "Collections grouping",
+            content: "Collections can be groupd into folders to categorize them.<br><br>Click on the items of this list to display only collections belonging to a certain folder.",
+            placement: "top"
+          },
+          {
+            element: "#status-filters",
+            title: "Collections filtering",
+            content: "Click on the items of this list to display only disabled or moderated collections.",
+            placement: "top"
+          },
+          {
+            element: "[href='/boards/new']",
+            title: "Create a new social collection",
+            content: "Click here to create a collection of social contents from Facebook, Twitter, Instagram or Tumblr (as choosen in the previous steps).<br><br>Fill in the form popping out; confirm by choosing 'Create Collection' at the bottom of the dialog.",
+            placement: "bottom"
+          },
+          {
+            element: ".sidebar [href='/boards']",
+            title: "Social collections page",
+            content: "At any time, click here to acces the social collections management page.",
+            placement: "bottom"
+          }
+        ]
+      }).init();
+      tour.start();
+
+      $("#tutorial-btn").on("click", function(e) {
+        tour.restart();
+        e.preventDefault();
+      });
+    });
+- else
+  :javascript
+    $(function() {
+      tour = new Tour({
+        duration: 10000,
+        steps: [
+          {
+            element: "#new-feed",
+            title: "Add content feeds to this collection",
+            content: "Add contents to your collection by creating new social feeds. Each feed represents an open channel to the social platforms, and tells the system how to download contents.<br><br>Click here and select one of the icons at the bottom of the list, to create a new feed pulling contents from Facebook, Twitter, Instagram, Tumblr os RSS feeds.",
+            placement: "bottom",
+            onShow: function(tour) {
+              $("#cards-tab").tab('show');
+            }
+          },
+          {
+            element: "[href='#cards']",
+            title: "Contents pane",
+            content: "This is where your downloaded contents are displayed and manageable.",
+            onShow: function(tour) {
+              $("#cards-tab").tab('show');
+            }
+          },
+          {
+            element: "[href='#content-feeds']",
+            title: "Content feeds pane",
+            content: "This is where your can manage the content feeds (open social channels) for your collection.<br><br>Each feed tells the system how to download contents on your behalf. Click on each feed to change its settings.",
+            onShow: function(tour) {
+              $("#content-feeds-tab").tab('show');
+            }
+          },
+          {
+            element: "[href='#board-analytics']",
+            title: "Analytics pane",
+            content: "This is where your can view some statistics about your collection.",
+            onShow: function(tour) {
+              $("#analytics-tab").tab('show');
+            }
+          },
+          {
+            element: "[href='#tagcloud']",
+            title: "Tag cloud pane",
+            content: "This is where your can view how hashtags are used among all the contents in the collection.",
+            placement: "top",
+            onShow: function(tour) {
+              $("#tagcloud-tab").tab('show');
+            }
+          },
+          {
+            element: "#deck-btn",
+            title: "Display your collection as a deck of cards",
+            content: "Once contents are downloaded and your collection is populated, click here to open a new page and display the contents with the deck page layout, suitable for being viewed from a desktop browser.",
+            placement: "left",
+            onShow: function(tour) {
+              $("#cards-tab").tab('show');
+            }
+          },
+          {
+            element: "#timeline-btn",
+            title: "Display your collection as a timeline",
+            content: "Once contents are downloaded and your collection is populated, click here to open a new page and display the contents with the timeline page layout, suitable for being viewed from a mobile browser.",
+            placement: "left",
+            onShow: function(tour) {
+              $("#cards-tab").tab('show');
+            }
+          },
+          {
+            element: "#wall-btn",
+            title: "Display your collection in a megascreen",
+            content: "Once contents are downloaded and your collection is populated, click here to open a new page and display the contents as a slideshow, suitable for being viewed in a LCD wall or other megascreens during events.",
+            placement: "left",
+            onShow: function(tour) {
+              $("#cards-tab").tab('show');
+            }
+          },
+          {
+            element: "#chromecast-btn",
+            title: "Stream your collection to a Chromecast device",
+            content: "Once contents are downloaded and your collection is populated, click here to start streming it to a Chromecast device.<br><br>Contents will be displayed as a slideshow, suitable for being viewed in a LCD wall or other megascreens during events.",
+            placement: "left",
+            onShow: function(tour) {
+              $("#cards-tab").tab('show');
+            }
+          },
+          {
+            element: "#sidebar-insights",
+            title: "Filter contents on your collection",
+            content: "Once contents are downloaded and your collection is populated, click on the menu items in this section to filter displayed contents and identifying interesting stuff."
+          },
+          {
+            element: "#sidebar-moderation",
+            title: "Moderate contents",
+            content: "Click on the menu items in this section to filter contents being blocked or awaiting explicit approval before going online.<br><br>Content moderation can be shared among every user beiong able to manage the collection."
+          },
+          {
+            element: "#sidebar-settings-layout",
+            title: "Customize display layouts",
+            content: "Click on the menu items in this section to change how the deck, timeline or wall layouts are rendered and displayed (fonts, spacings, colors, backgrounds, themes etc.)."
+          },
+          {
+            element: "#sidebar-settings-configuration",
+            title: "Change collection settings",
+            content: "Click on the menu items in this section to change the collection settings, all the automatic filtering options, or to share this board management capabilities among other users in the system."
+          },
+          {
+            element: "#sidebar-settings-wall",
+            title: "Control the wall display",
+            content: "Like a TV remote, you can click on the menu items in this section to start, stop, pause and rewind the slideshow running in the wall display layout, both when using a PC or when streaming contents to a Chromecast."
+          },
+          {
+            element: "#sidebar-settings-assets",
+            title: "Upload custom contents to the system",
+            content: "Click here to learn how to upload contents to the system and reference them in your custom Javascripts and/or CSS files."
+          },
+          {
+            element: ".sidebar [href='/boards']",
+            title: "Social collections page",
+            content: "At any time, click here to acces the social collections management page.",
+            placement: "bottom"
+          }
+        ]
+      }).init();
+
+      $("#tutorial-btn").on("click", function(e) {
+        tour.restart();
+        e.preventDefault();
+      });
+    });

@@ -1,6 +1,8 @@
 %section.content-header
   %h1
     Content folders
+    - if current_user.team
+      %small as a member of #{current_user.team.name} team
   %p
     Organize content collections, by grouping them in folders.
   = render_crumbs

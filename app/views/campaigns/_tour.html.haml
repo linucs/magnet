@@ -1,0 +1,31 @@
+:javascript
+  $(function() {
+    tour = new Tour({
+      duration: 10000,
+      steps: [
+        {
+          element: "#campaigns",
+          title: "Campigns listing",
+          content: "Adv campaing let you mix social contents and customized advertisings in the context of a social collection.<br><br>This is where all your adv campaigns are listed. Click on the icons at the end of each row, to manage the folder.",
+          placement: "top"
+        },
+        {
+          element: "[href='/campaigns/new']",
+          title: "Create a new campaign",
+          content: "Click here to create a new advertising campaign.<br><br>Fill in the form popping out; confirm by choosing 'Create Folder' at the bottom of the dialog.",
+          placement: "bottom"
+        },
+        {
+          element: ".sidebar [href='/campaigns']",
+          title: "Adv campaigns page",
+          content: "At any time, click here to acces the adv campaigns management page.",
+          placement: "bottom"
+        }
+      ]
+    }).init();
+
+    $("#tutorial-btn").on("click", function(e) {
+      tour.restart();
+      e.preventDefault();
+    });
+  });

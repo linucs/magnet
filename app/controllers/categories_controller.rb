@@ -26,6 +26,7 @@ class CategoriesController < ApplicationController
 
   def create
     @category = Category.new(category_params)
+    @category.team_id = current_user.team_id
     authorize! :create, @category
     @category.save
     respond_with(@category) do |format|
@@ -54,11 +55,11 @@ class CategoriesController < ApplicationController
   private
 
   def load_categories
-    @categories = Category.rank(:row_order).page(params[:page])
+    @categories = Category.of_teammates(current_user).rank(:row_order).page(params[:page])
   end
 
   def set_category
-    @category = Category.friendly.find(params[:id])
+    @category = Category.of_teammates(current_user).friendly.find(params[:id])
   end
 
   def category_params

@@ -19,7 +19,7 @@
 //= require angular/angular
 //= require websocket_rails/main
 //= require moment/min/moment.min
-//= require bootstrap-sass-official/assets/javascripts/bootstrap-sprockets
+//= require bootstrap-sass/assets/javascripts/bootstrap-sprockets
 //= require bootstrap-hover-dropdown/bootstrap-hover-dropdown.min
 //= require bootstrap-rating-input/build/bootstrap-rating-input.min
 //= require bootstrap-colorpicker/js/bootstrap-colorpicker
@@ -34,6 +34,7 @@
 //= require jquery-geocomplete/jquery.geocomplete
 //= require salvattore/dist/salvattore
 //= require admin-lte/dist/js/app
+//= require bootstrap-tour/build/js/bootstrap-tour
 //= require boards
 //= require categories
 //= require feeds

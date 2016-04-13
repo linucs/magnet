@@ -65,7 +65,7 @@ class API::CardsController < API::BaseController
   def index
     options = { users: { id: current_user } }
     @cards = @ads = []
-    @board = params[:category_id].present? ? Category.enabled.friendly.find(params[:category_id]).boards : Board
+    @board = params[:category_id].present? ? Category.of_teammates(current_user).enabled.friendly.find(params[:category_id]).boards : Board
     @board = @board.includes(:users).enabled.where(options).friendly.find(params[:board_id])
     cards = @board.cards.online
     cards = if params[:latitude].present? && params[:longitude].present?

@@ -1,6 +1,8 @@
 %section.content-header
   %h1
-    Advertising campaigns
+    Your advertising campaigns
+    - if current_user.team
+      %small as a member of #{current_user.team.name} team
   %p
     Advertising campaings let you inject customized ads, banners and CTAs,
     inside the contents flow of a collection.

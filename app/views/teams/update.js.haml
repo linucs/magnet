@@ -1,0 +1,4 @@
+$('#teams').html('#{j render 'teams_listing' }');
+$('#edit-team-form').html('#{j render 'form' }');
+- if @team.valid?
+  $('#edit-team-dialog').modal('hide');

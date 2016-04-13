@@ -1,6 +1,9 @@
 %section.content-header
   %h1
     Your profile
+    - if current_user.team
+      %small as a member of #{current_user.team.name} team
+
   = render_crumbs
 
 %section.content

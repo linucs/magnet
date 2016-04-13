@@ -3,6 +3,8 @@ require 'file_size_validator'
 class Category < ActiveRecord::Base
   PER_PAGE = 12
 
+  belongs_to :team
+
   include Swagger::Blocks
 
   swagger_schema :Category do
@@ -63,7 +65,7 @@ class Category < ActiveRecord::Base
   end
 
   include RankedModel
-  ranks :row_order
+  ranks :row_order, with_same: :team_id
 
   extend FriendlyId
   friendly_id :name, use: :slugged
@@ -80,11 +82,16 @@ class Category < ActiveRecord::Base
   validates :image, file_size: { maximum: 0.5.megabytes.to_i }
 
   scope :enabled, -> { where(enabled: true) }
+  scope :of_teammates, ->(u) { where(team_id: u.team_id) }
 
-  def self.ensure_tree(path, separator = '/')
+  def self.ensure_tree(user, path, separator = '/')
     path = path.to_s.split(separator) unless path.is_a? Array
-    ancestor_ids = path.size > 1 ? ensure_tree(path[0..-2]).path_ids : nil
-    Category.where(name: path[-1], ancestry: ancestor_ids.try(:join, '/')).first_or_create if path.size > 0
+    ancestor_ids = path.size > 1 ? ensure_tree(user, path[0..-2]).path_ids : nil
+    Category.of_teammates(user).where(name: path[-1], ancestry: ancestor_ids.try(:join, '/')).first_or_create if path.size > 0
+  end
+
+  def title
+    path.join('/')    
   end
 
   def to_s

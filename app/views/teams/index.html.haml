@@ -1,0 +1,44 @@
+%section.content-header
+  %h1
+    Platform user teams
+  %p
+    Organize platform users, grouping them in teams.
+  = render_crumbs
+
+%section.content
+  .box.box-primary
+    .box-header
+      %h3.box-title Teams listing
+      .box-tools.pull-right
+        .has-feedback
+          = form_for :q, url: teams_path, remote: true, :method => :get do |f|
+            = f.text_field :name_cont, class: 'form-control input-sm', placeholder: 'Search...'
+            %span.fa.fa-search.form-control-feedback
+    #teams
+      = render 'teams_listing'
+
+#new-team-dialog.modal.fade(tabindex="-1" role="dialog" aria-labelledby="New team" aria-hidden="true")
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button(type="button" class="close" data-dismiss="modal")
+          %span(aria-hidden="true")
+            &times;
+          %span.sr-only
+            Close
+        %h4.modal-title
+          Add a new team
+      #new-team-form
+
+#edit-team-dialog.modal.fade(tabindex="-1" role="dialog" aria-labelledby="Manage this team" aria-hidden="true")
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button(type="button" class="close" data-dismiss="modal")
+          %span(aria-hidden="true")
+            &times;
+          %span.sr-only
+            Close
+        %h4.modal-title
+          Manage this team
+      #edit-team-form

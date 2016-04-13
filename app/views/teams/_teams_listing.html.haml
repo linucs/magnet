@@ -1,0 +1,9 @@
+.box-body
+  %ul.todo-list
+    = render(@teams) || alert('No teams to show.')
+.box-footer
+  .pull-right
+    %span.page_entries_info= page_entries_info @teams
+    = paginate @teams, params: {controller: 'teams', action: 'index'}, remote: true
+  .clearfix.margin-bottom
+  .text-center= link_to 'Add a team', new_team_path, remote: true, class: 'btn btn-primary'

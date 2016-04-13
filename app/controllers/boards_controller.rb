@@ -2,7 +2,7 @@ class BoardsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_board, only: [:show, :edit, :update, :destroy, :poll, :users, :filters, :options, :analytics, :charts, :tag_cloud, :wall]
 
-  add_crumb('My collections') { |instance| instance.send :boards_path }
+  add_crumb('Social collections') { |instance| instance.send :boards_path }
 
   helper_method :editing_in_place?
 

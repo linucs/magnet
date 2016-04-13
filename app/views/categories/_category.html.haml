@@ -8,7 +8,7 @@
   %span.text
     = link_to edit_category_path(category), remote: true do
       %span.hint--right(data-hint="Let me change this folder's main options")
-        = category.path.join('/')
+        = category.title
     - if category.label.present?
       %span.label.label-default= category.label
   .tools

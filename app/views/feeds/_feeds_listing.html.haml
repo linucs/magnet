@@ -1,23 +1,20 @@
 .box-body
   %ul.todo-list
-    = render(@feeds) || alert('This board has no social feeds, yet.')
+    = render(@feeds) || alert('No social feeds to show for this collection.')
 .box-footer
   .pull-right
     %span.page_entries_info= page_entries_info @feeds
     = paginate @feeds, params: {controller: 'feeds', action: 'index', board_id: @board.id}, remote: true
-  .clearfix
-  %br
+  .clearfix.margin-bottom
   - providers = AuthenticationProvider.all
-  %ul.list-inline.text-center
-    - providers.each_with_index do |p, i|
-      %li
+  .text-center
+    .btn-group
+      - providers.each_with_index do |p, i|
         - if !p.needs_authentication? || current_user.is_connected_to?(p.name)
-          = link_to new_board_feed_path(@board, authentication_provider_id: p.id), remote: true, class: "btn btn-social btn-#{p.name}" do
-            %i.fa.fa-fw{class: "fa-#{p.name}"}
-            add contents
-            %i.fa.fa-fw.fa-plus
+          %span.hint--bottom{:'data-hint' => "Click to setup a new content feed from #{p.title} "}
+            = link_to new_board_feed_path(@board, authentication_provider_id: p.id), remote: true, class: "btn btn-social-icon btn-#{p.name}" do
+              %i.fa.fa-fw{class: "fa-#{p.name}"}
         - else
-          = link_to user_omniauth_authorize_path(:provider => p.name), class: "btn btn-social btn-danger" do
-            %i.fa.fa-fw{class: "fa-#{p.name}"}
-            connect
-            %i.fa.fa-fw.fa-arrow-circle-right
+          %span.hint--bottom{:'data-hint' => "Click to link your #{p.title} account before setting up a new content feed"}
+            = link_to user_omniauth_authorize_path(:provider => p.name), class: "btn btn-social-icon btn-#{p.name}" do
+              %i.fa.fa-fw{class: "fa-#{p.name}"}

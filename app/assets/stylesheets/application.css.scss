@@ -17,10 +17,10 @@
  *= require_self
  */
 
-$icon-font-path: "bootstrap-sass-official/assets/fonts/bootstrap/";
+$icon-font-path: "bootstrap-sass/assets/fonts/bootstrap/";
 
-@import 'bootstrap-sass-official/assets/stylesheets/bootstrap-sprockets';
-@import 'bootstrap-sass-official/assets/stylesheets/bootstrap';
+@import 'bootstrap-sass/assets/stylesheets/bootstrap-sprockets';
+@import 'bootstrap-sass/assets/stylesheets/bootstrap';
 @import 'jasny-bootstrap/dist/css/jasny-bootstrap';
 @import 'admin-lte/dist/css/AdminLTE';
 @import 'admin-lte/dist/css/skins/_all-skins';
@@ -35,6 +35,7 @@ $icon-font-path: "bootstrap-sass-official/assets/fonts/bootstrap/";
 @import 'outdated-browser/outdatedbrowser/outdatedbrowser';
 @import 'dropzone/dist/dropzone';
 @import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker';
+@import 'bootstrap-tour/build/css/bootstrap-tour';
 
 html, body {
   height: 100%;
@@ -74,4 +75,8 @@ body:not(.pace-done) > :not(.pace),body:not(.pace-done):before,body:not(.pace-do
 	-moz-hyphens: auto;
 	-webkit-hyphens: auto;
 	hyphens: auto;
+}
+
+.btn-rss {
+  @include button-variant(#FFFFFF,#FFAD5B, #FF6B17);
 }

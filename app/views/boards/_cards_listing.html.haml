@@ -65,5 +65,5 @@
     = paginate @cards, params: {controller: 'boards', action: 'show', id: @board.id}, remote: true
   - unless @cards.any?
     %p.text-center
-      %a.btn.btn-primary(onclick="(function() {$('#content-feeds-tab').tab('show');})()" aria-controls="home") Add contents to this collection
+      %a#new-feed.btn.btn-primary.btn-lg(onclick="(function() {$('#content-feeds-tab').tab('show');})()" aria-controls="home") Add contents to this collection
   .clearfix

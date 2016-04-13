@@ -1,0 +1,31 @@
+.row
+  - linked_identities = 0
+  - AuthenticationProvider.all.each do |provider|
+    - if provider.needs_authentication?
+      .col-md-3.col-xs-6{id: "#{provider.name}-info-box"}
+        - if current_user.is_connected_to?(provider.name)
+          - linked_identities += 1
+          .small-box{class: "btn-#{provider.name}"}
+            .inner
+              %h3
+                = current_user.cards_count(provider.name)
+              %p
+                cards from #{provider.title}
+              -# = simple_form_for identity, :remote => true do |f|
+                -# .switch.switch-large= f.check_box :enabled, :class => 'submit-on-change'
+            .icon
+              %i.ion{class: "ion-social-#{provider.name}"}
+            .small-box-footer
+              connected
+        - else
+          = link_to user_omniauth_authorize_path(:provider => provider.name), class: 'small-box bg-red' do
+            .inner
+              %h3= current_user.cards_count(provider.name)
+              %p
+                cards from #{provider.title}
+            .icon
+              %i.ion{class: "ion-social-#{provider.name}"}
+            .small-box-footer
+              %span.hint--bottom{:'data-hint' => "Link your #{provider.title} account to be able to fetch contents"}
+                click to connect
+                %i.fa.fa-fw.fa-arrow-circle-right

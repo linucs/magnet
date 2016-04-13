@@ -1,0 +1,15 @@
+%li
+  - unless team.enabled?
+    %span.hint--right(data-hint="This team is disabled")
+      %i.fa.fa-fw.fa-power-off.text-info
+  %span.text
+    = link_to edit_team_path(team), remote: true do
+      %span.hint--right(data-hint="Let me change this team's main options")
+        = team.name
+  .tools
+    = link_to edit_team_path(team), remote: true do
+      %span.hint--left(data-hint="Let me change this team's main options")
+        %i.fa.fa-edit
+    = link_to team, :method => :delete, :data => { :confirm => 'Are you sure?' }, remote: true do
+      %span.hint--left(data-hint="Remove this team from the system")
+        %i.fa.fa-trash
