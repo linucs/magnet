@@ -110,6 +110,42 @@
             }
           },
           {
+            element: "#reload-cards",
+            title: "Reload the collection",
+            content: "At any time, click here to reload the refresh the list of contents in your collection.",
+            placement: "bottom",
+            onShow: function(tour) {
+              $("#cards-tab").tab('show');
+            }
+          },
+          {
+            element: "#toggle-selection",
+            title: "Select or un-select multiple contents",
+            content: "Contents listed below can be selected by clicking on the checkbox at the upper-left corner of each card. Click here to toggle your selection.",
+            placement: "bottom",
+            onShow: function(tour) {
+              $("#cards-tab").tab('show');
+            }
+          },
+          {
+            element: "#bulk-actions",
+            title: "Perform actions on one or more contents",
+            content: "Once one or more contents are selected, click on items in this menu to refresh (download), publish, un-publish or delete the selcted cards.",
+            placement: "bottom",
+            onShow: function(tour) {
+              $("#cards-tab").tab('show');
+            }
+          },
+          {
+            element: "#add-card",
+            title: "Add a new card",
+            content: "Click here to add a new, customized content to the collection.<br><br>Fill in the form popping out; confirm by choosing 'Create Card' at the bottom of the dialog.",
+            placement: "left",
+            onShow: function(tour) {
+              $("#cards-tab").tab('show');
+            }
+          },
+          {
             element: "[href='#content-feeds']",
             title: "Content feeds pane",
             content: "This is where your can manage the content feeds (open social channels) for your collection.<br><br>Each feed tells the system how to download contents on your behalf. Click on each feed to change its settings.",
