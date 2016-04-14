@@ -2,7 +2,7 @@
   %section.sidebar
     .user-panel
       .pull-left.image
-        = image_tag @board.banner_url || '1x1.png'
+        = image_tag @board.icon_url || @board.banner_url || '1x1.png'
       .pull-left.info
         %p Manage this collection
         %a(href="#")
