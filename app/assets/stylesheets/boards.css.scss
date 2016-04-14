@@ -128,3 +128,22 @@
     color: white;
   }
 }
+
+#boards .products-list > li {
+  .handle {
+    float: left;
+    line-height: 50px;
+    display: inline-block;
+    cursor: move;
+    margin: 0 5px;
+  }
+  .product-img {
+    margin-left: 10px;
+  }
+  .product-info {
+    margin-left: 90px;
+    .product-title {
+      margin-right: 15px;
+    }
+  }
+}

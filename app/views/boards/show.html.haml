@@ -1,8 +1,9 @@
 %section.content-header
   %h1
     #{@board.name}
-    %small
-      = @board.description.try(:truncate, 50)
+  %small
+    created #{time_ago_in_words(@board.created_at || Time.now)} ago,
+    last updated #{time_ago_in_words(@board.updated_at || Time.now)} ago.
   = render_crumbs
 
 %section.content

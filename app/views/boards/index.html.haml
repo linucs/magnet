@@ -36,8 +36,12 @@
                 %span.hint--top(data-hint="View only disabled collections (not publicly available)") Disabled collections
             %li
               = link_to boards_path('q[moderated_eq]' => true), remote: true do
-                %i.fa.fa-circle-o.text-yellow
+                %i.fa.fa-circle-o.text-grey
                 %span.hint--top(data-hint="View only moderated collections (contents in these collections must be approved before going online)") Moderated collections
+            %li
+              = link_to boards_path('q[enabled_eq]' => true), remote: true do
+                %i.fa.fa-circle-o.text-blue
+                %span.hint--top(data-hint="View only enabled collections") Enabled collections
             %li
               = link_to boards_path do
                 %span.hint--top(data-hint="Reset any filtering setting above") Reset filters

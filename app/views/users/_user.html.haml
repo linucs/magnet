@@ -15,8 +15,8 @@
   .tools
     = link_to edit_user_path(user), remote: true do
       %span.hint--left(data-hint="Let me change this users's settings")
-        %i.fa.fa-edit
+        %i.fa.fa-pencil
     - unless user == current_user
       = link_to user, :method => :delete, :data => { :confirm => 'Are you sure?' }, remote: true do
         %span.hint--left(data-hint="Remove this user from the system")
-          %i.fa.fa-trash
+          %i.fa.fa-trash-o
