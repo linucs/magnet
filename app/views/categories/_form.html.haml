@@ -12,7 +12,7 @@
     .row
       - if @category.persisted?
         .col-md-6= f.input :slug
-      .col-md-6= f.input :parent_id, as: :select, collection: Category.all, include_blank: 'this is a root category'
+      .col-md-6= f.input :parent_id, as: :select, collection: Category.of_teammates(current_user).select { |c| !c.eql? @category }, label_method: :title, include_blank: 'this is a root category'
     - unless Figaro.env.disable_uploads.to_b
       .row
         .col-md-6

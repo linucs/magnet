@@ -1,0 +1,31 @@
+:javascript
+  $(function() {
+    tour = new Tour({
+      duration: 10000,
+      steps: [
+        {
+          element: "#categories",
+          title: "Folders listing",
+          content: "Folders let you assign categories social collections.<br><br>This is where all your folders are listed. Click on the icons at the end of each row, to manage the folder.",
+          placement: "top"
+        },
+        {
+          element: "[href='/categories/new']",
+          title: "Create a new folder",
+          content: "Click here to create a new folder to group your collections.<br><br>Fill in the form popping out; confirm by choosing 'Create Folder' at the bottom of the dialog.",
+          placement: "bottom"
+        },
+        {
+          element: ".sidebar [href='/categories']",
+          title: "Folders page",
+          content: "At any time, click here to acces the folders management page.",
+          placement: "bottom"
+        }
+      ]
+    }).init();
+
+    $("#tutorial-btn").on("click", function(e) {
+      tour.restart();
+      e.preventDefault();
+    });
+  });

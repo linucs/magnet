@@ -30,3 +30,4 @@
       = javascript_include_tag 'application'
       = javascript_include_tag 'http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false'
       = yield(:javascripts) if content_for?(:javascripts)
+      = render 'tour'

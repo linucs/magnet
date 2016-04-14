@@ -6,20 +6,10 @@
       .pull-left.info
         %p Manage this collection
         %a(href="#")
-          %i.fa.fa-fw.fa-arrow-circle-left
-          %strong= link_to 'BACK', boards_path
-    .sidebar-form
-      %p.small
-        %strong ID/slug: #{@board.id}/#{@board.slug}
-        %br
-        created #{time_ago_in_words(@board.created_at || Time.now)} ago.
-        %br
-        last updated #{time_ago_in_words(@board.updated_at || Time.now)} ago.
-        - unless @board.pollable? && @board.enabled? && Sidekiq::is_running?
-          %br
-          %strong.text-danger contents are not being updated.
+          %i.fa.fa-arrow-left
+          = link_to 'BACK', boards_path
     %ul.sidebar-menu
-      %li.header INSIGHTS
+      %li#sidebar-insights.header INSIGHTS
       %li.treeview
         = link_to board_path(@board, :order => 'most_liked'), remote: true do
           %i.fa.fa-heart.fa-fw
@@ -49,7 +39,11 @@
               = link_to board_path(@board, 'q[provider_name_eq]' => p.name), remote: true do
                 %i.fa.fa-fw{class: "fa-#{p.name}"}
                 %span.hint--top{:'data-hint' => "Filter all the contents shown in the listing on the right, and show only contents coming from #{p.title}"} Only from #{p.title}
-      %li.header CONTENT MODERATION
+          %li.treeview
+            = link_to board_path(@board) do
+              %i.fa.fa-remove.fa-fw
+              %span.hint--top(data-hint="Remove all filtering options, and show all the cards belonging to this collection") Reset filters
+      %li.header#sidebar-moderation CONTENT MODERATION
       %li.treeview
         = link_to board_path(@board, 'q[online_eq]' => true), remote: true do
           %i.fa.fa-globe.fa-fw
@@ -79,7 +73,7 @@
               %i.fa.fa-remove.fa-fw
               %span.hint--top(data-hint="Remove all filtering options, and show all the cards belonging to this collection") Reset filters
       %li.header SETTINGS
-      %li.treeview
+      %li.treeview#sidebar-settings-layout
         %a(href="#")
           %i.fa.fa-fw.fa-th-large
           %i.fa.fa-angle-left.pull-right
@@ -102,7 +96,7 @@
             %a(href="javascript:void(0)" onclick="$('#board-embed').modal('show');")
               %i.fa.fa-share-square-o
               %span.hint--top(data-hint="Learn how to embed your collection inside external web sites") External embedding
-      %li.treeview
+      %li.treeview#sidebar-settings-configuration
         %a(href="#")
           %i.fa.fa-fw.fa-wrench
           %i.fa.fa-angle-left.pull-right
@@ -122,7 +116,7 @@
               = link_to users_board_path(@board, in_place: true), remote: true do
                 %i.fa.fa-user-md.fa-fw
                 %span.hint--top(data-hint="Let me share this collection management capabilities with other users in the system") Share with others
-      %li.treeview
+      %li.treeview#sidebar-settings-wall
         %a(href="#")
           %i.fa.fa-fw.fa-gamepad
           %i.fa.fa-angle-left.pull-right
@@ -134,13 +128,9 @@
               %i.fa.fa-fw.fa-repeat
               %span.hint--top(data-hint="Reload the wall page") Reload the wall
           %li.treeview
-            = link_to wall_board_path(@board, remote: 'togglePause'), method: :put, remote: true do
-              %i.fa.fa-fw.fa-pause
-              %span.hint--top(data-hint="Pause and resume wall projection") Toggle pause
-          %li.treeview
             = link_to wall_board_path(@board, remote: 'toggleAutoSlide'), method: :put, remote: true do
-              %i.fa.fa-fw.fa-play
-              %span.hint--top(data-hint="Pause and resume auto sliding") Toggle auto sliding
+              %i.fa.fa-fw.fa-clock-o
+              %span.hint--top(data-hint="Pause and resume the auto-sliding timer") Toggle auto sliding
           %li.treeview
             = link_to wall_board_path(@board, remote: 'next'), method: :put, remote: true do
               %i.fa.fa-fw.fa-forward
@@ -149,8 +139,12 @@
             = link_to wall_board_path(@board, remote: 'prev'), method: :put, remote: true do
               %i.fa.fa-fw.fa-backward
               %span.hint--top(data-hint="Go to previous slide") Previous slide
+          %li.treeview
+            = link_to wall_board_path(@board, remote: 'togglePause'), method: :put, remote: true do
+              %i.fa.fa-fw.fa-pause
+              %span.hint--top(data-hint="Pause and resume wall projection (displays a black idle screen)") Toggle pause
       - unless Figaro.env.disable_uploads.to_b
-        %li.treeview
+        %li.treeview#sidebar-settings-assets
           %a(href="javascript:void(0)" onclick="$('#board-dialog').modal('show');")
             %i.fa.fa-folder-open-o
             %span.hint--top(data-hint="Learn how to upload custom assets to the system") Custom assets

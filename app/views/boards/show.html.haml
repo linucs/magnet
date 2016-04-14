@@ -1,8 +1,9 @@
 %section.content-header
   %h1
     #{@board.name}
-    %small
-      = @board.description.try(:truncate, 50)
+  %small
+    created #{time_ago_in_words(@board.created_at || Time.now)} ago,
+    last updated #{time_ago_in_words(@board.updated_at || Time.now)} ago.
   = render_crumbs
 
 %section.content
@@ -52,16 +53,16 @@
           %i.fa.fa-2x.fa-rss
           .small Chromecast
       %li.pull-right.hidden-xs
-        = link_to slideshow_path(@board, action: :wall), class: 'text-center', target: '_blank' do
+        = link_to slideshow_path(@board, action: :wall), id: 'wall-btn', class: 'text-center', target: '_blank' do
           %span.hint--left(data-hint="Open the Wall layout view of this collection")
             %i.fa.fa-2x.fa-video-camera
             .small Wall
       %li.pull-right
-        = link_to slideshow_path(@board, action: :timeline), class: 'text-center', target: '_blank', disabled: !@board.enabled? do
+        = link_to slideshow_path(@board, action: :timeline), id: 'timeline-btn', class: 'text-center', target: '_blank', disabled: !@board.enabled? do
           %i.fa.fa-2x.fa-mobile
           .small Timeline
       %li.pull-right.hidden-xs
-        = link_to slideshow_path(@board, action: :deck), class: 'text-center', target: '_blank', disabled: !@board.enabled? do
+        = link_to slideshow_path(@board, action: :deck), id: 'deck-btn', class: 'text-center', target: '_blank', disabled: !@board.enabled? do
           %i.fa.fa-2x.fa-desktop
           .small Deck
   .tab-content
@@ -192,14 +193,14 @@
         $('#show-card-form').html('');
       });
 
-      $('#analytics-tab').on('click', function (e) {
+      $('#analytics-tab').on('show.bs.tab', function (e) {
         if(!analyticsLoaded)
           $.get('#{analytics_board_path(@board)}', function() {
             analyticsLoaded = true;
           });
       });
 
-      $('#tagcloud-tab').on('click', function (e) {
+      $('#tagcloud-tab').on('show.bs.tab', function (e) {
         $.get('#{tag_cloud_board_path(@board)}');
       });
 

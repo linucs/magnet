@@ -6,6 +6,7 @@ jQuery ->
   $('#categories').sortable(
     axis: 'y'
     items: '.sortable-item'
+    handle: '.handle'
     cursor: 'move'
 
     update: (e, ui) ->

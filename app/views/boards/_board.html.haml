@@ -1,38 +1,30 @@
-%li.sortable-item{'data-item-id' => board.id}
+%li.item.sortable-item{'data-item-id' => board.id}
   %span.handle.hint--right(data-hint="Drag this handle to change items ordering in the list")
     %i.fa.fa-ellipsis-v
     %i.fa.fa-ellipsis-v
-  - unless board.enabled?
-    %span.hint--right(data-hint="This collection is offline")
-      %i.fa.fa-fw.fa-power-off.text-info
-  - unless board.pollable? && board.enabled?
-    %span.hint--right(data-hint="Contents in this collection are not currently being updated")
-      %i.fa.fa-fw.fa-ban.text-info
-  - if board.moderated?
-    %span.hint--right(data-hint="Contents in this collection must be manually approved before going online")
-      %i.fa.fa-fw.fa-filter.text-info
-  %span.text
-    = link_to board do
-      %span.hint--right(data-hint="Manage this collection and its contents")= board.name
-    - if board.category
-      %span.small
-        \-
-        in #{board.category.name}
-    - if board.label.present?
-      %span.label.label-default= board.label
-  .tools
-    - unless board.polling?
+  .product-img
+    = image_tag board.banner_url || '1x1.png'
+  .product-info
+    = link_to board, class: 'product-title' do
+      %span.hint--top(data-hint="Manage this collection and its contents")= board.name
+    - if board.polling?
+      %span.label.label-info scanning
+    - else
       = link_to edit_board_path(board, page: params[:page]), remote: true do
         %span.hint--left(data-hint="Let me change this collection's main options")
-          %i.fa.fa-edit
-      = link_to filters_board_path(board, page: params[:page]), remote: true do
-        %span.hint--left(data-hint="Let me change this collection's content filtering options")
-          %i.fa.fa-filter
-      = link_to users_board_path(board, page: params[:page]), remote: true do
-        %span.hint--left(data-hint="Let me share this collection's management capabilities with other users in the system")
-          %i.fa.fa-user-md
+          %i.fa.fa-fw.fa-pencil.text-danger
       = link_to board_path(board, page: params[:page]), :method => :delete, :data => { :confirm => 'Are you sure?' }, remote: true do
         %span.hint--left(data-hint="Remove this collection and all its contents from the system")
-          %i.fa.fa-trash
-    - else
-      %span.label.label-info scanning
+          %i.fa.fa-fw.fa-trash-o.text-danger
+    - unless board.enabled?
+      %span.hint--right(data-hint="This collection is offline")
+        %i.fa.fa-fw.fa-power-off.text-danger
+    - unless board.pollable? && board.enabled? && Sidekiq::is_running?
+      %span.hint--right(data-hint="Contents in this collection are not currently being updated")
+        %i.fa.fa-fw.fa-ban.text-danger
+    - if board.moderated?
+      %span.hint--right(data-hint="Contents in this collection must be manually approved before going online")
+        %i.fa.fa-fw.fa-filter.text-danger
+    - if board.label.present?
+      %span.label.label-default.pull-right= board.label
+    %span.product-description= board.description

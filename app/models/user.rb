@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
       @alerts ||= where('last_exception IS NOT NULL')
     end
   end
+  belongs_to :team
 
   before_save :ensure_authentication_token
 
@@ -38,6 +39,10 @@ class User < ActiveRecord::Base
 
   def cards_count(provider)
     boards.inject(0) { |sum, b| sum + b.all_cards.by_provider(provider).count }
+  end
+
+  def teammates
+    User.where(team_id: team_id)
   end
 
   def to_s

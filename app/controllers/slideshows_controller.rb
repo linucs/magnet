@@ -29,13 +29,13 @@ class SlideshowsController < ApplicationController
   end
 
   def timeline
-    gon.header_url = @board.options.timeline_custom_header_url.present? ? @board.options.timeline_custom_header_url : Board::DEFAULT_TIMELINE_HEADER_URL
+    gon.header_url = @board.options.timeline_custom_header_url.present? ? @board.options.timeline_custom_header_url : nil
     gon.template_url = @board.options.timeline_custom_template_url.present? ? @board.options.timeline_custom_template_url : Board::DEFAULT_TIMELINE_TEMPLATE_URL
     gon.footer_url = @board.options.timeline_custom_footer_url.present? ? @board.options.timeline_custom_footer_url : nil
   end
 
   def deck
-    gon.header_url = @board.options.deck_custom_header_url.present? ? @board.options.deck_custom_header_url : Board::DEFAULT_DECK_HEADER_URL
+    gon.header_url = @board.options.deck_custom_header_url.present? ? @board.options.deck_custom_header_url : nil
     gon.template_url = @board.options.deck_custom_template_url.present? ? @board.options.deck_custom_template_url : Board::DEFAULT_DECK_TEMPLATE_URL
     gon.footer_url = @board.options.deck_custom_footer_url.present? ? @board.options.deck_footer_url : nil
   end

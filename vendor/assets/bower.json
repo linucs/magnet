@@ -14,7 +14,7 @@
     "angular-paginate-anything": "latest",
     "angular-rrssb": "latest",
     "angular-masonry": "latest",
-    "bootstrap-sass-official": "latest",
+    "bootstrap-sass": "latest",
     "bootstrap-hover-dropdown": "latest",
     "bootstrap-rating-input": "latest",
     "bootstrap-colorpicker": "latest",
@@ -38,6 +38,7 @@
     "dropzone": "latest",
     "jquery-geocomplete": "latest",
     "salvattore": "latest",
-    "eonasdan-bootstrap-datetimepicker": "latest"
+    "eonasdan-bootstrap-datetimepicker": "latest",
+    "bootstrap-tour": "latest"
   }
 }

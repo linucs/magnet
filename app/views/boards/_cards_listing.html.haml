@@ -19,15 +19,15 @@
           - params[:q].each do |k, v|
             = hidden_field_tag "q[#{k}]", v
         %ul.nav.navbar-nav
-          %li
+          %li#reload-cards
             = link_to board_path(@board), remote: true do
               %i.fa.fa-fw.fa-refresh
               Reload
-          %li
+          %li#toggle-selection
             = link_to '#', onclick: '$(".card-bulk-select").trigger("click")' do
               %i.fa.fa-fw.fa-check-square-o
               Select/un-select all
-          %li.dropdown
+          %li#bulk-actions.dropdown
             %a.dropdown-toggle{'data-toggle' => 'dropdown', :href => '#'}
               Bulk actions
               %span.caret
@@ -50,7 +50,7 @@
                   %i.fa.fa-times
                   Delete selected cards
       %ul.nav.navbar-nav.navbar-right
-        %li
+        %li#add-card
           = link_to new_board_card_path(@board), remote: true do
             %i.fa.fa-fw.fa-plus
             Add a custom content
@@ -65,5 +65,5 @@
     = paginate @cards, params: {controller: 'boards', action: 'show', id: @board.id}, remote: true
   - unless @cards.any?
     %p.text-center
-      %a.btn.btn-primary(onclick="(function() {$('#content-feeds-tab').tab('show');})()" aria-controls="home") Add contents to this collection
+      %a#new-feed.btn.btn-primary.btn-lg(onclick="(function() {$('#content-feeds-tab').tab('show');})()" aria-controls="home") Add contents to this collection
   .clearfix

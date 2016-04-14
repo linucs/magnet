@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160316000208) do
+ActiveRecord::Schema.define(version: 20160411160106) do
 
   create_table "authentication_providers", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 20160316000208) do
     t.datetime "updated_at"
     t.datetime "start_displaying_at"
     t.datetime "end_displaying_at"
+    t.integer  "team_id",             limit: 4
   end
 
   add_index "campaigns", ["board_id"], name: "index_campaigns_on_board_id", using: :btree
@@ -94,6 +95,7 @@ ActiveRecord::Schema.define(version: 20160316000208) do
     t.string   "label",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "team_id",     limit: 4
   end
 
   add_index "categories", ["ancestry"], name: "index_categories_on_ancestry", using: :btree
@@ -147,6 +149,13 @@ ActiveRecord::Schema.define(version: 20160316000208) do
   add_index "shortened_urls", ["unique_key"], name: "index_shortened_urls_on_unique_key", unique: true, using: :btree
   add_index "shortened_urls", ["url"], name: "index_shortened_urls_on_url", using: :btree
 
+  create_table "teams", force: :cascade do |t|
+    t.boolean  "enabled",                default: true
+    t.string   "name",       limit: 255
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+  end
+
   create_table "user_authentications", force: :cascade do |t|
     t.integer  "user_id",                    limit: 4
     t.integer  "authentication_provider_id", limit: 4
@@ -187,6 +196,7 @@ ActiveRecord::Schema.define(version: 20160316000208) do
     t.datetime "updated_at"
     t.boolean  "notify_exceptions",                  default: true
     t.datetime "expires_at"
+    t.integer  "team_id",                limit: 4
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree

@@ -1,0 +1,6 @@
+- unless @team.persisted?
+  $('#new-team-form').html('#{j render 'form' }');
+  $('#new-team-form .selectize').selectize();
+- else
+  $('#teams').html('#{j render 'teams_listing' }');
+  $('#new-team-dialog').modal('hide');

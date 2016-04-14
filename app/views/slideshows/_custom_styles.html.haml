@@ -1,4 +1,6 @@
 - if action_name == 'wall'
+  - if @board.options.wall_custom_stylesheet_url.present?
+    = stylesheet_link_tag @board.options.wall_custom_stylesheet_url, media: 'all'
   - if @board.options.wall_custom_background_color.present?
     :css
       body { background-color: #{@board.options.wall_custom_background_color}; }
@@ -26,9 +28,9 @@
         font-family: "#{@board.options.wall_font_family}";
         font-size: #{@board.options.wall_font_size};
       }
-  - if @board.options.wall_custom_stylesheet_url.present?
-    = stylesheet_link_tag @board.options.wall_custom_stylesheet_url, media: 'all'
 - elsif action_name == 'timeline'
+  - if @board.options.timeline_custom_stylesheet_url.present?
+    = stylesheet_link_tag @board.options.timeline_custom_stylesheet_url, media: 'all'
   - if @board.options.timeline_custom_background_color.present?
     :css
       body { background-color: #{@board.options.timeline_custom_background_color}; }
@@ -75,9 +77,9 @@
         font-family: "#{@board.options.timeline_font_family}";
         font-size: #{@board.options.timeline_font_size};
       }
-  - if @board.options.timeline_custom_stylesheet_url.present?
-    = stylesheet_link_tag @board.options.timeline_custom_stylesheet_url, media: 'all'
 - else
+  - if @board.options.deck_custom_stylesheet_url.present?
+    = stylesheet_link_tag @board.options.deck_custom_stylesheet_url, media: 'all'
   - if @board.options.deck_columns_width.present?
     :css
       .card { width: #{@board.options.deck_columns_width} !important; }
@@ -130,5 +132,3 @@
         font-family: "#{@board.options.deck_font_family}";
         font-size: #{@board.options.deck_font_size};
       }
-  - if @board.options.deck_custom_stylesheet_url.present?
-    = stylesheet_link_tag @board.options.deck_custom_stylesheet_url, media: 'all'

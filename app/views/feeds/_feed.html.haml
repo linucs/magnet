@@ -28,4 +28,4 @@
     - unless feed.polling?
       = link_to [@board, feed], :method => :delete, :data => { :confirm => 'Are you sure?' }, remote: true do
         %span.hint--left(data-hint="Remove this feed from the system (downloaded contents will not be deleted)")
-          %i.fa.fa-trash
+          %i.fa.fa-trash-o

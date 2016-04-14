@@ -13,7 +13,7 @@
     - unless editing_in_place?
       .row
         .col-sm-4= f.input :name
-        .col-sm-4= f.association :category, include_blank: '(uncategorized)'
+        .col-sm-4= f.association :category, collection: Category.of_teammates(current_user), label_method: :title, include_blank: '(uncategorized)'
         .col-sm-4= f.input :label, input_html: { class: 'selectize' }
       .row
         .col-md-6

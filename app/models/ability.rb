@@ -34,5 +34,10 @@ class Ability
       can :manage, :all
       can :upload, Board
     end
+    if user.team_id
+      can :read, User, team_id: user.team_id
+      can :manage, Category, team_id: user.team_id
+      can :manage, Campaign, team_id: user.team_id
+    end
   end
 end

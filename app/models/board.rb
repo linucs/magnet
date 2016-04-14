@@ -351,7 +351,7 @@ class Board < ActiveRecord::Base
         end
         provider = user.authentication_providers.find_by(name: provider_name) if provider_name.present?
         if category_name.present?
-          category = create_missing_categories ? Category.ensure_tree(category_name) : Category.find_by(name: category_name)
+          category = create_missing_categories ? Category.ensure_tree(user, category_name) : Category.find_by(name: category_name)
         end
         Board.transaction do
           board = user.boards.create({
