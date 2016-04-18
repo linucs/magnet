@@ -58,7 +58,7 @@ class SlideshowsController < ApplicationController
       gon.board_image_url = @board.image.url
       gon.board_cover_url = @board.cover.url
     else
-      render nothing: true
+      render 'cover', layout: 'application'
     end
   end
 

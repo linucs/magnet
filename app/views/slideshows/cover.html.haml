@@ -1,0 +1,8 @@
+.text-center(style="position: absolute; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%);")
+  .login-logo
+    %b>Mag
+    NET
+  %p.text-center
+    = link_to 'log in', new_user_session_path
+    or
+    = link_to 'sign up', new_user_registration_path
