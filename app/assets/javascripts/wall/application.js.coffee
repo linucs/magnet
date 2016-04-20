@@ -74,7 +74,6 @@ magnet = angular
 
     $scope.cards = Card.query()
     $scope.cards.$promise.then (cards) ->
-      cards.push {}
       $(window).trigger('slidesloaded')
 
     initializeReveal = true
@@ -121,7 +120,6 @@ magnet = angular
       if Reveal.isLastSlide()
         $scope.cards = Card.query()
         $scope.cards.$promise.then (cards) ->
-          cards.push {}
           $(window).trigger('slidesloaded')
 
     if gon.websocketUrl?
