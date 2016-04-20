@@ -74,7 +74,7 @@ magnet = angular
 
     $scope.cards = Card.query()
     $scope.cards.$promise.then (cards) ->
-      $(window).trigger('slidesloaded')
+      cards.push {}
 
     initializeReveal = true
     $scope.$on('ngRepeatFinished', (event) ->
@@ -111,6 +111,7 @@ magnet = angular
         })
       else
         Reveal.slide(0)
+      $(window).trigger('slidesloaded')
     )
 
     Reveal.addEventListener "slidechanged", (event) ->
@@ -120,7 +121,7 @@ magnet = angular
       if Reveal.isLastSlide()
         $scope.cards = Card.query()
         $scope.cards.$promise.then (cards) ->
-          $(window).trigger('slidesloaded')
+          cards.push {}
 
     if gon.websocketUrl?
       dispatcher = new WebSocketRails(gon.websocketUrl)
