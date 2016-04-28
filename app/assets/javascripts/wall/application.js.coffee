@@ -21,6 +21,10 @@
 #= require reveal.js/js/reveal
 #= require_self
 
+window.onerror = (msg, url, lineNo, columnNo, error) ->
+  console.log 'Unhandled exception: ', msg, url, lineNo, columnNo, error
+  false
+
 magnet = angular
   .module('magnet', [
     'ngAnimate',
@@ -43,7 +47,7 @@ magnet = angular
               scope.$emit('ngRepeatFinished')
     }
   ])
-  .controller('SlidesCtrl', ['$resource', '$scope', ($resource, $scope) ->
+  .controller('SlidesCtrl', ['$resource', '$scope', '$window', ($resource, $scope, $window) ->
     $scope.board_id = gon.board_id
     $scope.board_name = gon.board_name
     $scope.board_description = gon.board_description
@@ -72,9 +76,12 @@ magnet = angular
           user_token: gon.user_token
     )
 
-    $scope.cards = Card.query()
-    $scope.cards.$promise.then (cards) ->
-      cards.push {}
+    loadCards = () ->
+      $scope.cards = Card.query()
+      $scope.cards.$promise.then (cards) ->
+        cards.push {}
+      , (error) ->
+        $window.location.reload()
 
     initializeReveal = true
     $scope.$on('ngRepeatFinished', (event) ->
@@ -118,10 +125,7 @@ magnet = angular
       Reveal.configure({
         transition: transitions.randomElement()
       })
-      if Reveal.isLastSlide()
-        $scope.cards = Card.query()
-        $scope.cards.$promise.then (cards) ->
-          cards.push {}
+      loadCards() if Reveal.isLastSlide()
 
     if gon.websocketUrl?
       dispatcher = new WebSocketRails(gon.websocketUrl)
@@ -140,4 +144,6 @@ magnet = angular
           Reveal.next()
         channel.bind 'slide', (n) ->
           Reveal.slide(n)
+
+    loadCards()
     ])
