@@ -77,6 +77,7 @@ angular
               'Range': (@page * @count) + '-' + (((@page + 1) * @count) - 1)
             params:
               user_token: gon.user_token
+              layout: 'deck'
 
       fetchNextPage: ->
         if @count == DEFAULT_LIMIT or @page == 0

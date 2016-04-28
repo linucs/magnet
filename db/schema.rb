@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160411160106) do
+ActiveRecord::Schema.define(version: 20160428212732) do
 
   create_table "authentication_providers", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -67,17 +67,20 @@ ActiveRecord::Schema.define(version: 20160411160106) do
   add_index "boards_users", ["user_id", "board_id"], name: "index_boards_users_on_user_id_and_board_id", unique: true, using: :btree
 
   create_table "campaigns", force: :cascade do |t|
-    t.string   "name",                limit: 255
-    t.integer  "row_order",           limit: 4
+    t.string   "name",                 limit: 255
+    t.integer  "row_order",            limit: 4
     t.boolean  "enabled"
-    t.integer  "threshold",           limit: 4
-    t.text     "content",             limit: 65535
-    t.integer  "board_id",            limit: 4
+    t.integer  "threshold",            limit: 4
+    t.text     "content",              limit: 65535
+    t.integer  "board_id",             limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "start_displaying_at"
     t.datetime "end_displaying_at"
-    t.integer  "team_id",             limit: 4
+    t.integer  "team_id",              limit: 4
+    t.boolean  "activate_on_deck",                   default: true
+    t.boolean  "activate_on_timeline",               default: true
+    t.boolean  "activate_on_wall",                   default: true
   end
 
   add_index "campaigns", ["board_id"], name: "index_campaigns_on_board_id", using: :btree

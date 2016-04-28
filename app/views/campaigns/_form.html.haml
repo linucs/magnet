@@ -11,6 +11,10 @@
     .row
       .col-md-6= f.association :board, collection: current_user.boards, include_blank: 'select...'
       .col-md-6= f.input :threshold, as: :select, collection: 10.step(100, 10).map { |v| ["#{v}%", v] }
+    .row
+      .col-md-4= f.input :activate_on_deck
+      .col-md-4= f.input :activate_on_timeline
+      .col-md-4= f.input :activate_on_wall
     = f.input :content, as: :text, input_html: { rows: 5 }
 
   .modal-footer

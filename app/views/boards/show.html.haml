@@ -172,7 +172,7 @@
       var session = null;
 
       dispatcher.on_open = function(data) {
-        console.log('Connection has been established: ', data);
+        console.log('Websocket connection has been established: ', data);
         var channel = dispatcher.subscribe('board-#{@board.id}');
         var cards_count = 0;
         channel.bind('card', function(card) {

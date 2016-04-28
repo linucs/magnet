@@ -80,3 +80,12 @@ body:not(.pace-done) > :not(.pace),body:not(.pace-done):before,body:not(.pace-do
 .btn-rss {
   @include button-variant(#FFFFFF,#FFAD5B, #FF6B17);
 }
+
+ul.social-connections {
+  @media (min-width: 992px) {
+    display: flex;
+  }
+  li {
+    width: 100%;
+  }
+}

@@ -270,6 +270,9 @@ en:
         board: 'Show this campaign inside one of your collections'
         threshold: 'Set the percentage of page impressions on which this campaing should be displayed'
         content: 'Insert the HTML code snippet used to display this campaing inside the web page'
+        activate_on_deck: 'Show ads on the deck layout'
+        activate_on_timeline: 'Show ads on the timeline layout'
+        activate_on_wall: 'Show ads the wall layout'
     placeholders:
       board:
         host: live.example.com
