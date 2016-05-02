@@ -132,6 +132,10 @@
               %i.fa.fa-fw.fa-clock-o
               %span.hint--top(data-hint="Pause and resume the auto-sliding timer") Toggle auto sliding
           %li.treeview
+            = link_to wall_board_path(@board, remote: 'toggleOverview'), method: :put, remote: true do
+              %i.fa.fa-fw.fa-eye
+              %span.hint--top(data-hint="Pause and resume overview mode") Toggle overview
+          %li.treeview
             = link_to wall_board_path(@board, remote: 'next'), method: :put, remote: true do
               %i.fa.fa-fw.fa-forward
               %span.hint--top(data-hint="Go to next slide") Next slide

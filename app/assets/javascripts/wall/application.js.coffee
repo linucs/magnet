@@ -97,7 +97,7 @@ magnet = angular
           slideNumber: false
           history: false
           keyboard: true
-          overview: false
+          overview: true
           center: gon.wall_center || false
           touch: true
           loop: true
@@ -131,6 +131,8 @@ magnet = angular
       })
       loadCards() if Reveal.isLastSlide()
 
+    loadCards()
+
     if gon.websocketUrl?
       dispatcher = new WebSocketRails(gon.websocketUrl)
       dispatcher.on_open = (data) ->
@@ -142,6 +144,8 @@ magnet = angular
           Reveal.togglePause()
         channel.bind 'toggleAutoSlide', (board) ->
           Reveal.toggleAutoSlide()
+        channel.bind 'toggleOverview', (board) ->
+          Reveal.toggleOverview()
         channel.bind 'prev', (board) ->
           Reveal.prev()
         channel.bind 'next', (board) ->
@@ -153,6 +157,4 @@ magnet = angular
         $timeout () ->
           dispatcher.reconnect()
         , 60000
-
-    loadCards()
     ])

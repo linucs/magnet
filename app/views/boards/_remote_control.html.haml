@@ -1,0 +1,19 @@
+.btn-group(role="group" style="padding: 5px")
+  = link_to wall_board_path(@board, remote: 'reload'), class: 'btn btn-lg btn-default btn-block', method: :put, remote: true do
+    %i.fa.fa-fw.fa-repeat
+    %span.hint--top(data-hint="Reload the wall page") Reload the wall
+  = link_to wall_board_path(@board, remote: 'toggleAutoSlide'), class: 'btn btn-lg btn-default btn-block', method: :put, remote: true do
+    %i.fa.fa-fw.fa-clock-o
+    %span.hint--top(data-hint="Pause and resume the auto-sliding timer") Toggle auto sliding
+  = link_to wall_board_path(@board, remote: 'toggleOverview'), class: 'btn btn-lg btn-default btn-block', method: :put, remote: true do
+    %i.fa.fa-fw.fa-eye
+    %span.hint--top(data-hint="Pause and resume overview mode") Toggle overview
+  = link_to wall_board_path(@board, remote: 'next'), class: 'btn btn-lg btn-default btn-block', method: :put, remote: true do
+    %i.fa.fa-fw.fa-forward
+    %span.hint--top(data-hint="Go to next slide") Next slide
+  = link_to wall_board_path(@board, remote: 'prev'), class: 'btn btn-lg btn-default btn-block', method: :put, remote: true do
+    %i.fa.fa-fw.fa-backward
+    %span.hint--top(data-hint="Go to previous slide") Previous slide
+  = link_to wall_board_path(@board, remote: 'togglePause'), class: 'btn btn-lg btn-default btn-block', method: :put, remote: true do
+    %i.fa.fa-fw.fa-pause
+    %span.hint--top(data-hint="Pause and resume wall projection (displays a black idle screen)") Toggle pause

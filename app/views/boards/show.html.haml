@@ -26,17 +26,22 @@
             ago.
           .clearfix
 
-  %ul.nav.nav-tabs.board-tabs(role="tablist")
+  %ul.nav.nav-tabs(role="tablist")
     %li.active
       %a.text-center(href="#cards" data-toggle="tab" id="cards-tab")
         %span.hint--top(data-hint="My collection contents")
           %i.fa.fa-2x.fa-picture-o
           .small Contents
-    %li
+    %li.hidden-xs
       %a.text-center(href="#content-feeds" data-toggle="tab" id="content-feeds-tab")
         %span.hint--top(data-hint="Let me decide how to scan Social Networks for interesting stuff")
           %i.fa.fa-2x.fa-cloud-download
           .small Feeds
+    %li.visible-xs
+      %a.text-center(href="#remote-control" data-toggle="tab" id="remote-control-tab")
+        %span.hint--top(data-hint="Let me remotely control the wall layout")
+          %i.fa.fa-2x.fa-gamepad
+          .small Remote
     %li.hidden-xs
       %a.text-center(href="#board-analytics" data-toggle="tab" id="analytics-tab")
         %span.hint--top(data-hint="My collection analytics dashboard")
@@ -70,6 +75,8 @@
       #cards-listing.box.box-solid= render 'cards_listing'
     #content-feeds.tab-pane
       #feeds.box.box-solid= render 'feeds/feeds_listing'
+    #remote-control.tab-pane
+      #remote.box.box-solid= render 'remote_control'
     #board-analytics.tab-pane
       #analytics.box.box-solid
     #tagcloud.tab-pane
