@@ -1,0 +1,66 @@
+%section.content
+  - unless current_user.can_search_for_hashtags?
+    .alert.alert-info
+      %strong
+        To start searching for contents on the social web, please connect your social accounts first.
+        Click on each red box below to proceed!
+
+  = render 'social_connections'
+
+  %nav.navbar.navbar-default.start-tutorial
+    .container-fluid
+      = simple_form_for :board, url: hashtag_boards_path, remote: true, html: { id: 'search-form', class: 'navbar-form navbar-left' } do |f|
+        = hidden_field_tag 'persist'
+        .form-group.string
+          .input-group
+            %span.input-group-addon
+              %i.ion.ion-pound
+            = f.input_field :hashtag, class: 'form-control input-lg submit-on-enter disable-on-submit', placeholder: 'Search an hashtag...', disabled: !current_user.can_search_for_hashtags?
+        .btn-group
+          = f.submit 'Search', class: 'btn btn-lg btn-primary disable-on-submit', disabled: !current_user.can_search_for_hashtags?
+          = link_to 'Save this search', '#', class: 'btn btn-lg btn-default save-search disable-on-submit', disabled: true
+      %ul.nav.navbar-nav.navbar-right.hidden-sm.hidden-xs
+        %li.btn
+          = link_to boards_path, class: 'btn-lg navbar-right' do
+            create from scratch
+
+  #cards-listing.box.box-solid
+    .box-body
+      .row
+        - 3.times do
+          .col-md-4= link_to image_tag('card.png', class: 'img-responsive card-preview'), '#', class: 'start-tutorial'
+
+#show-card-dialog.modal.fade(tabindex="-1" role="dialog" aria-labelledby="Card detail" aria-hidden="true")
+  .modal-dialog
+    .modal-content
+      .modal-body
+        #show-card-form
+        .row
+          .col-lg-12
+            %button(type="button" class="close" data-dismiss="modal")
+              %span(aria-hidden="true")
+                &times;
+              %span.sr-only
+                Close
+
+- content_for :javascripts do
+  :javascript
+    var dispatcher, hashtag;
+    $(function() {
+      dispatcher = new WebSocketRails('#{Figaro.env.websocket_host.to_s + ':' + Figaro.env.websocket_port.to_s}/websocket');
+
+      dispatcher.on_open = function(data) {
+        console.log('Websocket connection has been established: ', data);
+      }
+
+      $('#show-card-dialog').on('hidden.bs.modal', function (e) {
+        $('#show-card-form').html('');
+      });
+
+      $('.save-search').on("click", function (e) {
+        if(!$(e.target).attr('disabled') && hashtag && confirm('Are you sure?')) {
+          $("#persist").val(hashtag);
+          $('#search-form').submit();
+        }
+      });
+    });

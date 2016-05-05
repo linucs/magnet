@@ -230,6 +230,7 @@ class Providers::Tumblr
         ensure
           feed.update_attribute(:polling, false)
           feed.update_attribute(:polled_at, Time.now)
+          feed.send_notification 'polling-end'
         end
       end
     end

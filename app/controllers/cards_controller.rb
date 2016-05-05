@@ -85,7 +85,7 @@ class CardsController < ApplicationController
   private
 
   def set_board
-    @board = available_boards.friendly.find(params[:board_id])
+    @board = available_boards.friendly.find(params[:board_id]) rescue Board.transient.friendly.find(params[:board_id])
   end
 
   def set_card

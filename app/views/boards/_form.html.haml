@@ -6,15 +6,15 @@
     = hidden_field_tag :page, params[:page]
 
     - if @board.persisted?
-      = f.input :enabled, as: :boolean
       .row
-        .col-md-6= f.input :start_polling_at, as: :date_picker, data: { showClear: true, showClose: true, showTodayButton: true }
-        .col-md-6= f.input :end_polling_at, as: :date_picker, data: { showClear: true, showClose: true, showTodayButton: true }
+        .col-md-4= f.input :enabled, as: :boolean
+        .col-md-4= f.input :start_polling_at, as: :date_picker, data: { showClear: true, showClose: true, showTodayButton: true }
+        .col-md-4= f.input :end_polling_at, as: :date_picker, data: { showClear: true, showClose: true, showTodayButton: true }
     - unless editing_in_place?
       .row
         .col-sm-4= f.input :name
-        .col-sm-4= f.association :category, collection: Category.of_teammates(current_user), label_method: :title, include_blank: '(uncategorized)'
         .col-sm-4= f.input :label, input_html: { class: 'selectize' }
+        .col-sm-4= f.association :category, collection: Category.of_teammates(current_user), label_method: :title, include_blank: '(uncategorized)'
       .row
         .col-md-6
           = f.input :description, input_html: { rows: 2 }

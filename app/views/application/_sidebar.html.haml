@@ -4,7 +4,7 @@
       %li.header MAIN NAVIGATION
       %li.treeview{class: current_page?(controller: '/boards') ? 'active' : nil}
         = link_to boards_path do
-          %i.fa.fa-files-o
+          %i.fa.fa-columns
           %span.hint--top(data-hint="Go to your collections listing page") Social collections
       - if can? :manage, Category
         %li.treeview{class: current_page?(controller: '/categories') ? 'active' : nil}
@@ -32,3 +32,7 @@
           = link_to sidekiq_web_path, target: '_blank' do
             %i.fa.fa-gears
             %span.hint--top(data-hint="Go to Sidekiq management page") Background jobs
+      - unless Sidekiq::is_running?
+        %li.treeview
+          = link_to '#' do
+            %span.label.label-danger Scanning process is not running

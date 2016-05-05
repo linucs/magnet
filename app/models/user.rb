@@ -45,6 +45,10 @@ class User < ActiveRecord::Base
     User.where(team_id: team_id)
   end
 
+  def can_search_for_hashtags?
+    is_connected_to?('twitter') || is_connected_to?('instagram') || is_connected_to?('tumblr')
+  end
+
   def to_s
     email
   end

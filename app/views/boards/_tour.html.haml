@@ -6,52 +6,10 @@
         duration: 10000,
         steps: [
           {
-            element: "#tutorial-btn",
-            title: "Welcome!",
-            content: "This is the usage tutorial, which will guide you in performing the most basic operations on your social collections.<br><br>At any time, click here to open this tutorial again.",
-            placement: 'bottom'
-          },
-          {
-            element: ".notifications-menu",
-            title: "The notification menu",
-            content: "Check out notifications in this menu to get datails about errors and/or unexpected exceptions being raised when downloading contents.<br><br>Click to open the menu and choose the relevant message to get more details about the selected notification.",
-            placement: "left"
-          },
-          {
-            element: ".user-menu",
-            title: "Your profile settings",
-            content: "Click here to access your profile settings page, or to log-out from the system.",
-            placement: "left"
-          },
-          {
-            element: "#facebook-info-box",
-            title: "Connect to Facebook",
-            content: "Do you want to create collections containing posts from Facebook?<br><br>Click here to connect your Facebook social account and let the system download contents on your behalf.",
-            placement: "bottom"
-          },
-          {
-            element: "#twitter-info-box",
-            title: "Connect to Twitter",
-            content: "Do you want to create collections containing tweets?<br><br>Click here to connect your Twitter social account and let the system download contents on your behalf.",
-            placement: "bottom"
-          },
-          {
-            element: "#instagram-info-box",
-            title: "Connect to Instagram",
-            content: "Do you want to create collections containing posts from Instagram?<br><br>Click here to connect your Instagram social account and let the system download contents on your behalf.",
-            placement: "bottom"
-          },
-          {
-            element: "#tumblr-info-box",
-            title: "Connect to Tumblr",
-            content: "Do you want to create collections containing posts from Tumblr?<br><br>Click here to connect your Tumblr social account and let the system download contents on your behalf.",
-            placement: "bottom"
-          },
-          {
             element: "#boards",
             title: "Collections listing",
             content: "Once created, this is where all your collections are listed.<br><br>Click on the icons at the end of each row, to perform management actions on collection (change settings, moderation options, sharing, or delete it)",
-            placement: "top"
+            placement: "left"
           },
           {
             element: "#category-filters",
@@ -81,7 +39,7 @@
       }).init();
       tour.start();
 
-      $("#tutorial-btn").on("click", function(e) {
+      $(".start-tutorial").on("click", function(e) {
         tour.restart();
         e.preventDefault();
       });
@@ -245,7 +203,7 @@
         ]
       }).init();
 
-      $("#tutorial-btn").on("click", function(e) {
+      $(".start-tutorial").on("click", function(e) {
         tour.restart();
         e.preventDefault();
       });

@@ -46,6 +46,10 @@ jQuery ->
     $('.sidebar li.treeview').removeClass('active')
     $(e.target).parent().parent().addClass('active')
 
+  $(document).on 'click', '#grid .card', (e) ->
+    $cb = $(e.target).find('#card_ids_')
+    $cb.prop('checked', !$cb.prop('checked')).trigger('change')
+
 $.fn.rebindCardsListingPage = () ->
-  $('.rating').rating();
-  salvattore.recreateColumns(document.getElementById('grid'));
+  $('.rating').rating()
+  salvattore.recreateColumns(document.getElementById('grid'))
