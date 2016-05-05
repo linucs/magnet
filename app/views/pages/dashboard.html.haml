@@ -7,7 +7,7 @@
 
   = render 'social_connections'
 
-  %nav.navbar.navbar-default.start-tutorial
+  %nav.navbar.navbar-default
     .container-fluid
       = simple_form_for :board, url: hashtag_boards_path, remote: true, html: { id: 'search-form', class: 'navbar-form navbar-left' } do |f|
         = hidden_field_tag 'persist'
