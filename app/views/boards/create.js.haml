@@ -1,7 +1,12 @@
 - unless @board.persisted?
-  $('#new-board-form').html('#{ j render 'form' }');
-  $('#new-board-form .selectize').selectize({create: true});
-  $('#new-board-form .geocomplete').geocomplete({map: '#new-board-form .google-map', location: [#{@board.latitude}, #{@board.longitude}], details: '#new-board-form', detailsAttribute: 'data-geo'});
+  :plain
+    $('#new-board-form').html('#{ j render 'form' }');
+    $('#new-board-form .selectize').selectize({create: true});
+    $('#new-board-form .geocomplete').geocomplete({map: '#new-board-form .google-map', location: [#{@board.latitude}, #{@board.longitude}], details: '#new-board-form', detailsAttribute: 'data-geo', markerOptions: {draggable: true}});
+    $('#new-board-form .geocomplete').bind('geocode:dragged', function(event, latLng) {
+      $("input#board_latitude").val(latLng.lat());
+      $("input#board_longitude").val(latLng.lng());
+    });
 - else
   document.location.href = "#{board_path(@board)}";
   // $('#boards').html('#{j render 'boards_listing' }');

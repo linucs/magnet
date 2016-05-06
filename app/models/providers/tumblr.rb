@@ -209,7 +209,7 @@ class Providers::Tumblr
   class << self
     def options
       {
-        tumblr_tag: [:string, '#'],
+        tumblr_tag: [:string, '<i class="ion ion-pound"></i>'],
         tumblr_blog: [:string, '', '.tumblr.com']
       }
     end

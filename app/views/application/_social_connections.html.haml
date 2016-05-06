@@ -5,7 +5,7 @@
       %li{id: "#{provider.name}-info-box"}
         - if current_user.is_connected_to?(provider.name)
           - linked_identities += 1
-          .small-box{class: "btn-#{provider.name}"}
+          .small-box.start-tutorial{class: "btn-#{provider.name}"}
             .inner
               %h3
                 = current_user.cards_count(provider.name)

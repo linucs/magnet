@@ -251,8 +251,8 @@ class Providers::Twitter
   class << self
     def options
       {
-        twitter_search: [:string, '#'],
-        twitter_user_timeline: [:string, '@'],
+        twitter_search: [:string, '<i class="ion ion-pound"></i>'],
+        twitter_user_timeline: [:string, '<i class="ion ion-at"></i>'],
         twitter_home_timeline: [:boolean],
         twitter_mentions_timeline: [:boolean]
       }
