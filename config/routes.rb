@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
   resources :boards do
     post 'upload', on: :collection
+    post 'hashtag', on: :collection
     member do
       get 'poll'
       get 'users'

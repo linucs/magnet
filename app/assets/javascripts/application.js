@@ -43,7 +43,7 @@
 //= require_self
 
 $.flash = function(msg, level) {
-  $('#flash_messages').html('<div class="alert alert-' + (level || 'success') + ' alert-dismissable fade in"><button aria-hidden="true" class="close" data-dismiss="alert" type="button">×</button>' + msg + '</div>');
+  $('#flash_messages').html('<div class="alert alert-' + (level || 'success') + ' alert-dismissible fade in"><button aria-label="Close" class="close" data-dismiss="alert" type="button"><span aria-hidden="true">&times;</span></button>' + msg + '</div>');
 }
 
 $(function() {

@@ -76,6 +76,7 @@ en:
         category: 'Folder'
         users: Board managers
         max_tags_per_card: 'Maximum allowed tags'
+        hashtag: 'Search for an hashtag:'
         options:
           wall_width: Width (px)
           wall_height: Height (px)

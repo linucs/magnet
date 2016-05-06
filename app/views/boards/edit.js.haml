@@ -1,4 +1,9 @@
-$('#edit-board-form').html('#{ j render 'form' }');
-$('#edit-board-form .selectize').selectize({create: true});
-$('#edit-board-form .geocomplete').geocomplete({map: '#edit-board-form .google-map', location: [#{@board.latitude}, #{@board.longitude}], details: '#edit-board-form', detailsAttribute: 'data-geo'});
-$('#edit-board-dialog').modal('show');
+:plain
+  $('#edit-board-form').html('#{ j render 'form' }');
+  $('#edit-board-form .selectize').selectize({create: true});
+  $('#edit-board-form .geocomplete').geocomplete({map: '#edit-board-form .google-map', location: [#{@board.latitude}, #{@board.longitude}], details: '#edit-board-form', detailsAttribute: 'data-geo', markerOptions: {draggable: true}});
+  $('#edit-board-form .geocomplete').bind('geocode:dragged', function(event, latLng) {
+    $("input#board_latitude").val(latLng.lat());
+    $("input#board_longitude").val(latLng.lng());
+  });
+  $('#edit-board-dialog').modal('show');

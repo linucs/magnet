@@ -187,8 +187,8 @@ class Providers::Instagram
   class << self
     def options
       {
-        instagram_tag_recent_media: [:string, '#'],
-        instagram_recent_media_of_user: [:string, '@'],
+        instagram_tag_recent_media: [:string, '<i class="ion ion-pound"></i>'],
+        instagram_recent_media_of_user: [:string, '<i class="ion ion-at"></i>'],
         instagram_user_feed: [:boolean],
         instagram_user_recent_media: [:boolean],
         instagram_user_liked: [:boolean],
@@ -224,6 +224,7 @@ class Providers::Instagram
         ensure
           feed.update_attribute(:polling, false)
           feed.update_attribute(:polled_at, Time.now)
+          feed.send_notification 'polling-end'
         end
       end
     end

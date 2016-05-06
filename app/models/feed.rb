@@ -74,11 +74,11 @@ class Feed < ActiveRecord::Base
     foreground = options[:foreground]
     high_priority = options[:high_priority]
     if foreground
-      send_notification 'polling-start'
       Chewy.strategy(:atomic) do
-        authentication_provider.instance.poll(self, oldest)
+        if authentication_provider.instance.poll(self, oldest)
+          Rails.logger.info "Polled feed ##{self.id} with options: #{options}"
+        end
       end
-      send_notification 'polling-end'
     else
       if high_priority
         FastPollWorker.perform_async(id, oldest)
@@ -100,11 +100,9 @@ class Feed < ActiveRecord::Base
   def stream(options = {})
     foreground = options[:foreground]
     if foreground
-      send_notification 'polling-start'
       authentication_provider.instance.stream(self) do |client, tweet|
         block_given? ? yield(client, tweet) : true
       end
-      send_notification 'polling-end'
     else
       StreamingWorker.perform_async(id)
     end
@@ -168,12 +166,8 @@ class Feed < ActiveRecord::Base
 
   def maximum_number_of_enabled_feeds
     unless user_id.nil?
-      max = begin
-              User.find(user_id).max_feeds.to_i
-            rescue
-              0
-            end
-      if max > 0 && self.enabled? && Feed.where(user_id: user_id, enabled: true).count >= max
+      max = User.find(user_id).max_feeds.to_i rescue 0
+      if max > 0 && self.enabled? && Feed.joins(:board).where(user_id: user_id, enabled: true, boards: {hashtag: nil}).count >= max
         errors[:enabled] << I18n.t('activerecord.errors.models.feed.attributes.enabled.limit_reached', count: max)
       end
     end

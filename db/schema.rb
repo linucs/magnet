@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160428212732) do
+ActiveRecord::Schema.define(version: 20160502081816) do
 
   create_table "authentication_providers", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -52,9 +52,11 @@ ActiveRecord::Schema.define(version: 20160428212732) do
     t.text     "trusted_users",            limit: 65535
     t.datetime "start_polling_at"
     t.datetime "end_polling_at"
+    t.string   "hashtag",                  limit: 255
   end
 
   add_index "boards", ["category_id"], name: "index_boards_on_category_id", using: :btree
+  add_index "boards", ["hashtag"], name: "index_boards_on_hashtag", using: :btree
   add_index "boards", ["host"], name: "index_boards_on_host", using: :btree
   add_index "boards", ["label"], name: "index_boards_on_label", using: :btree
   add_index "boards", ["slug"], name: "index_boards_on_slug", using: :btree

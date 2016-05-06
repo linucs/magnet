@@ -6,29 +6,29 @@
     = hidden_field_tag :page, params[:page]
 
     - if @board.persisted?
-      = f.input :enabled, as: :boolean
       .row
-        .col-md-6= f.input :start_polling_at, as: :date_picker, data: { showClear: true, showClose: true, showTodayButton: true }
-        .col-md-6= f.input :end_polling_at, as: :date_picker, data: { showClear: true, showClose: true, showTodayButton: true }
+        .col-md-4= f.input :enabled, as: :boolean
+        .col-md-4= f.input :start_polling_at, as: :date_picker, data: { showClear: true, showClose: true, showTodayButton: true }
+        .col-md-4= f.input :end_polling_at, as: :date_picker, data: { showClear: true, showClose: true, showTodayButton: true }
     - unless editing_in_place?
       .row
         .col-sm-4= f.input :name
-        .col-sm-4= f.association :category, collection: Category.of_teammates(current_user), label_method: :title, include_blank: '(uncategorized)'
         .col-sm-4= f.input :label, input_html: { class: 'selectize' }
+        .col-sm-4= f.association :category, collection: Category.of_teammates(current_user), label_method: :title, include_blank: '(uncategorized)'
       .row
-        .col-md-6
-          = f.input :description, input_html: { rows: 2 }
+        .col-md-4
+          = f.input :description, input_html: { rows: 6 }
           = f.input :full_street_address, input_html: { class: 'geocomplete' }
-        .col-md-6
+        .col-md-8
           .google-map
       = f.input :latitude, as: :hidden, input_html: { 'data-geo' => 'lat' }
       = f.input :longitude, as: :hidden, input_html: { 'data-geo' => 'lng' }
+    - else
       - if @board.persisted?
         .row
           .col-sm-4= f.input :slug
           .col-sm-4= f.input :host
           .col-sm-4= f.input :polling_interval, as: :select, collection: (1..AuthenticationProvider::POLLING_TICKS).map { |i| i.to_s.to_sym }, include_blank: 'No scheduled refresh'
-    - else
       = f.simple_fields_for :options, f.object.options do |o|
         .row
           .col-md-6= o.input :google_analytics_code
