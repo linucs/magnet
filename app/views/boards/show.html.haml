@@ -10,7 +10,7 @@
   - alerts = @board.feeds.with_alerts
   - if alerts.any?
     - alerts.each do |f|
-      .box.box-danger
+      .box.box-danger.feed-alert
         .box-header
           %i.fa.fa-fw{class: "fa-#{f.authentication_provider.name}"}
           = f.name

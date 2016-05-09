@@ -143,3 +143,8 @@
     }
   }
 }
+
+.feed-alert .box-body {
+  max-height: 70px;
+  overflow: auto;
+}

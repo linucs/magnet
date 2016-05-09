@@ -345,7 +345,7 @@ class Board < ActiveRecord::Base
 
   def self.create_for_hashtag(hashtag, user)
     board = Board.create!(enabled: false, name: hashtag,
-                          description: "Contents for hashtag for ##{hashtag}",
+                          description: "Contents for hashtag ##{hashtag}",
                           hashtag: hashtag)
     if user.is_connected_to? 'twitter'
       twitter = board.feeds.build(authentication_provider: AuthenticationProvider.where(name: 'twitter').first,
