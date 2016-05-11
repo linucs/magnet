@@ -82,7 +82,7 @@ body:not(.pace-done) > :not(.pace),body:not(.pace-done):before,body:not(.pace-do
 }
 
 ul.social-connections {
-  @media (min-width: 992px) {
+  @media (min-width: 768px) {
     display: flex;
   }
   li {

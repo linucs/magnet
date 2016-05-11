@@ -78,15 +78,13 @@ $icon-font-path: "bootstrap-sass/assets/fonts/bootstrap/";
 				}
 			}
 		}
-		.panel-footer {
-			padding: 10px;
-			.img-provider {
-				margin-right: 10px;
+		.social-share {
+			min-width: initial;
+			.share {
+				a {
+					white-space: nowrap;
+				}
 			}
-		}
-		.share {
-			margin: 0px 10px;
-			min-height: 25px;
 		}
 	}
 

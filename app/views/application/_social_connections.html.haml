@@ -20,9 +20,9 @@
         - else
           = link_to user_omniauth_authorize_path(:provider => provider.name), class: 'small-box bg-red' do
             .inner
-              %h3= current_user.cards_count(provider.name)
+              %h3 !
               %p
-                cards from #{provider.title}
+                please connect to #{provider.title}
             .icon
               %i.ion{class: "ion-social-#{provider.name}"}
             .small-box-footer

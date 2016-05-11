@@ -4,6 +4,6 @@
 
     = hidden_field_tag :in_place, params[:in_place]
     = hidden_field_tag :page, params[:page]
-    = f.association :users, collection: current_user.teammates, input_html: {style: 'height: 300px'}
+    = f.association :users, collection: current_user.teammates, input_html: { class: 'selectize' }
   .modal-footer
     = f.button :submit

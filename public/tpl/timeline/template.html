@@ -4,10 +4,10 @@
       <div class="card {{card.label}} {{card.content_type}}" ui-scroll="card in cards" id="{{card.id}}" data-external-id="{{card.external_id}}">
         <div class="panel panel-default">
           <div class="panel-heading" ng-show="card.from">
-            <img ng-src="{{card.profile_image_url}}" class="img-profile">
-            <span class="small">
-              <a ng-href="{{card.profile_url || card.original_content_url}}" target="_blank">{{card.from}}</a>
-            </span>
+            <a ng-href="{{card.profile_url || card.original_content_url}}" target="_blank">
+              <img ng-src="{{card.profile_image_url}}" class="img-profile">
+              <span class="small">{{card.from}}</span>
+            </a>
           </div>
           <div class="media-wrapper" ng-switch="card.content_type">
             <div ng-switch-when="text"></div>
@@ -25,15 +25,15 @@
             <p ng-switch-default ng-bind-html="card.content | to_trusted">
           </div>
           <div ng-show="card.provider_name" class="panel-footer">
-            <a ng-href="{{card.original_content_url}}" target="_blank">
-              <i class="fa img-provider" ng-class="'fa-' + card.provider_name"></i>
-            </a>
             <span class="small">{{card.created_at | date:'medium'}}</span>
             <div class="btn-group pull-right" dropdown on-toggle="template='share.html'">
-              <button type="button" class="btn btn-xs dropdown-toggle" dropdown-toggle>
-                <i class="fa fa-share-alt"></i>
-              </button>
-              <div class="dropdown-menu" ng-include src="template"></div>
+              <a ng-href="{{card.original_content_url}}" target="_blank" class="btn btn-default">
+                <i class="fa" ng-class="'fa-' + card.provider_name"></i>
+              </a>
+              <a class="btn btn-default dropdown-toggle" dropdown-toggle>
+                <i class="fa fa-retweet"></i>
+              </a>
+              <div class="dropdown-menu social-share" ng-include src="template"></div>
             </div>
             <div class="clearfix"></div>
           </div>

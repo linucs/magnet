@@ -35,6 +35,8 @@ class SlideshowsController < ApplicationController
   end
 
   def deck
+    redirect_to(slideshow_path(@board, :timeline)) and return if @board.options.deck_detect_mobile_devices.to_b && browser.mobile?
+
     gon.header_url = @board.options.deck_custom_header_url.present? ? @board.options.deck_custom_header_url : nil
     gon.template_url = @board.options.deck_custom_template_url.present? ? @board.options.deck_custom_template_url : Board::DEFAULT_DECK_TEMPLATE_URL
     gon.footer_url = @board.options.deck_custom_footer_url.present? ? @board.options.deck_footer_url : nil

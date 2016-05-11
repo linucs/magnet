@@ -116,6 +116,7 @@ en:
           deck_custom_footer_url: Custom footer URL
           deck_font_family: Font family
           deck_font_size: Size
+          deck_detect_mobile_devices: Detect mobile devices
         icon: 'Icon image'
         image: 'Main image'
         cover: 'Cover image'
@@ -210,15 +211,16 @@ en:
           timeline_font_family: Set a customized font family to use
           deck_custom_background_color: Set the background color
           deck_custom_background_image_style: Background image disposition
-          deck_columns_width: Set a width for each deck column (CSS units)
-          deck_cards_padding: Set a spacing between cards (CSS units)
+          deck_columns_width: Set a width for each deck column
+          deck_cards_padding: Set a spacing between cards
           deck_custom_stylesheet_url: Use a standard theme or set a custom stylesheet URL
           deck_custom_javascript_url: Add custom javascript
           deck_custom_margin_top: Leave space at the top
           deck_custom_header_url: 'Add a customized header (<a href="/tpl/deck/header.html" target="_blank">sample</a>)'
           deck_custom_template_url: 'Use a customized card template (<a href="/tpl/deck/template.html" target="_blank">sample</a>)'
-          deck_custom_footer_url: Add a customized
+          deck_custom_footer_url: Add a customized footer
           deck_font_family: Set a customized font family to use
+          deck_detect_mobile_devices: Redirect mobile devices to the timeline layout
           google_analytics_code: Google UA web property (UA-XXXXXX-YY)
           google_analytics_domain: Google UA domain
       feed:

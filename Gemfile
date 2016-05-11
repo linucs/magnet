@@ -81,6 +81,7 @@ gem 'mini_magick', '~> 4.0.1'
 gem 'ransack', '~> 1.5.1'
 gem 'geocoder', '~> 1.2.6'
 gem 'staccato', '~> 0.4.2'
+gem 'browser', '~> 1.1'
 
 gem 'devise', '>= 3.5.4'
 gem 'devise_account_expireable', '~> 0.0.2'
