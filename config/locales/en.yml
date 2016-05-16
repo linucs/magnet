@@ -157,7 +157,7 @@ en:
         name: 'Give a name to this folder'
         label: 'Set a label for this folder, to categorize it'
         slug: 'Set the URL portion for this folder'
-        description: 'Fill in the full folder description'
+        description: 'Give this folder a detailed description'
         image: 'Upload an image representing this folder'
         cover: 'Upload a cover representing this folder'
         parent_id: 'Make a subcategory, by setting its parent category'
@@ -173,7 +173,7 @@ en:
         folder: 'Categorize this collection'
         slug: 'Set the URL portion for this collection'
         label: 'Set a label for this collection, to categorize it'
-        description: 'Fill in the full collection description'
+        description: 'Give this collection a detailed description'
         full_street_address: 'The location where this event takes place (if any)'
         polling_interval: 'Decide how often contents should be refreshed?'
         host: Publish using this host name

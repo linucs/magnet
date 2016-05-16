@@ -22,8 +22,8 @@
           .col-sm-4= f.input :polling_interval, as: :select, collection: (1..AuthenticationProvider::POLLING_TICKS).map { |i| i.to_s.to_sym }, include_blank: 'No scheduled refresh'
       .row
         .col-md-4
-          = f.input :description, input_html: { rows: 6 }
           = f.input :full_street_address, input_html: { class: 'geocomplete' }
+          = f.input :description, input_html: { rows: 6 }
         .col-md-8
           .google-map
       = f.input :latitude, as: :hidden, input_html: { 'data-geo' => 'lat' }

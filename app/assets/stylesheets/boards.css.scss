@@ -114,7 +114,7 @@
 
 #new-board-form, #edit-board-form {
   .google-map {
-    height: 254px;
+    height: 253px;
   }
 }
 
@@ -153,4 +153,8 @@
 .feed-alert .box-body {
   max-height: 70px;
   overflow: auto;
+}
+
+.pac-container {
+  z-index: 9999;
 }
