@@ -4,25 +4,35 @@
       %li.header MAIN NAVIGATION
       %li.treeview{class: current_page?(controller: '/boards') ? 'active' : nil}
         = link_to boards_path do
-          %i.fa.fa-files-o
-          %span.hint--top(data-hint="Go to your collections listing page") My collections
+          %i.fa.fa-columns
+          %span.hint--top(data-hint="Go to your collections listing page") Social collections
       - if can? :manage, Category
         %li.treeview{class: current_page?(controller: '/categories') ? 'active' : nil}
           = link_to categories_path do
             %i.fa.fa-folder
             %span.hint--top(data-hint="Go to the content folders listing page, to set the available collections categorizations options") Content folders
-      %li.treeview{class: current_page?(controller: '/campaigns') ? 'active' : nil}
-        = link_to campaigns_path do
-          %i.fa.fa-buysellads
-          %span.hint--top(data-hint="Go to your advertising campaigns listing page") My adv campaigns
+      - if can? :manage, Campaign
+        %li.treeview{class: current_page?(controller: '/campaigns') ? 'active' : nil}
+          = link_to campaigns_path do
+            %i.fa.fa-buysellads
+            %span.hint--top(data-hint="Go to your advertising campaigns listing page") Adv campaigns
       - if current_user.admin?
         %li.header ADMINISTRATION
+        - if can? :manage, Team
+          %li
+            = link_to teams_path do
+              %i.fa.fa-users
+              %span.hint--top(data-hint="Manage platform user teams") Teams
         - if can? :manage, User
           %li
             = link_to users_path do
-              %i.fa.fa-users
+              %i.fa.fa-user
               %span.hint--top(data-hint="Manage platform users") Users
         %li
           = link_to sidekiq_web_path, target: '_blank' do
             %i.fa.fa-gears
             %span.hint--top(data-hint="Go to Sidekiq management page") Background jobs
+      - unless Sidekiq::is_running?
+        %li.treeview
+          = link_to 'javascript:void(0)' do
+            %span.label.label-danger Scanning process is not running

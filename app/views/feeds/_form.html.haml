@@ -7,7 +7,9 @@
     = f.association :authentication_provider, as: :hidden, input_html: { value: @feed.authentication_provider.id }
     - if @feed.persisted?
       = f.input :enabled
-      = f.input :name
+    .row
+      .col-md-6= f.input :name
+      .col-md-6= f.input :label, input_html: { class: 'selectize' }
     .row
       .col-md-12
         %ul.list-inline
@@ -38,12 +40,10 @@
                       - if v[2].present?
                         %span.input-group-addon= v[2].html_safe
                     = f.hint k
-    .row
-      - unless @board
-        .col-md-6= f.input :board_name
-      .col-md-6= f.input :label, input_html: { class: 'selectize' }
     - unless @feed.new_record?
-      .row
-        .col-md-6= f.association :user, collection: @board.users, include_blank: 'select...'
+      = f.association :user, collection: @board.users, include_blank: 'select...'
+    - unless @board
+      = f.input :board_name
+
   .modal-footer
     = f.button :submit

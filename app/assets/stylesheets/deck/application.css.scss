@@ -13,17 +13,18 @@
 *= require_self
 */
 
-$icon-font-path: "bootstrap-sass-official/assets/fonts/bootstrap/";
+$icon-font-path: "bootstrap-sass/assets/fonts/bootstrap/";
 @import 'font-awesome/css/font-awesome';
 
-@import 'bootstrap-sass-official/assets/stylesheets/bootstrap-sprockets';
-@import 'bootstrap-sass-official/assets/stylesheets/bootstrap';
+@import 'bootstrap-sass/assets/stylesheets/bootstrap-sprockets';
+@import 'bootstrap-sass/assets/stylesheets/bootstrap';
 
 .magnet-container {
 	@import 'RRSSB/css/rrssb';
 	@import 'angular-rrssb/dist/angular-rrssb';
 	@import 'angular-social/angular-social';
 	@import 'fancybox/source/jquery.fancybox';
+	@import 'bootsy';
 
 	@mixin word-wrap() {
 	  overflow-wrap: break-word;
@@ -45,6 +46,12 @@ $icon-font-path: "bootstrap-sass-official/assets/fonts/bootstrap/";
 		display: none;
 		&.loaded {
 			display: block;
+		}
+		&.custom .media-wrapper img {
+			max-width: 100%;
+		}
+		.cta img {
+			max-width: 100%;
 		}
 	}
 
@@ -78,15 +85,13 @@ $icon-font-path: "bootstrap-sass-official/assets/fonts/bootstrap/";
 				}
 			}
 		}
-		.panel-footer {
-			padding: 10px;
-			.img-provider {
-				margin-right: 10px;
+		.social-share {
+			min-width: initial;
+			.share {
+				a {
+					white-space: nowrap;
+				}
 			}
-		}
-		.share {
-			margin: 0px 10px;
-			min-height: 25px;
 		}
 	}
 

@@ -168,6 +168,7 @@ class Board < ActiveRecord::Base
   validates :image, file_size: { maximum: 0.5.megabytes.to_i }
 
   scope :enabled, -> { where(enabled: true) }
+  scope :transient, -> { where('boards.hashtag IS NOT NULL') }
 
   paginates_per PER_PAGE
 
@@ -180,7 +181,7 @@ class Board < ActiveRecord::Base
   end
 
   def self.poll_enabled
-    Board.where(enabled: true).find_each { |b| b.poll if b.check_polling_count! }
+    Board.enabled.find_each { |b| b.poll if b.check_polling_count! }
   end
 
   def polled_at
@@ -203,6 +204,10 @@ class Board < ActiveRecord::Base
     feeds.where(polling: true).count > 0
   end
 
+  def transient?
+    self.hashtag.present?
+  end
+
   def check_polling_count!
     if polling_interval.to_i > 0
       update_attribute(:polling_count, (polling_count.to_i + 1) % polling_interval)
@@ -218,6 +223,10 @@ class Board < ActiveRecord::Base
     if card.enabled?
       card.enabled = !banned_user?(card.from)
       card.notes = "Discarded at #{now}: user #{card.from} is banned." unless card.enabled?
+    end
+    if card.enabled?
+      card.enabled = pollable?(card.created_at, card.created_at)
+      card.notes = "Discarded at #{now}: card was posted outside the allowed timeframe." unless card.enabled?
     end
     if card.enabled? && card.media_url.present? && card.new_record?
       card.enabled = !cards_collection.where(media_url: card.media_url).exists?
@@ -334,6 +343,31 @@ class Board < ActiveRecord::Base
     BoardCleanupWorker.perform_async(id)
   end
 
+  def self.create_for_hashtag(hashtag, user)
+    board = Board.create!(enabled: false, name: hashtag,
+                          description: "Contents for hashtag ##{hashtag}",
+                          hashtag: hashtag)
+    if user.is_connected_to? 'twitter'
+      twitter = board.feeds.build(authentication_provider: AuthenticationProvider.where(name: 'twitter').first,
+                                  user: user,
+                                  options: { twitter_search: hashtag })
+      twitter.save(validate: false)
+    end
+    if user.is_connected_to? 'instagram'
+      instagram = board.feeds.build(authentication_provider: AuthenticationProvider.where(name: 'instagram').first,
+                                    user: user,
+                                    options: { instagram_tag_recent_media: hashtag })
+      instagram.save(validate: false)
+    end
+    if user.is_connected_to? 'tumblr'
+      tumblr = board.feeds.build(authentication_provider: AuthenticationProvider.where(name: 'tumblr').first,
+                                 user: user,
+                                 options: { tumblr_tag: hashtag })
+      tumblr.save(validate: false)
+    end
+    board
+  end
+
   def self.create_from_csv(file, user, create_missing_categories, poll_immediately, options = {})
     board = category = provider = nil
     CSV.foreach(file.path, headers: true, col_sep: "\t") do |row|
@@ -351,7 +385,7 @@ class Board < ActiveRecord::Base
         end
         provider = user.authentication_providers.find_by(name: provider_name) if provider_name.present?
         if category_name.present?
-          category = create_missing_categories ? Category.ensure_tree(category_name) : Category.find_by(name: category_name)
+          category = create_missing_categories ? Category.ensure_tree(user, category_name) : Category.find_by(name: category_name)
         end
         Board.transaction do
           board = user.boards.create({

@@ -21,6 +21,10 @@
 #= require reveal.js/js/reveal
 #= require_self
 
+window.onerror = (msg, url, lineNo, columnNo, error) ->
+  console.log 'Unhandled exception: ', msg, url, lineNo, columnNo, error
+  false
+
 magnet = angular
   .module('magnet', [
     'ngAnimate',
@@ -43,7 +47,7 @@ magnet = angular
               scope.$emit('ngRepeatFinished')
     }
   ])
-  .controller('SlidesCtrl', ['$resource', '$scope', ($resource, $scope) ->
+  .controller('SlidesCtrl', ['$resource', '$scope', '$window', '$timeout', ($resource, $scope, $window, $timeout) ->
     $scope.board_id = gon.board_id
     $scope.board_name = gon.board_name
     $scope.board_description = gon.board_description
@@ -70,9 +74,18 @@ magnet = angular
           'Range': '0-' + ((gon.wall_page_size || 30) - 1)
         params:
           user_token: gon.user_token
+          layout: 'wall'
     )
 
-    $scope.cards = Card.query()
+    loadCards = () ->
+      $scope.cards = Card.query()
+      $scope.cards.$promise.then (cards) ->
+        cards.push {}
+      , (error) ->
+        console.log 'Loading error: ', error
+        $timeout () ->
+          loadCards()
+        , 10000
 
     initializeReveal = true
     $scope.$on('ngRepeatFinished', (event) ->
@@ -84,7 +97,7 @@ magnet = angular
           slideNumber: false
           history: false
           keyboard: true
-          overview: false
+          overview: true
           center: gon.wall_center || false
           touch: true
           loop: true
@@ -109,30 +122,39 @@ magnet = angular
         })
       else
         Reveal.slide(0)
+      $(window).trigger('slidesloaded')
     )
 
     Reveal.addEventListener "slidechanged", (event) ->
       Reveal.configure({
         transition: transitions.randomElement()
       })
-      if Reveal.isFirstSlide()
-        $scope.cards = Card.query()
+      loadCards() if Reveal.isLastSlide()
+
+    loadCards()
 
     if gon.websocketUrl?
       dispatcher = new WebSocketRails(gon.websocketUrl)
       dispatcher.on_open = (data) ->
-        console.log 'Connection has been established: ', data
+        console.log 'Websocket connection has been established: ', data
         channel = dispatcher.subscribe("board-#{gon.board_id}")
         channel.bind 'reload', (board) ->
-          location.reload()
+          $window.location.reload()
         channel.bind 'togglePause', (board) ->
           Reveal.togglePause()
         channel.bind 'toggleAutoSlide', (board) ->
           Reveal.toggleAutoSlide()
+        channel.bind 'toggleOverview', (board) ->
+          Reveal.toggleOverview()
         channel.bind 'prev', (board) ->
           Reveal.prev()
         channel.bind 'next', (board) ->
           Reveal.next()
         channel.bind 'slide', (n) ->
           Reveal.slide(n)
+      dispatcher.bind 'connection_closed', (data) ->
+        console.log 'Websocket connection closed: ', data
+        $timeout () ->
+          dispatcher.reconnect()
+        , 60000
     ])

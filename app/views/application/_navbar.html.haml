@@ -2,15 +2,26 @@
 %header.main-header
   / Logo
   = link_to root_path, class: 'logo' do
-    %b>Mag
-    NET
+    %span.logo-mini
+      %i.fa.fa-magnet
+    %span.logo-lg
+      %b>Mag
+      NET
   / Header Navbar: style can be found in header.less
   %nav.navbar.navbar-static-top{:role => "navigation"}
     / Sidebar toggle button
-    %a.sidebar-toggle{"data-toggle" => "offcanvas", :href => "#", :role => "button"}
+    %a.sidebar-toggle.hidden-xs{"data-toggle" => "offcanvas", :href => "#", :role => "button"}
       %span.sr-only Toggle navigation
     .navbar-custom-menu
       %ul.nav.navbar-nav
+        %li.visible-xs
+          = link_to boards_path do
+            %i.fa.fa-fw.fa-columns
+            %span.hint--top(data-hint="Go to your collections listing page")
+        %li
+          %a#tutorial-btn.start-tutorial(href="#")
+            %span.hint--bottom(data-hint="Start the guided tour")
+              %i.fa.fa-fw.fa-info
         / Notifications: style can be found in dropdown.less
         %li.dropdown.notifications-menu
           - alerts = current_user.feeds.with_alerts

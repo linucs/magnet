@@ -7,11 +7,11 @@ gem 'rails', '~> 4.2.5'
 # gem 'sqlite3'
 gem 'mysql2'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
 
@@ -70,6 +70,7 @@ gem 'chartkick', '~> 1.3.2'
 gem 'shortener', '~> 0.3.1'
 gem 'ancestry', '~> 2.1.0'
 gem 'date_picker', github: 'develon/date_picker'
+gem 'bootsy', github: 'develon/bootsy'
 
 gem 'mongoid', '~> 4.0.0'
 gem 'ransack_mongo', '~> 1.0.1'
@@ -77,10 +78,11 @@ gem 'ranked-model', '~> 0.4.0'
 gem 'friendly_id', '~> 5.0.4'
 gem 'carrierwave', '~> 0.10.0'
 gem 'carrierwave-mongoid', '~> 0.7.1'
-gem 'mini_magick', '~> 4.0.1'
+gem 'mini_magick', '~> 4.4'
 gem 'ransack', '~> 1.5.1'
 gem 'geocoder', '~> 1.2.6'
 gem 'staccato', '~> 0.4.2'
+gem 'browser', '~> 1.1'
 
 gem 'devise', '>= 3.5.4'
 gem 'devise_account_expireable', '~> 0.0.2'
@@ -119,6 +121,7 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'faker'
+  gem 'brakeman', :require => false
   gem 'mina', require: false
   gem 'mina-sidekiq', require: false
   gem 'mina-multistage', require: false

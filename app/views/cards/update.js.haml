@@ -1,5 +1,6 @@
-$(".card[data-card-id='#{@card.id}']").replaceWith('#{j render(partial: 'boards/card_thumbnail', locals: {card: @card}) }');
+$(".card[data-card-id='#{@card.id}']").replaceWith('#{j render(partial: 'boards/card_thumbnail', locals: {card: @card, transient: false}) }');
 $('#edit-card-form').html('#{j render 'form' }');
+$('#edit-card-form .selectize').selectize({create: true});
 $.fn.rebindCardsListingPage();
 - if @card.valid?
   $('#edit-card-dialog').modal('hide');

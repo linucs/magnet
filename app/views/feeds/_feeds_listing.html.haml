@@ -1,23 +1,32 @@
 .box-body
+  %ul.list-inline.social-connections
+    - AuthenticationProvider.all.each do |provider|
+      %li{id: "#{provider.name}-info-box"}
+        - if !provider.needs_authentication? || current_user.is_connected_to?(provider.name)
+          = link_to new_board_feed_path(@board, authentication_provider_id: provider.id), remote: true, class: "small-box btn-#{provider.name}" do
+            .inner
+              %h3
+                = @board.all_cards.by_provider(provider.name).count
+              %p
+                #{provider.title} cards
+            .icon
+              %i.ion{class: "ion-social-#{provider.name}"}
+            .small-box-footer
+              add contents
+        - else
+          = link_to user_omniauth_authorize_path(:provider => provider.name), class: "small-box btn-#{provider.name}" do
+            .inner
+              %h3
+                = @board.all_cards.by_provider(provider.name).count
+              %p
+                #{provider.title} cards
+            .icon
+              %i.ion{class: "ion-social-#{provider.name}"}
+            .small-box-footer
+              add contents
   %ul.todo-list
-    = render(@feeds) || alert('This board has no social feeds, yet.')
+    = render(@feeds) || alert('No social feeds to show for this collection.')
 .box-footer
   .pull-right
     %span.page_entries_info= page_entries_info @feeds
     = paginate @feeds, params: {controller: 'feeds', action: 'index', board_id: @board.id}, remote: true
-  .clearfix
-  %br
-  - providers = AuthenticationProvider.all
-  %ul.list-inline.text-center
-    - providers.each_with_index do |p, i|
-      %li
-        - if !p.needs_authentication? || current_user.is_connected_to?(p.name)
-          = link_to new_board_feed_path(@board, authentication_provider_id: p.id), remote: true, class: "btn btn-social btn-#{p.name}" do
-            %i.fa.fa-fw{class: "fa-#{p.name}"}
-            add contents
-            %i.fa.fa-fw.fa-plus
-        - else
-          = link_to user_omniauth_authorize_path(:provider => p.name), class: "btn btn-social btn-danger" do
-            %i.fa.fa-fw{class: "fa-#{p.name}"}
-            connect
-            %i.fa.fa-fw.fa-arrow-circle-right

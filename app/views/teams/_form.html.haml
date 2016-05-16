@@ -1,0 +1,11 @@
+= simple_form_for(@team, remote: true) do |f|
+  .modal-body
+    = f.error_notification
+
+    = hidden_field_tag :page, params[:page]
+    - if @team.persisted?
+      = f.input :enabled, as: :boolean
+    = f.input :name
+    = f.association :users, input_html: { class: 'selectize' }
+  .modal-footer
+    = f.button :submit

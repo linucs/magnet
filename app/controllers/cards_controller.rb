@@ -1,7 +1,7 @@
 class CardsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_board
-  before_action :set_card, only: [:show, :edit, :update, :destroy, :trust, :ban]
+  before_action :set_card, only: [:show, :edit, :update, :destroy, :trust, :ban, :cta]
 
   respond_to :js
 
@@ -59,6 +59,9 @@ class CardsController < ApplicationController
     end
   end
 
+  def cta
+  end
+
   def bulk_update
     card_ids = params[:card_ids]
     if card_ids.is_a?(Array) && card_ids.size > 0
@@ -71,6 +74,18 @@ class CardsController < ApplicationController
         @board.cards.where(:id.in => card_ids).update_all(enabled: false)
       when 'refresh'
         @board.cards.where(:id.in => card_ids).each { |c| c.refresh rescue nil }
+      when 'label'
+        label = params[:value]
+        if label.present?
+          @board.cards.where(:id.in => card_ids).each do |c|
+            labels = c.label.to_s.split ','
+            c.for_board(@board.id).update_attribute(:label, (labels << label).join(',')) unless labels.include?(label)
+          end
+        end
+      when 'un-label'
+        @board.cards.where(:id.in => card_ids).each do |c|
+          c.for_board(@board.id).update_attribute(:label, nil)
+        end
       end
       respond_to do |format|
         format.js { load_cards }
@@ -85,7 +100,7 @@ class CardsController < ApplicationController
   private
 
   def set_board
-    @board = available_boards.friendly.find(params[:board_id])
+    @board = available_boards.friendly.find(params[:board_id]) rescue Board.transient.friendly.find(params[:board_id])
   end
 
   def set_card
@@ -97,6 +112,11 @@ class CardsController < ApplicationController
   end
 
   def card_params
-    params.require(:card).permit(:provider_name, :content, :content_source, :content_type, :original_content_url, :from, :profile_image_url, :online, :pinned, :content, :media_url, :embed_code, :thumbnail_image_url, :label, :rating, :notes, :custom_profile_image, :remove_custom_profile_image, :custom_media, :remove_custom_media, :custom_thumbnail_image, :remove_custom_thumbnail_image)
+    params.require(:card).permit(:provider_name, :content, :content_source,
+      :content_type, :original_content_url, :from, :profile_image_url, :online,
+      :pinned, :content, :media_url, :embed_code, :thumbnail_image_url,
+      :label, :rating, :notes, :custom_profile_image, :remove_custom_profile_image,
+      :custom_media, :remove_custom_media, :custom_thumbnail_image,
+      :remove_custom_thumbnail_image, :cta)
   end
 end

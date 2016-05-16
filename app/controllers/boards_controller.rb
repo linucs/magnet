@@ -2,7 +2,7 @@ class BoardsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_board, only: [:show, :edit, :update, :destroy, :poll, :users, :filters, :options, :analytics, :charts, :tag_cloud, :wall]
 
-  add_crumb('My collections') { |instance| instance.send :boards_path }
+  add_crumb('Social collections') { |instance| instance.send :boards_path }
 
   helper_method :editing_in_place?
 
@@ -135,6 +135,29 @@ class BoardsController < ApplicationController
     render nothing: true
   end
 
+  def hashtag
+    if params[:persist].present?
+      @hashtag = params[:persist]
+      @board = Board.where(hashtag: @hashtag).first
+      if @board
+        @board.feeds.each { |f| f.update_attribute(:enabled, false) }
+        @board.update_attributes(enabled: true, hashtag: nil)
+        @board.users << current_user unless @board.user_ids.include?(current_user.id)
+      end
+    else
+      @hashtag = params.require(:board).permit(:hashtag)[:hashtag].to_s.parameterize
+      if @hashtag.size > 2
+        @board = Board.where(hashtag: @hashtag).first || Board.create_for_hashtag(@hashtag, current_user)
+        unless params[:commit] == 'Refresh' || @board.cards.count >= Card::PER_PAGE * 3
+          @board.poll(high_priority: true, oldest: true)
+        end
+        @cards = @board.search_cards(params[:q], params[:order]).page(params[:page])
+      end
+    end
+
+    respond_with(@cards)
+  end
+
   private
 
   def load_boards
@@ -142,7 +165,7 @@ class BoardsController < ApplicationController
   end
 
   def set_board
-    @board = available_boards.friendly.find(params[:id])
+    @board = available_boards.friendly.find(params[:id]) rescue Board.transient.friendly.find(params[:id])
   end
 
   def board_params

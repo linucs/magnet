@@ -1,64 +1,66 @@
-%section.content-header
-  %h1
-    Your main dashboard
-    %small it all starts here
-  = render_crumbs
-
 %section.content
-  .row
-    - linked_identities = 0
-    - AuthenticationProvider.all.each do |provider|
-      - if provider.needs_authentication?
-        .col-md-3.col-xs-6
-          - if current_user.is_connected_to?(provider.name)
-            - linked_identities += 1
-            .small-box{class: "btn-#{provider.name}"}
-              .inner
-                %h3
-                  = current_user.cards_count(provider.name)
-                %p
-                  cards from #{provider.title}
-                -# = simple_form_for identity, :remote => true do |f|
-                  -# .switch.switch-large= f.check_box :enabled, :class => 'submit-on-change'
-              .icon
-                %i.ion{class: "ion-social-#{provider.name}"}
-              = link_to new_board_feed_path(:board, authentication_provider_id: provider.id, in_place: true), remote: true, class: "small-box-footer btn btn-lg" do
-                %span.hint--bottom{:'data-hint' => "Set up a content feed to fetch posts from #{provider.title}"}
-                  add contents
-                  %i.fa.fa-fw.fa-plus
-          - else
-            .small-box.bg-red
-              .inner
-                %h3= current_user.cards_count(provider.name)
-                %p
-                  cards from #{provider.title}
-              .icon
-                %i.ion{class: "ion-social-#{provider.name}"}
-              = link_to user_omniauth_authorize_path(:provider => provider.name), class: 'small-box-footer btn btn-lg' do
-                %span.hint--bottom{:'data-hint' => "Link your #{provider.title} account to be able to fetch contents"}
-                  connect
-                  %i.fa.fa-fw.fa-arrow-circle-right
-  - if linked_identities == 0
+  - unless current_user.can_search_for_hashtags?
     .alert.alert-info
-      %h4
-        %i.icon.fa.fa-info
-        Link your social accounts to get started!
-      Click on the connect links above to create a trusted connection with your social accounts on Twitter, Facebook, instagram and Tumbrl.
-      %br
-      You'll then be able to create new content feeds, download posts and organize then in collections.
+      %strong
+        To start searching for contents on the social web, please connect your social accounts first.
+        Click on each red box below to proceed!
 
-  #new-feed-dialog.modal.fade(tabindex="-1" role="dialog" aria-labelledby="Manage this feed" aria-hidden="true")
-    .modal-dialog
-      .modal-content
-        .modal-header
-          %button(type="button" class="close" data-dismiss="modal")
-            %span(aria-hidden="true")
-              &times;
-            %span.sr-only
-              Close
-          %h4.modal-title
-            Create a new collection of contents
-        #new-feed-form.modal-body
+  = render 'social_connections'
 
+  %nav.navbar.navbar-default
+    .container-fluid
+      = simple_form_for :board, url: hashtag_boards_path, remote: true, html: { id: 'search-form', class: 'navbar-form navbar-left' } do |f|
+        = hidden_field_tag 'persist'
+        .form-group.string
+          .input-group
+            %span.input-group-addon
+              %i.ion.ion-pound
+            = f.input_field :hashtag, class: 'form-control input-lg submit-on-enter disable-on-submit', placeholder: 'Search an hashtag...', disabled: !current_user.can_search_for_hashtags?
+        .btn-group
+          = f.submit 'Search', class: 'btn btn-lg btn-primary disable-on-submit', disabled: !current_user.can_search_for_hashtags?
+          = link_to 'Save this search', '#', class: 'btn btn-lg btn-default save-search disable-on-submit', disabled: true
+      %ul.nav.navbar-nav.navbar-right.hidden-sm.hidden-xs
+        %li.btn
+          = link_to boards_path, class: 'btn-lg navbar-right' do
+            create from scratch
 
-  #latest-boards= render 'latest_boards'
+  #cards-listing.box.box-solid
+    .box-body
+      .row
+        - 3.times do
+          .col-md-4= link_to image_tag('card.png', class: 'img-responsive card-preview'), '#', class: 'start-tutorial'
+
+#show-card-dialog.modal.fade(tabindex="-1" role="dialog" aria-labelledby="Card detail" aria-hidden="true")
+  .modal-dialog
+    .modal-content
+      .modal-body
+        #show-card-form
+        .row
+          .col-lg-12
+            %button(type="button" class="close" data-dismiss="modal")
+              %span(aria-hidden="true")
+                &times;
+              %span.sr-only
+                Close
+
+- content_for :javascripts do
+  :javascript
+    var dispatcher, hashtag;
+    $(function() {
+      dispatcher = new WebSocketRails('#{Figaro.env.websocket_host.to_s + ':' + Figaro.env.websocket_port.to_s}/websocket');
+
+      dispatcher.on_open = function(data) {
+        console.log('Websocket connection has been established: ', data);
+      }
+
+      $('#show-card-dialog').on('hidden.bs.modal', function (e) {
+        $('#show-card-form').html('');
+      });
+
+      $('.save-search').on("click", function (e) {
+        if(!$(e.target).attr('disabled') && hashtag && confirm('Are you sure?')) {
+          $("#persist").val(hashtag);
+          $('#search-form').submit();
+        }
+      });
+    });

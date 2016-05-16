@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootsy
 //= require jquery-ui/sortable
 //= require jquery-ui/effect-highlight
 //= require jquery.remotipart
@@ -19,7 +20,7 @@
 //= require angular/angular
 //= require websocket_rails/main
 //= require moment/min/moment.min
-//= require bootstrap-sass-official/assets/javascripts/bootstrap-sprockets
+//= require bootstrap-sass/assets/javascripts/bootstrap-sprockets
 //= require bootstrap-hover-dropdown/bootstrap-hover-dropdown.min
 //= require bootstrap-rating-input/build/bootstrap-rating-input.min
 //= require bootstrap-colorpicker/js/bootstrap-colorpicker
@@ -34,6 +35,7 @@
 //= require jquery-geocomplete/jquery.geocomplete
 //= require salvattore/dist/salvattore
 //= require admin-lte/dist/js/app
+//= require bootstrap-tour/build/js/bootstrap-tour
 //= require boards
 //= require categories
 //= require feeds
@@ -42,24 +44,31 @@
 //= require_self
 
 $.flash = function(msg, level) {
-  $('#flash_messages').html('<div class="alert alert-' + (level || 'success') + ' alert-dismissable fade in"><button aria-hidden="true" class="close" data-dismiss="alert" type="button">×</button>' + msg + '</div>');
+  $('#flash_messages').html('<div class="alert alert-' + (level || 'success') + ' alert-dismissible fade in"><button aria-label="Close" class="close" data-dismiss="alert" type="button"><span aria-hidden="true">&times;</span></button>' + msg + '</div>');
+}
+
+$.addBulkAction = function(e, val) {
+  var $element = $(e.target);
+  var $form = $element.closest('form');
+  var action = $element.data('action');
+  if(action) {
+    $('<input>').attr({
+      type: 'hidden',
+      name: 'bulk_action',
+      value: action
+    }).appendTo($form);
+  }
+  if(val) {
+    $('<input>').attr({
+      type: 'hidden',
+      name: 'value',
+      value: val
+    }).appendTo($form);
+  }
+  return $form;
 }
 
 $(function() {
-  var addFormAction = function(e) {
-    var $element = $(e.target);
-    var $form = $element.closest('form');
-    var action = $element.data('action');
-    if(action) {
-      $('<input>').attr({
-        type: 'hidden',
-        name: 'bulk_action',
-        value: action
-      }).appendTo($form);
-    }
-    return $form;
-  }
-
   outdatedBrowser({
     bgColor: '#f25648',
     color: '#ffffff',
@@ -68,13 +77,13 @@ $(function() {
   });
   $(document).on('change', '.submit-on-change', function(e) {
     Pace.track(function(){
-      addFormAction(e).submit();
+      $.addBulkAction(e).submit();
     });
     e.preventDefault();
   });
   $(document).on('click', '.submit-on-click', function(e) {
     Pace.track(function(){
-      addFormAction(e).submit();
+      $.addBulkAction(e).submit();
     });
     e.preventDefault();
   });

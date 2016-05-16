@@ -1,10 +1,9 @@
 .box-body
   %ul.todo-list
-    = render(@categories) || alert('No content folders have been created, yet.')
+    = render(@categories) || alert('No content folders to show.')
 .box-footer
   .pull-right
     %span.page_entries_info= page_entries_info @categories
     = paginate @categories, params: {controller: 'categories', action: 'index'}, remote: true
-  .clearfix
-  %br
+  .clearfix.margin-bottom
   .text-center= link_to 'Add a folder', new_category_path, remote: true, class: 'btn btn-primary'

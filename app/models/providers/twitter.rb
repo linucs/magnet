@@ -251,8 +251,8 @@ class Providers::Twitter
   class << self
     def options
       {
-        twitter_search: [:string, '#'],
-        twitter_user_timeline: [:string, '@'],
+        twitter_search: [:string, '<i class="ion ion-pound"></i>'],
+        twitter_user_timeline: [:string, '<i class="ion ion-at"></i>'],
         twitter_home_timeline: [:boolean],
         twitter_mentions_timeline: [:boolean]
       }
@@ -275,6 +275,7 @@ class Providers::Twitter
         ensure
           feed.update_attribute(:polling, false)
           feed.update_attribute(:polled_at, Time.now)
+          feed.send_notification 'polling-end'
         end
       end
     end
@@ -294,6 +295,7 @@ class Providers::Twitter
           ensure
             feed.update_attribute(:polling, false)
             feed.update_attribute(:polled_at, Time.now)
+            feed.send_notification 'polling-end'
           end
         end
       end

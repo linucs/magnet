@@ -16,6 +16,14 @@ class API::CardsController < API::BaseController
         key :type, :string
       end
       parameter do
+        key :name, :layout
+        key :in, :query
+        key :description, 'implicit display layout (used to trigger appropriate advertising campaigns)'
+        key :required, false
+        key :type, :string
+        key :enum, %W(deck timeline wall)
+      end
+      parameter do
         key :name, :latitude
         key :in, :query
         key :description, 'card latitude to filter by (returns only geotagged contents)'
@@ -65,7 +73,7 @@ class API::CardsController < API::BaseController
   def index
     options = { users: { id: current_user } }
     @cards = @ads = []
-    @board = params[:category_id].present? ? Category.enabled.friendly.find(params[:category_id]).boards : Board
+    @board = params[:category_id].present? ? Category.of_teammates(current_user).enabled.friendly.find(params[:category_id]).boards : Board
     @board = @board.includes(:users).enabled.where(options).friendly.find(params[:board_id])
     cards = @board.cards.online
     cards = if params[:latitude].present? && params[:longitude].present?
@@ -75,7 +83,7 @@ class API::CardsController < API::BaseController
             end
     paginate(cards.count, Card::PER_PAGE, allow_render: false) do |limit, offset|
       @cards = cards.offset(offset).limit(limit)
-      @board.campaigns.triggered_on(params[:adv] || 100).rank(:row_order).each { |c| @ads << c.as_card if c.displayable? }
+      @board.campaigns.triggered_on(params[:adv] || 100).rank(:row_order).each { |c| @ads << c.as_card if c.displayable?(params[:layout]) }
       track_event("User #{current_user.id}", 'List cards', @board.name, 2 * offset + limit)
       respond_with(@cards)
     end

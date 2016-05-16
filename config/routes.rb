@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     ), at: '/files'
   end
 
+  mount Bootsy::Engine => '/bootsy', as: 'bootsy'
+
   concern :collectable do
     resources :boards, only: [:index, :show] do
       resources :cards, only: :index
@@ -28,6 +30,7 @@ Rails.application.routes.draw do
 
   resources :boards do
     post 'upload', on: :collection
+    post 'hashtag', on: :collection
     member do
       get 'poll'
       get 'users'
@@ -45,6 +48,7 @@ Rails.application.routes.draw do
     resources :cards, only: [:new, :create, :edit, :update, :show, :destroy] do
       post 'trust', on: :member
       post 'ban', on: :member
+      get 'cta', on: :member
       post 'bulk_update', on: :collection
     end
   end
@@ -61,6 +65,8 @@ Rails.application.routes.draw do
   end
 
   resources :users, except: [:show, :new, :create]
+
+  resources :teams, except: :show
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

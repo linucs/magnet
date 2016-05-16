@@ -1,15 +1,17 @@
 %section.content-header
   %h1
-    My social collections
+    Your social collections
+    - if current_user.team
+      %small as a member of #{current_user.team.name} team
   %p
     Collect, moderate and show posts from various social networks, grouping them as content collections.
   = render_crumbs
 
 %section.content
   .row
-    .col-md-3
-      = link_to 'Add a collection', new_board_path, remote: true, class: 'btn btn-primary btn-block margin-bottom'
-      .box.box-solid
+    .col-md-3.hidden-xs
+      = link_to 'Add a collection', new_board_path, remote: true, class: 'btn btn-lg btn-primary btn-block margin-bottom'
+      #category-filters.box.box-solid
         .box-header.with-border
           %h3.box-title Folders
         .box-body.no-padding
@@ -17,11 +19,11 @@
             %li
               = link_to boards_path, remote: true do
                 %span.hint--top(data-hint="View all your collections, regardless of the folder they belongs to") Any folder
-            - Category.all.each do |c|
+            - Category.of_teammates(current_user).each do |c|
               %li
                 = link_to boards_path('q[category_id_eq]' => c.id), remote: true do
-                  %span.hint--top{:'data-hint' => "View only collections categorized under the #{c.name} folder"}= c.name
-      .box.box-solid
+                  %span.hint--top{:'data-hint' => "View only collections categorized under the #{c.name} folder"}= c.title
+      #status-filters.box.box-solid
         .box-header.with-border
           %h3.box-title Filters
         .box-body.no-padding
@@ -32,8 +34,12 @@
                 %span.hint--top(data-hint="View only disabled collections (not publicly available)") Disabled collections
             %li
               = link_to boards_path('q[moderated_eq]' => true), remote: true do
-                %i.fa.fa-circle-o.text-yellow
+                %i.fa.fa-circle-o.text-grey
                 %span.hint--top(data-hint="View only moderated collections (contents in these collections must be approved before going online)") Moderated collections
+            %li
+              = link_to boards_path('q[enabled_eq]' => true), remote: true do
+                %i.fa.fa-circle-o.text-blue
+                %span.hint--top(data-hint="View only enabled collections") Enabled collections
             %li
               = link_to boards_path do
                 %span.hint--top(data-hint="Reset any filtering setting above") Reset filters
@@ -49,7 +55,7 @@
         #boards
           = render 'boards_listing'
       - if can?(:upload, Board) && current_user.authentication_providers.any?
-        .box.box-warning
+        .box.box-warning.hidden-xs
           .box-header
             %h3.box-title Add new collections
           #board-upload-form

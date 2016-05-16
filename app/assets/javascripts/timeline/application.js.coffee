@@ -65,6 +65,7 @@ angular
             'Range': start + '-' + end
           params:
             user_token: gon.user_token
+            layout: 'timeline'
     get = (index, count, success) ->
       if index >= 0
         $('#grid .panel').each ->

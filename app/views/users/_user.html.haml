@@ -1,7 +1,7 @@
 %li
   - if user.admin?
     %span.hint--right(data-hint="This is an administrative account")
-      %i.fa.fa-fw.fa-heart-o.text-info
+      %i.fa.fa-fw.fa-diamond.text-info
   - if user.locked_at?
     %span.hint--right(data-hint="This user is locked out from the system")
       %i.fa.fa-fw.fa-lock.text-info
@@ -15,8 +15,8 @@
   .tools
     = link_to edit_user_path(user), remote: true do
       %span.hint--left(data-hint="Let me change this users's settings")
-        %i.fa.fa-edit
+        %i.fa.fa-pencil
     - unless user == current_user
       = link_to user, :method => :delete, :data => { :confirm => 'Are you sure?' }, remote: true do
         %span.hint--left(data-hint="Remove this user from the system")
-          %i.fa.fa-trash
+          %i.fa.fa-trash-o
