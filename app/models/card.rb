@@ -193,6 +193,12 @@ class Card
     with(collection: "board-#{id}")
   end
 
+  def feed
+    if feed_id
+      Feed.find(feed_id) rescue nil
+    end
+  end
+
   def is_video?
     content_type == 'video'
   end

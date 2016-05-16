@@ -116,7 +116,7 @@
                   .col-md-6= o.input :deck_custom_template_url, as: :url, required: false
                   .col-md-6= o.input :deck_custom_footer_url, as: :url, required: false
       .modal-footer
-        .pull-left
+        %h5.pull-left
           Short URL for this layout:
           = link_to nil, short_url(slideshow_path(@board, action: :deck), @board), target: '_blank'
         = f.button :submit, 'Update Deck layout'
