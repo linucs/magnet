@@ -29,3 +29,22 @@
 * Word wrapping on cards is now working as expected
 * Video icons are not correctly vertically aligned on thumbnails
 * Fixed a bug when calculating stats for top influencer for an empty board
+
+## 1.1 (2016-05-16)
+
+**Enhancements**:
+
+* Updated to Rails 4.2.6
+* Added product tour
+* Adv campaigns content can now be edited with a wysiwyg editor
+* Added user-agent detection support and optional redirection to the timeline layout for mobile deck_detect_mobile_devices
+* Added support for CTAs attached to a single card
+* Added an initial hashtag-search page (transient collections)
+* Added support for time-based polling of boards
+* Added support for user grouping via teams
+* Cards can now be bulk-labelled and searched (content curation)
+* Removed default headers for deck and timeline layouts
+
+**Bug fixes**:
+
+* Better error handling on the wall layout
