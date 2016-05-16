@@ -1,6 +1,6 @@
 - unless @campaign.persisted?
   $('#new-campaign-form').html('#{j render 'form' }');
-  $('#new-campaign-form .selectize').selectize();
+  Bootsy.init();
 - else
   $('#campaigns').html('#{j render 'campaigns_listing' }');
   $('#new-campaign-dialog').modal('hide');

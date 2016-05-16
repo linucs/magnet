@@ -34,5 +34,5 @@
             %span.hint--top(data-hint="Go to Sidekiq management page") Background jobs
       - unless Sidekiq::is_running?
         %li.treeview
-          = link_to '#' do
+          = link_to 'javascript:void(0)' do
             %span.label.label-danger Scanning process is not running

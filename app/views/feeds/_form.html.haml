@@ -7,9 +7,9 @@
     = f.association :authentication_provider, as: :hidden, input_html: { value: @feed.authentication_provider.id }
     - if @feed.persisted?
       = f.input :enabled
-      .row
-        .col-md-6= f.input :name
-        .col-md-6= f.input :label, input_html: { class: 'selectize' }
+    .row
+      .col-md-6= f.input :name
+      .col-md-6= f.input :label, input_html: { class: 'selectize' }
     .row
       .col-md-12
         %ul.list-inline

@@ -9,50 +9,81 @@
               %span.hint--bottom{:'data-hint' => "Open this #{card.provider_name.try(:titleize)} account's page"}= card.from
           %span.description{title: "This content was originally posted on #{l(card.created_at, format: :long)}"}
             #{time_ago_in_words(card.created_at)} ago
-        .box-tools.fa-hover
-          - unless transient
-            - if card.online?
-              = link_to board_card_path(@board, card, :'card[online]' => false, page: params[:page], q: params[:q]), method: :patch, remote: true, class: 'btn btn-box-tool' do
-                %span.hint--top{:'data-hint' => 'Un-publish this card'}
-                  %i.fa.fa-thumbs-o-down
-            - else
-              = link_to board_card_path(@board, card, :'card[online]' => true, page: params[:page], q: params[:q]), method: :patch, remote: true, class: 'btn btn-box-tool' do
-                %span.hint--top{:'data-hint' => "Make this card publicly available in this collection's slideshow views"}
-                  %i.fa.fa-thumbs-o-up
-            = link_to ban_board_card_path(@board, card, page: params[:page], q: params[:q]), :method => :post, :data => { :confirm => 'Are you sure?' }, remote: true, class: 'btn btn-box-tool' do
-              %span.hint--top{:'data-hint' => "Ban this user: delete and then discard any existing and further content, coming from this #{card.provider_name.try(:titleize)} account"}
-                %i.fa.fa-ban
-            = link_to trust_board_card_path(@board, card, page: params[:page], q: params[:q]), :method => :post, :data => { :confirm => 'Are you sure?' }, remote: true, class: 'btn btn-box-tool hidden-xs' do
-              %span.hint--top{:'data-hint' => "Trust this user: approve any existing and further content, coming from this #{card.provider_name.try(:titleize)} account"}
-                %i.fa.fa-user-plus
-            - if card.pinned?
-              = link_to board_card_path(@board, card, :'card[pinned]' => false, page: params[:page], q: params[:q]), method: :patch, remote: true, class: 'btn btn-box-tool' do
-                %span.hint--top{:'data-hint' => 'Un-pin this card'}
-                  %i.fa.fa-bookmark
-            - else
-              = link_to board_card_path(@board, card, :'card[pinned]' => true, page: params[:page], q: params[:q]), method: :patch, remote: true, class: 'btn btn-box-tool' do
-                %span.hint--top{:'data-hint' => 'Pin this card, and put in at the top in each slideshow view'}
-                  %i.fa.fa-bookmark-o
-            = link_to board_card_path(@board, card, page: params[:page], q: params[:q]), :method => :delete, :data => { :confirm => 'Are you sure?' }, remote: true, class: 'btn btn-box-tool hidden-xs' do
-              %span.hint--top{:'data-hint' => 'Delete this card from the system (cannot be undone!)'}
-                %i.fa.fa-times
-            %br
-          = link_to card.original_content_url, target: '_blank', class: 'btn btn-box-tool' do
-            %span.hint--top{:'data-hint' => "View the original content on #{card.provider_title || 'the local system'}"}
-              %i.fa{class: "fa-#{card.provider_name}"}
-          - unless transient
-            = link_to board_path(@board, 'q[from_eq]' => card.from), remote: true, class: 'btn btn-box-tool' do
-              %span.small.hint--bottom{:'data-hint' => 'View all cards coming from this account'}
-                %i.fa.fa-filter
-          - if card.is_image? && card.media_url.present?
-            = link_to "http://images.google.com/searchbyimage?image_url=#{card.media_url}", class: 'btn btn-box-tool hidden-xs', target: '_blank' do
-              %span.hint--top{:'data-hint' => 'Search for the attached image on Google images'}
-                %i.fa.fa-search
-          - unless transient
-            = link_to edit_board_card_path(@board, card, page: params[:page]), remote: true, class: 'btn btn-box-tool hidden-xs' do
-              %span.hint--top{:'data-hint' => "Change or update this card's content"}
-                %i.fa.fa-pencil
-            = check_box_tag 'card_ids[]', card.id, nil, class: 'card-bulk-select'
+        .box-tools
+          = check_box_tag 'card_ids[]', card.id, nil, class: 'card-bulk-select'
+          .dropdown
+            %button.btn.btn-link.btn-xs.dropdown-toggle(type="button" class="" data-toggle="dropdown" data-hover="dropdown" aria-haspopup="true" aria-expanded="false")
+              %i.fa.fa-fw.fa-bars
+              %span.caret
+            %ul.dropdown-menu.dropdown-menu-right
+              - unless transient
+                %li.text-right
+                  - if card.online?
+                    = link_to board_card_path(@board, card, :'card[online]' => false, page: params[:page], q: params[:q]), method: :patch, remote: true do
+                      %span.hint--top{:'data-hint' => 'Un-publish this card'}
+                        Un-publish this card
+                        %i.fa.fa-thumbs-o-down
+                  - else
+                    = link_to board_card_path(@board, card, :'card[online]' => true, page: params[:page], q: params[:q]), method: :patch, remote: true do
+                      %span.hint--top{:'data-hint' => "Make this card publicly available in this collection's slideshow views"}
+                        Publish this card
+                        %i.fa.fa-thumbs-o-up
+                %li.text-right
+                  - if card.pinned?
+                    = link_to board_card_path(@board, card, :'card[pinned]' => false, page: params[:page], q: params[:q]), method: :patch, remote: true do
+                      %span.hint--top{:'data-hint' => 'Un-pin this card'}
+                        Un-pin this card
+                        %i.fa.fa-bookmark
+                  - else
+                    = link_to board_card_path(@board, card, :'card[pinned]' => true, page: params[:page], q: params[:q]), method: :patch, remote: true do
+                      %span.hint--top{:'data-hint' => 'Pin this card, and put in at the top in each slideshow view'}
+                        Pin this card
+                        %i.fa.fa-bookmark-o
+                %li.divider
+                %li.text-right
+                  = link_to board_path(@board, 'q[from_eq]' => card.from), remote: true do
+                    %span.hint--bottom{:'data-hint' => 'View all cards coming from this account'}
+                      View all cards from this account
+                      %i.fa.fa-filter
+                %li.text-right
+                  = link_to ban_board_card_path(@board, card, page: params[:page], q: params[:q]), :method => :post, :data => { :confirm => 'Are you sure?' }, remote: true do
+                    %span.hint--top{:'data-hint' => "Ban this user: delete and then discard any existing and further content, coming from this #{card.provider_name.try(:titleize)} account"}
+                      Ban this user
+                      %i.fa.fa-ban
+                %li.text-right
+                  = link_to trust_board_card_path(@board, card, page: params[:page], q: params[:q]), :method => :post, :data => { :confirm => 'Are you sure?' }, remote: true, class: 'hidden-xs' do
+                    %span.hint--top{:'data-hint' => "Trust this user: approve any existing and further content, coming from this #{card.provider_name.try(:titleize)} account"}
+                      Trust this user
+                      %i.fa.fa-user-plus
+                %li.divider
+                %li.text-right
+                  = link_to board_card_path(@board, card, page: params[:page], q: params[:q]), :method => :delete, :data => { :confirm => 'Are you sure?' }, remote: true, class: 'hidden-xs' do
+                    %span.hint--top{:'data-hint' => 'Delete this card from the system (cannot be undone!)'}
+                      Delete this card
+                      %i.fa.fa-times
+                %li.divider
+                %li.text-right
+                  = link_to edit_board_card_path(@board, card, page: params[:page]), remote: true, class: 'hidden-xs' do
+                    %span.hint--top{:'data-hint' => "Change or update this card's content"}
+                      Change or update card
+                      %i.fa.fa-pencil
+                %li.text-right
+                  = link_to cta_board_card_path(@board, card, page: params[:page]), remote: true, class: 'hidden-xs' do
+                    %span.hint--top{:'data-hint' => "Change or update this card's Call To Action button"}
+                      Edit Call-To-Action
+                      %i.fa.fa-shopping-cart
+                %li.divider
+              %li.text-right
+                = link_to card.original_content_url, target: '_blank' do
+                  %span.hint--top{:'data-hint' => "View the original content on #{card.provider_title || 'the local system'}"}
+                    View original content
+                    %i.fa{class: "fa-#{card.provider_name}"}
+              - if card.is_image? && card.media_url.present?
+                %li.text-right
+                  = link_to "http://images.google.com/searchbyimage?image_url=#{card.media_url}", class: 'hidden-xs', target: '_blank' do
+                    %span.hint--top{:'data-hint' => 'Search for the attached image on Google images'}
+                      Search on Google Images
+                      %i.fa.fa-search
       .box-body.word-wrap{:style => "display: block;"}
         - if !card.is_text?
           .media-wrapper.pad
@@ -64,6 +95,8 @@
               - if card.is_video? || card.is_audio? || card.is_html?
                 .icon
                   %i.fa.fa-5x.fa-youtube-play{style: "#{card.thumbnail_image_url.present? ? nil : 'color: black'}"}
+        - if card.cta.present?
+          .cta= card.cta.html_safe
         - if card.content.present?
           %p
             = auto_link(card.content.try(:truncate, 140), html: { target: '_blank' } )
@@ -92,8 +125,8 @@
             %span.hint--top(data-hint="Comments received")
               %i.fa.fa-fw.fa-comment
               = card.comments_count
-    - if !transient && card.notes.present?
-      .box-footer.box-comments
-        .box-comment
-          %i.fa.fa-fw.fa-info-circle.text-danger.pull-left
-          .comment-text= card.notes
+      - if !transient && card.notes.present?
+        .box-footer.box-comments
+          .box-comment
+            %i.fa.fa-fw.fa-info-circle.text-danger.pull-left
+            .comment-text= card.notes

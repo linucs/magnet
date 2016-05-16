@@ -1,0 +1,8 @@
+= simple_form_for([@board, @card], remote: true) do |f|
+  = f.error_notification
+
+  = hidden_field_tag :page, params[:page]
+  = f.input :cta, as: :bootsy, editor_options: { alert_unsaved: false, html: true, lists: false, skip_parser: true }
+
+  .pull-right= f.button :submit
+  .clearfix

@@ -18,6 +18,7 @@ json.array! @cards + @ads do |card|
   json.profile_image_url card.profile_image_url
   json.likes_count card.likes_count
   json.shares_count card.shares_count
+  json.cta card.cta
   json.created_at card.created_at
   json.updated_at card.updated_at
   json.polled_at card.polled_at

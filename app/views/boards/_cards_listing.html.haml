@@ -25,7 +25,7 @@
                 %i.fa.fa-fw.fa-refresh
                 Reload
             %li#toggle-selection
-              = link_to '#', onclick: '$(".card-bulk-select").trigger("click")' do
+              = link_to 'javascript:void(0)', onclick: '$(".card-bulk-select").trigger("click")' do
                 %i.fa.fa-fw.fa-check-square-o
                 Select/un-select all
             %li#bulk-actions.dropdown
@@ -34,20 +34,29 @@
                 %span.caret
               %ul.dropdown-menu
                 %li
-                  = link_to '#', class: 'bulk-action submit-on-click', :data => { :confirm => 'Are you sure?' }, 'data-action' => 'refresh' do
+                  = link_to 'javascript:void(0)', class: 'bulk-action submit-on-click', :data => { :confirm => 'Are you sure?', :action => 'refresh' } do
                     %i.fa.fa-refresh
                     Refresh selected cards
                 %li
-                  = link_to '#', class: 'bulk-action submit-on-click', :data => { :confirm => 'Are you sure?' }, 'data-action' => 'publish' do
+                  = link_to 'javascript:void(0)', class: 'bulk-action submit-on-click', :data => { :confirm => 'Are you sure?', :action => 'publish' } do
                     %i.fa.fa-thumbs-o-up
                     Publish selected cards
                 %li
-                  = link_to '#', class: 'bulk-action submit-on-click', :data => { :confirm => 'Are you sure?' }, 'data-action' => 'un-publish' do
+                  = link_to 'javascript:void(0)', class: 'bulk-action submit-on-click', :data => { :confirm => 'Are you sure?', :action => 'un-publish' } do
                     %i.fa.fa-thumbs-o-down
                     Un-publish selected cards
                 %li.divider
                 %li
-                  = link_to '#', class: 'bulk-action submit-on-click', :data => { :confirm => 'Are you sure?' }, 'data-action' => 'delete' do
+                  = link_to 'javascript:void(0)', class: 'bulk-action label-cards', :data => { :prompt => 'Label all selected cards as:', :action => 'label' } do
+                    %i.fa.fa-tag
+                    Label selected cards
+                %li
+                  = link_to 'javascript:void(0)', class: 'bulk-action submit-on-click', :data => { :confirm => 'Are you sure?', :action => 'un-label' } do
+                    %i.fa.fa-tags
+                    Remove all labels from selected cards
+                %li.divider
+                %li
+                  = link_to 'javascript:void(0)', class: 'bulk-action submit-on-click', :data => { :confirm => 'Are you sure?', :action => 'delete' } do
                     %i.fa.fa-times
                     Delete selected cards
         %ul.nav.navbar-nav.navbar-right

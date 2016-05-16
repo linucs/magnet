@@ -56,6 +56,7 @@
         = link_to board_path(@board, 'q[online_eq]' => false), remote: true do
           %i.fa.fa-shield.fa-fw
           %span.hint--top(data-hint="Show all the cards automatically blocked by the blacklisting and moderation engine, waiting for explicit approval from anyone managing this collection, before being published online") All waiting approval
+      %li.header#sidebar-curation CONTENT CURATION
       %li.treeview
         %a(href="#")
           %i.fa.fa-fw.fa-star-o
@@ -72,6 +73,28 @@
             = link_to board_path(@board) do
               %i.fa.fa-remove.fa-fw
               %span.hint--top(data-hint="Remove all filtering options, and show all the cards belonging to this collection") Reset filters
+      - if @board.label.present?
+        %li.treeview
+          %a(href="#")
+            %i.fa.fa-fw.fa-tags
+            %i.fa.fa-angle-left.pull-right
+            %span.hint--top(data-hint="Click to open the content-curation option menu")
+              Editorial labels
+          %ul.treeview-menu
+            - @board.label.split(',').each do |l|
+              %li{id: "sidebar-label-#{l}"}
+                = link_to board_path(@board, 'q[label_cont]' => l), remote: true do
+                  %i.fa.fa-fw.fa-tag
+                  %span.hint--top{:'data-hint' => "Filter all the contents shown in the listing on the right, and show only cards labeled as #{l}"}
+                    %span.label.label-primary #{l}
+            %li
+              = link_to board_path(@board) do
+                %i.fa.fa-remove.fa-fw
+                %span.hint--top(data-hint="Remove all filtering options, and show all the cards belonging to this collection") Reset filters
+      %li
+        = link_to board_path(@board, 'q[cta_cont]' => '.'), remote: true do
+          %i.fa.fa-shopping-cart.fa-fw
+          %span.hint--top(data-hint="Show only contents with a custom Call-To-Action") CTAs
       %li.header SETTINGS
       %li.treeview#sidebar-settings-layout
         %a(href="#")
@@ -164,9 +187,9 @@
               %i.fa.fa-refresh.fa-fw
               %span.hint--top(data-hint="Force the system to re-scan Social Networks, find and download older contents")  Scan for older contents
         %li.treeview
-          = link_to '#' do
+          = link_to 'javascript:void(0)' do
             #polling-label.label.label-info{style: @board.polling? ? nil : 'display: none'} Scanning, please wait...
       - else
         %li.treeview
-          = link_to '#' do
+          = link_to 'javascript:void(0)' do
             %span.label.label-danger Scanning process is not running

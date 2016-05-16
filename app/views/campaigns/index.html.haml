@@ -12,11 +12,16 @@
   .box.box-primary
     .box-header
       %h3.box-title Campaigns listing
+      .box-tools.pull-right
+        .has-feedback
+          = form_for :q, url: campaigns_path, remote: true, :method => :get do |f|
+            = f.text_field :name_cont, class: 'form-control input-sm', placeholder: 'Search...'
+            %span.fa.fa-search.form-control-feedback
     #campaigns
       = render 'campaigns_listing'
 
 #new-campaign-dialog.modal.fade(tabindex="-1" role="dialog" aria-labelledby="New campaign" aria-hidden="true")
-  .modal-dialog
+  .modal-dialog.modal-lg
     .modal-content
       .modal-header
         %button(type="button" class="close" data-dismiss="modal")
@@ -29,7 +34,7 @@
       #new-campaign-form
 
 #edit-campaign-dialog.modal.fade(tabindex="-1" role="dialog" aria-labelledby="Manage this campaign" aria-hidden="true")
-  .modal-dialog
+  .modal-dialog.modal-lg
     .modal-content
       .modal-header
         %button(type="button" class="close" data-dismiss="modal")

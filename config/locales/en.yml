@@ -130,6 +130,7 @@ en:
         thumbnail_image_url: 'Original thumbnail image URL'
         original_content_url: 'Original content URL'
         profile_image_url: "User's profile image URL"
+        cta: "Call-To-Action content"
       campaign:
         board: Linked collection
         start_displaying_at: 'Start displaying'
@@ -265,6 +266,7 @@ en:
         original_content_url: 'This is where the content is actually accessible'
         content_source: 'Type of rich media audio/video'
         notes: "Custom note appended to this card (editor's usage)"
+        cta: 'Insert the HTML content for the CTA section in tis card'
       campaign:
         enabled: 'Decide whether this campaign should be active or not'
         start_displaying_at: 'Start displaying ads at a given time'

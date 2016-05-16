@@ -95,6 +95,10 @@ class Card
       key :type, :integer
       key :description, 'how many times this post was shared'
     end
+    property :cta do
+      key :type, :string
+      key :description, 'Call-To-Action HTML snippet'
+    end
     property :created_at do
       key :type, :datetime
       key :description, 'when this content was originally created'
@@ -142,6 +146,7 @@ class Card
   field :likes_count, type: Integer
   field :shares_count, type: Integer
   field :comments_count, type: Integer
+  field :cta, type: String
   field :notes, type: String
   field :polled_at, type: DateTime
 
@@ -151,6 +156,8 @@ class Card
   index({ media_url: 1 }, background: true)
   index({ media_signature: 1 }, background: true)
   index({ enabled: 1, from: 1 }, background: true)
+  index({ enabled: 1, label: 1 }, background: true)
+  index({ enabled: 1, cta: 1 }, background: true)
   index({ enabled: 1, feed_id: -1 }, background: true)
   index({ enabled: 1, online: -1 }, background: true)
   index({ enabled: 1, likes_count: -1 }, background: true)

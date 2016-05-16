@@ -2,6 +2,8 @@ class Campaign < ActiveRecord::Base
   include RankedModel
   ranks :row_order, with_same: :team_id
 
+  include Bootsy::Container
+
   belongs_to :board
   belongs_to :team
 

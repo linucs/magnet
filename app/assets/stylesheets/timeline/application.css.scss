@@ -24,6 +24,7 @@ $icon-font-path: "bootstrap-sass/assets/fonts/bootstrap/";
 	@import 'angular-rrssb/dist/angular-rrssb';
 	@import 'angular-social/angular-social';
 	@import 'fancybox/source/jquery.fancybox';
+	@import 'bootsy';
 
 	@mixin word-wrap() {
 	  overflow-wrap: break-word;
@@ -39,6 +40,12 @@ $icon-font-path: "bootstrap-sass/assets/fonts/bootstrap/";
 	.card {
 		width: 100%;
 		padding: 5px;
+		&.custom .media-wrapper img {
+			max-width: 100%;
+		}
+		.cta img {
+			max-width: 100%;
+		}
 	}
 
 	.panel {

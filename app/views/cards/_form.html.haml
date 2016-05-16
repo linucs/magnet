@@ -50,7 +50,7 @@
       - if f.object.persisted?
         = f.input :remove_custom_thumbnail_image, as: :boolean, label: 'Remove', wrapper_html: { style: 'margin-top: 22px', class: 'pull-right'}
   .row
-    .col-md-6= f.input :label
+    .col-md-6= f.input :label, input_html: { class: 'selectize' }
     .col-md-6= f.input :notes
   .pull-right= f.button :submit
   .clearfix

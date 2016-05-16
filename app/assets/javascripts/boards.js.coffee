@@ -2,6 +2,11 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+$.fn.rebindCardsListingPage = () ->
+  $('.dropdown-toggle').dropdownHover()
+  $('.rating').rating()
+  salvattore.recreateColumns(document.getElementById('grid'))
+
 jQuery ->
   $('#boards').sortable(
     axis: 'y'
@@ -50,6 +55,8 @@ jQuery ->
     $cb = $(e.target).find('#card_ids_')
     $cb.prop('checked', !$cb.prop('checked')).trigger('change')
 
-$.fn.rebindCardsListingPage = () ->
-  $('.rating').rating()
-  salvattore.recreateColumns(document.getElementById('grid'))
+  $(document).on 'click', '.bulk-action.label-cards', (e) ->
+    $target = $(e.target)
+    label = prompt $target.data('prompt')
+    if label
+      $.addBulkAction(e, label).submit()

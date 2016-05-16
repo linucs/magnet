@@ -11,6 +11,11 @@
   .box.box-primary
     .box-header
       %h3.box-title Folders listing
+      .box-tools.pull-right
+        .has-feedback
+          = form_for :q, url: categories_path, remote: true, :method => :get do |f|
+            = f.text_field :name_cont, class: 'form-control input-sm', placeholder: 'Search...'
+            %span.fa.fa-search.form-control-feedback
     #categories
       = render 'categories_listing'
 

@@ -2,7 +2,7 @@
   $('#boards').html('#{ j render 'boards_listing' }');
 - if @board.valid?
   - if editing_in_place?
-    document.location.reload();
+    document.location.href = '#{j board_path(@board)}';
   - else
     $('#edit-board-dialog').modal('hide');
 - else

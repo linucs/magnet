@@ -55,8 +55,8 @@
     }
     .box-tools {
       text-align: right;
-      .btn-box-tool {
-        padding: 3px;
+      .dropdown-menu li i {
+        margin-left: 10px;
       }
       .card-bulk-select {
         margin: 0 5px 0 3px;
@@ -82,6 +82,12 @@
         -ms-transform: translateY(-50%);
         transform: translateY(-50%);
       }
+    }
+  }
+  .cta {
+    margin: 10px 0;
+    img {
+      max-width: 100%;
     }
   }
 }

@@ -54,7 +54,7 @@
           .small Tag cloud
     - if @board.enabled?
       %li.pull-right.hidden-xs
-        = link_to '#', id: 'chromecast-btn', class: 'text-center', disabled: true do
+        = link_to 'javascript:void(0)', id: 'chromecast-btn', class: 'text-center', disabled: true do
           %i.fa.fa-2x.fa-rss
           .small Chromecast
       %li.pull-right.hidden-xs

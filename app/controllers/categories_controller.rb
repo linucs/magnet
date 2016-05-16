@@ -55,7 +55,7 @@ class CategoriesController < ApplicationController
   private
 
   def load_categories
-    @categories = Category.of_teammates(current_user).rank(:row_order).page(params[:page])
+    @categories = Category.of_teammates(current_user).search(params[:q]).result.rank(:row_order).page(params[:page])
   end
 
   def set_category

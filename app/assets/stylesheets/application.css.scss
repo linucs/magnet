@@ -36,6 +36,7 @@ $icon-font-path: "bootstrap-sass/assets/fonts/bootstrap/";
 @import 'dropzone/dist/dropzone';
 @import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker';
 @import 'bootstrap-tour/build/css/bootstrap-tour';
+@import "bootsy";
 
 html, body {
   height: 100%;
@@ -54,7 +55,7 @@ html, body {
   z-index: 1099 !important;
 }
 
-body > :not(.pace),body:before,body:after {
+body.pace-supported > :not(.pace), body.pace-supported:before, body.pace-supported:after {
   -webkit-transition: opacity .4s ease-in-out;
   -moz-transition: opacity .4s ease-in-out;
   -o-transition: opacity .4s ease-in-out;
@@ -62,7 +63,7 @@ body > :not(.pace),body:before,body:after {
   transition: opacity .4s ease-in-out
 }
 
-body:not(.pace-done) > :not(.pace),body:not(.pace-done):before,body:not(.pace-done):after {
+body.pace-supported:not(.pace-done) > :not(.pace), body.pace-supported:not(.pace-done):before, body.pace-supported:not(.pace-done):after {
   opacity: 0.1
 }
 
@@ -88,4 +89,16 @@ ul.social-connections {
   li {
     width: 100%;
   }
+}
+
+.wysiwyg-text-align-center {
+  text-align: center;
+}
+
+.wysiwyg-text-align-left {
+  text-align: left;
+}
+
+.wysiwyg-text-align-right {
+  text-align: right;
 }

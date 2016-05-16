@@ -7,7 +7,7 @@ module ApplicationHelper
     if devise_controller? && !user_signed_in?
       'login-page'
     else
-      'skin-blue-light'
+      'pace-supported skin-blue-light'
     end
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160502081816) do
+ActiveRecord::Schema.define(version: 20160512040621) do
 
   create_table "authentication_providers", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -68,10 +68,24 @@ ActiveRecord::Schema.define(version: 20160502081816) do
 
   add_index "boards_users", ["user_id", "board_id"], name: "index_boards_users_on_user_id_and_board_id", unique: true, using: :btree
 
+  create_table "bootsy_image_galleries", force: :cascade do |t|
+    t.integer  "bootsy_resource_id",   limit: 4
+    t.string   "bootsy_resource_type", limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bootsy_images", force: :cascade do |t|
+    t.string   "image_file",       limit: 255
+    t.integer  "image_gallery_id", limit: 4
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "campaigns", force: :cascade do |t|
     t.string   "name",                 limit: 255
     t.integer  "row_order",            limit: 4
-    t.boolean  "enabled"
+    t.boolean  "enabled",                            default: true
     t.integer  "threshold",            limit: 4
     t.text     "content",              limit: 65535
     t.integer  "board_id",             limit: 4

@@ -55,7 +55,7 @@ class CampaignsController < ApplicationController
   private
 
   def load_campaigns
-    @campaigns = Campaign.of_teammates(current_user).rank(:row_order).page(params[:page])
+    @campaigns = Campaign.of_teammates(current_user).search(params[:q]).result.rank(:row_order).page(params[:page])
   end
 
   def set_campaign
@@ -63,7 +63,8 @@ class CampaignsController < ApplicationController
   end
 
   def campaign_params
-    params.require(:campaign).permit(:enabled, :name, :board_id, :row_order_position, :threshold, :content,
-    :start_displaying_at, :end_displaying_at, :activate_on_deck, :activate_on_timeline, :activate_on_wall)
+    params.require(:campaign).permit(:enabled, :name, :board_id, :row_order_position,
+      :threshold, :content, :start_displaying_at, :end_displaying_at, :activate_on_deck,
+      :activate_on_timeline, :activate_on_wall, :bootsy_image_gallery_id)
   end
 end

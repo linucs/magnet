@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootsy
 //= require jquery-ui/sortable
 //= require jquery-ui/effect-highlight
 //= require jquery.remotipart
@@ -46,21 +47,28 @@ $.flash = function(msg, level) {
   $('#flash_messages').html('<div class="alert alert-' + (level || 'success') + ' alert-dismissible fade in"><button aria-label="Close" class="close" data-dismiss="alert" type="button"><span aria-hidden="true">&times;</span></button>' + msg + '</div>');
 }
 
-$(function() {
-  var addFormAction = function(e) {
-    var $element = $(e.target);
-    var $form = $element.closest('form');
-    var action = $element.data('action');
-    if(action) {
-      $('<input>').attr({
-        type: 'hidden',
-        name: 'bulk_action',
-        value: action
-      }).appendTo($form);
-    }
-    return $form;
+$.addBulkAction = function(e, val) {
+  var $element = $(e.target);
+  var $form = $element.closest('form');
+  var action = $element.data('action');
+  if(action) {
+    $('<input>').attr({
+      type: 'hidden',
+      name: 'bulk_action',
+      value: action
+    }).appendTo($form);
   }
+  if(val) {
+    $('<input>').attr({
+      type: 'hidden',
+      name: 'value',
+      value: val
+    }).appendTo($form);
+  }
+  return $form;
+}
 
+$(function() {
   outdatedBrowser({
     bgColor: '#f25648',
     color: '#ffffff',
@@ -69,13 +77,13 @@ $(function() {
   });
   $(document).on('change', '.submit-on-change', function(e) {
     Pace.track(function(){
-      addFormAction(e).submit();
+      $.addBulkAction(e).submit();
     });
     e.preventDefault();
   });
   $(document).on('click', '.submit-on-click', function(e) {
     Pace.track(function(){
-      addFormAction(e).submit();
+      $.addBulkAction(e).submit();
     });
     e.preventDefault();
   });

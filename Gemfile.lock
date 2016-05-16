@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/develon/bootsy.git
+  revision: 2491ee33e07b288e3e17d89680c9c96b60a56f43
+  specs:
+    bootsy (2.2.2)
+      carrierwave (~> 0.10)
+      mini_magick (~> 4.4)
+      remotipart (~> 1.2)
+
+GIT
   remote: git://github.com/develon/date_picker.git
   revision: 2144b7f6caf75f9df9f048074393018e3e9d8a45
   specs:
@@ -299,7 +308,7 @@ GEM
       mina
     mina-sidekiq (0.3.1)
       mina
-    mini_magick (4.0.4)
+    mini_magick (4.5.1)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
     mongoid (4.0.2)
@@ -611,6 +620,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap_flash_messages (~> 1.0.0)
+  bootsy!
   bower-rails
   brakeman
   browser (~> 1.1)
@@ -652,7 +662,7 @@ DEPENDENCIES
   mina-multistage
   mina-puma
   mina-sidekiq
-  mini_magick (~> 4.0.1)
+  mini_magick (~> 4.4)
   mongoid (~> 4.0.0)
   mysql2
   non-stupid-digest-assets (~> 1.0.4)

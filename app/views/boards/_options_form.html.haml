@@ -1,12 +1,12 @@
 = simple_form_for(@board, remote: true) do |f|
-  .modal-body
-    = f.error_notification
+  = f.error_notification
 
-    = hidden_field_tag :in_place, params[:in_place]
-    = hidden_field_tag :page, params[:page]
-    = hidden_field_tag :section, params[:section]
-    = f.simple_fields_for :options, f.object.options do |o|
-      - if params[:section] == 'wall'
+  = hidden_field_tag :in_place, params[:in_place]
+  = hidden_field_tag :page, params[:page]
+  = hidden_field_tag :section, params[:section]
+  = f.simple_fields_for :options, f.object.options do |o|
+    - if params[:section] == 'wall'
+      .modal-body
         %ul.nav.nav-tabs(role="tablist")
           %li.active(role="presentation")
             %a(href="#wall-layout" data-toggle="tab") Wall layout options
@@ -47,12 +47,13 @@
                   .col-md-3= o.input :wall_auto_slide, as: :select, collection: {'manual sliding' => 0, '5 seconds' => 5, '10 seconds' => 10, '15 seconds' => 15}, include_blank: 'select...', required: false
                   .col-md-3= o.input :wall_page_size, as: :select, collection: {'10 cards' => 10, '20 cards' => 20, '40 cards' => 40, '60 cards' => 60}, include_blank: 'select...', required: false
                   .col-md-3= o.input :wall_center, as: :boolean, required: false
-        .modal-footer
-          .pull-left
-            Short URL for this layout:
-            = link_to nil, short_url(slideshow_path(@board, action: :wall), @board), target: '_blank'
-          = f.button :submit, 'Update Wall layout'
-      - elsif params[:section] == 'timeline'
+      .modal-footer
+        .pull-left
+          Short URL for this layout:
+          = link_to nil, short_url(slideshow_path(@board, action: :wall), @board), target: '_blank'
+        = f.button :submit, 'Update Wall layout'
+    - elsif params[:section] == 'timeline'
+      .modal-body
         %ul.nav.nav-tabs(role="tablist")
           %li.active(role="presentation")
             %a(href="#timeline-layout" data-toggle="tab") Timeline layout options
@@ -79,12 +80,13 @@
                 .row
                   .col-md-6= o.input :timeline_custom_template_url, as: :url, required: false
                   .col-md-6= o.input :timeline_custom_footer_url, as: :url, required: false
-        .modal-footer
-          .pull-left
-            Short URL for this layout:
-            = link_to nil, short_url(slideshow_path(@board, action: :timeline), @board), target: '_blank'
-          = f.button :submit, 'Update Timeline layout'
-      - else
+      .modal-footer
+        .pull-left
+          Short URL for this layout:
+          = link_to nil, short_url(slideshow_path(@board, action: :timeline), @board), target: '_blank'
+        = f.button :submit, 'Update Timeline layout'
+    - else
+      .modal-body
         %ul.nav.nav-tabs(role="tablist")
           %li.active(role="presentation")
             %a(href="#deck-layout" data-toggle="tab") Deck layout options
@@ -113,8 +115,8 @@
                 .row
                   .col-md-6= o.input :deck_custom_template_url, as: :url, required: false
                   .col-md-6= o.input :deck_custom_footer_url, as: :url, required: false
-        .modal-footer
-          .pull-left
-            Short URL for this layout:
-            = link_to nil, short_url(slideshow_path(@board, action: :deck), @board), target: '_blank'
-          = f.button :submit, 'Update Deck layout'
+      .modal-footer
+        .pull-left
+          Short URL for this layout:
+          = link_to nil, short_url(slideshow_path(@board, action: :deck), @board), target: '_blank'
+        = f.button :submit, 'Update Deck layout'

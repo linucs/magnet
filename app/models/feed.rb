@@ -43,7 +43,7 @@ class Feed < ActiveRecord::Base
   def name
     if self[:name].present?
       self[:name]
-    elsif options
+    elsif self[:options]
       self[:options].map do |k, v|
         if k.to_s.start_with? '_'
           nil

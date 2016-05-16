@@ -15,6 +15,11 @@
         .col-sm-4= f.input :name
         .col-sm-4= f.input :label, input_html: { class: 'selectize' }
         .col-sm-4= f.association :category, collection: Category.of_teammates(current_user), label_method: :title, include_blank: '(uncategorized)'
+      - if @board.persisted?
+        .row
+          .col-sm-4= f.input :slug
+          .col-sm-4= f.input :host
+          .col-sm-4= f.input :polling_interval, as: :select, collection: (1..AuthenticationProvider::POLLING_TICKS).map { |i| i.to_s.to_sym }, include_blank: 'No scheduled refresh'
       .row
         .col-md-4
           = f.input :description, input_html: { rows: 6 }
@@ -24,11 +29,6 @@
       = f.input :latitude, as: :hidden, input_html: { 'data-geo' => 'lat' }
       = f.input :longitude, as: :hidden, input_html: { 'data-geo' => 'lng' }
     - else
-      - if @board.persisted?
-        .row
-          .col-sm-4= f.input :slug
-          .col-sm-4= f.input :host
-          .col-sm-4= f.input :polling_interval, as: :select, collection: (1..AuthenticationProvider::POLLING_TICKS).map { |i| i.to_s.to_sym }, include_blank: 'No scheduled refresh'
       = f.simple_fields_for :options, f.object.options do |o|
         .row
           .col-md-6= o.input :google_analytics_code

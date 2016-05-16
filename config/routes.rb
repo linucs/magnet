@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     ), at: '/files'
   end
 
+  mount Bootsy::Engine => '/bootsy', as: 'bootsy'
+
   concern :collectable do
     resources :boards, only: [:index, :show] do
       resources :cards, only: :index
@@ -46,6 +48,7 @@ Rails.application.routes.draw do
     resources :cards, only: [:new, :create, :edit, :update, :show, :destroy] do
       post 'trust', on: :member
       post 'ban', on: :member
+      get 'cta', on: :member
       post 'bulk_update', on: :collection
     end
   end
