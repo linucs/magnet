@@ -1,3 +1,17 @@
+.box-header
+  %nav.navbar.navbar-default
+    .navbar-header
+      %button.navbar-toggle.collapsed{'data-target' => '#options-navbar-collapse', 'data-toggle' => 'collapse', 'type' => 'button'}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+    #options-navbar-collapse.collapse.navbar-collapse
+      = simple_form_for @options, as: :options, url: analytics_board_path(@board), method: :get, remote: true, html: {class: 'navbar-form navbar-left'} do |f|
+        = f.input :by, as: :radio_buttons, collection: %W(day hour minute)
+        = f.input :since, as: :date_picker, data: { showClear: true, showClose: true, showTodayButton: true }
+        = f.input :until, as: :date_picker, data: { showClear: true, showClose: true, showTodayButton: true }
+        = f.submit 'Search', class: 'btn btn-primary'
 .box-body
   .row
     - linked_identities = 0
@@ -13,7 +27,7 @@
                 .info-box-text
                   #{provider.title} contents
                 .info-box-number
-                  = @board.all_cards.by_provider(provider.name).count
+                  = @board.all_cards.by_provider(provider.name).created_between(@options.since, @options.until).count
           - else
             .info-box
               .info-box-icon.bg-red
@@ -30,10 +44,10 @@
   - if @board.cards.any?
     .panel.panel-default
       .panel-body
-        .chart-responsive= pie_chart charts_board_path(@board, chart_id: 'topics_summary', format: :json), library: {title: {text: "#{@board.name}: topics summary"}}
+        .chart-responsive= pie_chart charts_board_path(@board, chart_id: 'topics_summary', options: @options.to_hash, format: :json), library: {title: {text: "topics summary"}}
     .panel.panel-default
       .panel-body
-        .chart-responsive= bar_chart charts_board_path(@board, chart_id: 'hashtags', format: :json), library: {title: {text: "#{@board.name}: hashtags summary"}, xAxis: {title: {text: 'top hashtags'}}, yAxis: {title: {text: 'occurrences'}}}
+        .chart-responsive= bar_chart charts_board_path(@board, chart_id: 'hashtags', options: @options.to_hash, format: :json), library: {title: {text: "hashtags summary"}, xAxis: {title: {text: 'top hashtags'}}, yAxis: {title: {text: 'occurrences'}}}
     .panel.panel-default
       .panel-body
         #buzz.chart-responsive
@@ -47,47 +61,48 @@
               .col-md-4
                 .panel.panel-default
                   .panel-body
-                    .chart-responsive= bar_chart charts_board_path(@board, chart_id: 'top_influencers', options: {provider_name: provider.name}, format: :json), library: {title: {text: "#{@board.name}: top influencers on #{provider.title}"}, yAxis: {title: {text: 'engagement deviation'}}}
+                    .chart-responsive.user-lookup= bar_chart charts_board_path(@board, chart_id: 'top_influencers', options: @options.to_hash.merge(provider_name: provider.name), format: :json), library: { title: { text: "top influencers on #{provider.title}" }, yAxis: { title: { text: 'engagement deviation' } } }
               .col-md-4
                 .panel.panel-default
                   .panel-body
-                    .chart-responsive= bar_chart charts_board_path(@board, chart_id: 'top_contributors', options: {provider_name: provider.name}, format: :json), library: {title: {text: "#{@board.name}: top contributors on #{provider.title}"}, yAxis: {title: {text: 'contributions'}}}
+                    .chart-responsive.user-lookup= bar_chart charts_board_path(@board, chart_id: 'top_contributors', options: @options.to_hash.merge(provider_name: provider.name), format: :json), library: { title: { text: "top contributors on #{provider.title}"}, yAxis: { title: { text: 'contributions' } } }
               .col-md-4
                 .panel.panel-default
                   .panel-body
-                    .chart-responsive= bar_chart charts_board_path(@board, chart_id: 'most_engaging_people', options: {provider_name: provider.name}, format: :json), library: {title: {text: "#{@board.name}: most engaging on #{provider.title}"}, yAxis: {title: {text: 'direct engagement'}}}
+                    .chart-responsive.user-lookup= bar_chart charts_board_path(@board, chart_id: 'most_engaging_people', options: @options.to_hash.merge(provider_name: provider.name), format: :json), library: { title: { text: "most engaging on #{provider.title}"}, yAxis: { title: { text: 'direct engagement' } } }
             .row
               - if provider.allows_likes?
                 .col-md-4
                   .panel.panel-default
                     .panel-body
-                      .chart-responsive= bar_chart charts_board_path(@board, chart_id: 'most_liked_people', options: {provider_name: provider.name}, format: :json), library: {title: {text: "#{@board.name}: most liked on #{provider.title}"}, yAxis: {title: {text: 'likes received'}}}
+                      .chart-responsive.user-lookup= bar_chart charts_board_path(@board, chart_id: 'most_liked_people', options: @options.to_hash.merge(provider_name: provider.name), format: :json), library: { title: { text: "most liked on #{provider.title}"}, yAxis: { title: { text: 'likes received' } } }
               - if provider.allows_sharing?
                 .col-md-4
                   .panel.panel-default
                     .panel-body
-                      .chart-responsive= bar_chart charts_board_path(@board, chart_id: 'most_shared_people', options: {provider_name: provider.name}, format: :json), library: {title: {text: "#{@board.name}: most shared on #{provider.title}"}, yAxis: {title: {text: 'contributions shared by others'}}}
+                      .chart-responsive.user-lookup= bar_chart charts_board_path(@board, chart_id: 'most_shared_people', options: @options.to_hash.merge(provider_name: provider.name), format: :json), library: { title: { text: "most shared on #{provider.title}"}, yAxis: { title: { text: 'contributions shared by others' } } }
               - if provider.allows_comments?
                 .col-md-4
                   .panel.panel-default
                     .panel-body
-                      .chart-responsive= bar_chart charts_board_path(@board, chart_id: 'most_commented_people', options: {provider_name: provider.name}, format: :json), library: {title: {text: "#{@board.name}: most commented on #{provider.title}"}, yAxis: {title: {text: 'comments received'}}}
+                      .chart-responsive.user-lookup= bar_chart charts_board_path(@board, chart_id: 'most_commented_people', options: @options.to_hash.merge(provider_name: provider.name), format: :json), library: { title: { text: "most commented on #{provider.title}"}, yAxis: { title: { text: 'comments received' } } }
 
 :javascript
-  var url = '#{charts_board_path(@board, chart_id: 'buzz', format: :json)}';
+  var url = '#{charts_board_path(@board, chart_id: 'buzz', options: @options.to_hash, format: :json)}';
+  var utcOffset = moment().utcOffset() / 60;
 
   $.get(url, function(data) {
     var result = $.map(data, function(series, i) {
       series.data = $.map(series.data, function(item, j) {
-        date = new Date(item[0].year, item[0].month, item[0].day, item[0].hour || 0, item[0].minute || 0);
+        date = new Date(Date.UTC(item[0].year, item[0].month - 1, item[0].day, item[0].hour || -utcOffset, item[0].minute || 0));
         return [[date, item[1]]];
       });
       return series;
     });
-    new Chartkick.AreaChart("buzz", result, {
+    new Chartkick.ColumnChart("buzz", result, {
       stacked: true,
       library: {
-        title: {text: '#{@board.name}: buzz on these topics', style: 'font.size: 14px'},
+        title: {text: 'buzz on these topics', style: 'font.size: 14px'},
         xAxis: {title: {text: 'time'}},
         yAxis: {title: {text: 'contents produced'}}
       }

@@ -3,10 +3,10 @@ class DatePickerInput < SimpleForm::Inputs::Base
     if input_type == :date || input_type == :datetime || input_type == :time
       type = input_type
     else
-      column = @builder.object.class.columns.select{ |c| c.name == attribute_name.to_s }.first
+      column = @builder.object.class.columns.select{ |c| c.name == attribute_name.to_s }.first rescue nil
       type = column.present? ? column.type : nil
     end
-    type ||= :date
+    type ||= :datetime
     opts = wrapper_options.merge(input_options.deep_dup)
     opts[:type] = type
 

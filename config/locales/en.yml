@@ -135,6 +135,10 @@ en:
         board: Linked collection
         start_displaying_at: 'Start displaying'
         end_displaying_at: 'Stop displaying'
+      options:
+        since: from
+        until: to
+        by: group data by
     include_blanks:
       board:
         polling_interval: 'No scheduled refresh'

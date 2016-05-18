@@ -158,3 +158,17 @@
 .pac-container {
   z-index: 9999;
 }
+
+#new_options .form-group {
+  margin: auto 5px;
+  &.radio_buttons .radio {
+    margin: auto 5px;
+    input {
+      margin-right: 5px;
+    }
+  }
+}
+
+.user-lookup .highcharts-xaxis-labels text:hover {
+  font-weight: bold;
+}
