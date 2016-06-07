@@ -233,9 +233,10 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-  %w{ twitter instagram tumblr }.each do |p|
+  %w{ twitter tumblr }.each do |p|
     config.omniauth p.to_sym, ENV["#{p}_app_id"], ENV["#{p}_app_secret"]
   end
+  config.omniauth :instagram, ENV["instagram_app_id"], ENV["instagram_app_secret"], scope: 'basic public_content comments relationships likes follower_list'
   config.omniauth :facebook, ENV["facebook_app_id"], ENV["facebook_app_secret"], scope: 'email, public_profile, user_friends, user_photos, user_videos, user_posts, manage_pages'
 
   # ==> Warden configuration
