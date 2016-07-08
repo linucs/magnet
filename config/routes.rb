@@ -64,7 +64,7 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
-  resources :users, except: [:show, :new, :create]
+  resources :users, except: :show, path: '/accounts'
 
   resources :teams, except: :show
 

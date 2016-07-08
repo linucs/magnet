@@ -179,6 +179,7 @@ class Card
   scope :most_shared, -> (n = 10) { order_by([[:shares_count, :desc]]).limit(n) }
   scope :pinned, -> { where(pinned: true) }
   scope :not_pinned, -> { where(pinned: false) }
+  scope :created_between, -> (d1, d2) { where(:created_at.gt => d1, :created_at.lte => d2) }
 
   mount_uploader :custom_profile_image, ProfileImageUploader
   mount_uploader :custom_thumbnail_image, ImageUploader

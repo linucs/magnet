@@ -33,6 +33,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :lockable, :omniauthable, :account_expireable
 
+  WHITELISTED_ATTRIBUTES = [:notify_exceptions]
+
   def is_connected_to?(provider_name)
     authentications.joins(:authentication_provider).exists?(authentication_providers: { name: provider_name })
   end

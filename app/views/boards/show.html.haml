@@ -26,63 +26,64 @@
             ago.
           .clearfix
 
-  %ul.nav.nav-tabs(role="tablist")
-    %li.active
-      %a.text-center(href="#cards" data-toggle="tab" id="cards-tab")
-        %span.hint--top(data-hint="My collection contents")
-          %i.fa.fa-2x.fa-picture-o
-          .small Contents
-    %li.hidden-xs
-      %a.text-center(href="#content-feeds" data-toggle="tab" id="content-feeds-tab")
-        %span.hint--top(data-hint="Let me decide how to scan Social Networks for interesting stuff")
-          %i.fa.fa-2x.fa-cloud-download
-          .small Feeds
-    %li.visible-xs
-      %a.text-center(href="#remote-control" data-toggle="tab" id="remote-control-tab")
-        %span.hint--top(data-hint="Let me remotely control the wall layout")
-          %i.fa.fa-2x.fa-gamepad
-          .small Remote
-    %li.hidden-xs
-      %a.text-center(href="#board-analytics" data-toggle="tab" id="analytics-tab")
-        %span.hint--top(data-hint="My collection analytics dashboard")
-          %i.fa.fa-2x.fa-bar-chart
-          .small Stats
-    %li.hidden-xs
-      %a.text-center(href="#tagcloud" data-toggle="tab" id="tagcloud-tab")
-        %span.hint--top(data-hint="Let me understand how often hashtags are used")
-          %i.fa.fa-2x.fa-tag
-          .small Tag cloud
-    - if @board.enabled?
-      %li.pull-right.hidden-xs
-        = link_to 'javascript:void(0)', id: 'chromecast-btn', class: 'text-center', disabled: true do
-          %i.fa.fa-2x.fa-rss
-          .small Chromecast
-      %li.pull-right.hidden-xs
-        = link_to slideshow_path(@board, action: :wall), id: 'wall-btn', class: 'text-center', target: '_blank' do
-          %span.hint--left(data-hint="Open the Wall layout view of this collection")
-            %i.fa.fa-2x.fa-video-camera
-            .small Wall
-      %li.pull-right
-        = link_to slideshow_path(@board, action: :timeline), id: 'timeline-btn', class: 'text-center', target: '_blank', disabled: !@board.enabled? do
-          %i.fa.fa-2x.fa-mobile
-          .small Timeline
-      %li.pull-right.hidden-xs
-        = link_to slideshow_path(@board, action: :deck), id: 'deck-btn', class: 'text-center', target: '_blank', disabled: !@board.enabled? do
-          %i.fa.fa-2x.fa-desktop
-          .small Deck
-  .tab-content
-    #cards.tab-pane.active
-      #cards-listing.box.box-solid= render 'cards_listing'
-    #content-feeds.tab-pane
-      #feeds.box.box-solid= render 'feeds/feeds_listing'
-    #remote-control.tab-pane
-      #remote.box.box-solid= render 'remote_control'
-    #board-analytics.tab-pane
-      #analytics.box.box-solid
-    #tagcloud.tab-pane
-      .box.box-solid
-        %a#print-cloud.btn.btn-primary.fa.fa-print.pull-right(href="#")
-        #tags(style="height: 800px")
+  .nav-tabs-custom
+    %ul.nav.nav-tabs(role="tablist")
+      %li.active
+        %a.text-center(href="#cards" data-toggle="tab" id="cards-tab")
+          %span.hint--top(data-hint="My collection contents")
+            %i.fa.fa-2x.fa-picture-o
+            .small Contents
+      %li.hidden-xs
+        %a.text-center(href="#content-feeds" data-toggle="tab" id="content-feeds-tab")
+          %span.hint--top(data-hint="Let me decide how to scan Social Networks for interesting stuff")
+            %i.fa.fa-2x.fa-cloud-download
+            .small Feeds
+      %li.visible-xs
+        %a.text-center(href="#remote-control" data-toggle="tab" id="remote-control-tab")
+          %span.hint--top(data-hint="Let me remotely control the wall layout")
+            %i.fa.fa-2x.fa-gamepad
+            .small Remote
+      %li.hidden-xs
+        %a.text-center(href="#board-analytics" data-toggle="tab" id="analytics-tab")
+          %span.hint--top(data-hint="My collection analytics dashboard")
+            %i.fa.fa-2x.fa-bar-chart
+            .small Stats
+      %li.hidden-xs
+        %a.text-center(href="#tagcloud" data-toggle="tab" id="tagcloud-tab")
+          %span.hint--top(data-hint="Let me understand how often hashtags are used")
+            %i.fa.fa-2x.fa-tag
+            .small Tag cloud
+      - if @board.enabled?
+        %li.pull-right.hidden-xs
+          = link_to 'javascript:void(0)', id: 'chromecast-btn', class: 'text-center', disabled: true do
+            %i.fa.fa-2x.fa-rss
+            .small Chromecast
+        %li.pull-right.hidden-xs
+          = link_to slideshow_path(@board, action: :wall), id: 'wall-btn', class: 'text-center', target: '_blank' do
+            %span.hint--left(data-hint="Open the Wall layout view of this collection")
+              %i.fa.fa-2x.fa-video-camera
+              .small Wall
+        %li.pull-right
+          = link_to slideshow_path(@board, action: :timeline), id: 'timeline-btn', class: 'text-center', target: '_blank', disabled: !@board.enabled? do
+            %i.fa.fa-2x.fa-mobile
+            .small Timeline
+        %li.pull-right.hidden-xs
+          = link_to slideshow_path(@board, action: :deck), id: 'deck-btn', class: 'text-center', target: '_blank', disabled: !@board.enabled? do
+            %i.fa.fa-2x.fa-desktop
+            .small Deck
+    .tab-content
+      #cards.tab-pane.active
+        #cards-listing.box.box-solid= render 'cards_listing'
+      #content-feeds.tab-pane
+        #feeds.box.box-solid= render 'feeds/feeds_listing'
+      #remote-control.tab-pane
+        #remote.box.box-solid= render 'remote_control'
+      #board-analytics.tab-pane
+        #analytics.box.box-solid
+      #tagcloud.tab-pane
+        .box.box-solid
+          %a#print-cloud.btn.btn-primary.fa.fa-print.pull-right(href="#")
+          #tags(style="height: 800px")
 
 #edit-board-dialog.modal.fade(tabindex="-1" role="dialog" aria-labelledby="Manage this board" aria-hidden="true")
   .modal-dialog.modal-lg
@@ -230,6 +231,12 @@
 
         chrome.cast.initialize(apiConfig, onInitSuccess, onError);
         e.preventDefault();
+      });
+
+      $(document).on('click', '.user-lookup .highcharts-xaxis-labels text', function (e) {
+        if(confirm('Search contents from this social sccount?')) {
+          $.get('#{board_path(@board)}', {q: {from_eq: $(this).text()}});
+        }
       });
 
       function sessionListener(e) {

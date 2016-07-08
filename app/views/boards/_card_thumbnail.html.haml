@@ -11,6 +11,9 @@
             #{time_ago_in_words(card.created_at)} ago
         .box-tools
           = check_box_tag 'card_ids[]', card.id, nil, class: 'card-bulk-select'
+          = link_to card.original_content_url, target: '_blank' do
+            %span.hint--top{:'data-hint' => "View the original content on #{card.provider_title || 'the local system'}"}
+              %i.fa{class: "fa-#{card.provider_name}"}
           .dropdown
             %button.btn.btn-link.btn-xs.dropdown-toggle(type="button" class="" data-toggle="dropdown" data-hover="dropdown" aria-haspopup="true" aria-expanded="false")
               %i.fa.fa-fw.fa-bars
@@ -73,11 +76,6 @@
                       Edit Call-To-Action
                       %i.fa.fa-shopping-cart
                 %li.divider
-              %li.text-right
-                = link_to card.original_content_url, target: '_blank' do
-                  %span.hint--top{:'data-hint' => "View the original content on #{card.provider_title || 'the local system'}"}
-                    View original content
-                    %i.fa{class: "fa-#{card.provider_name}"}
               - if card.is_image? && card.media_url.present?
                 %li.text-right
                   = link_to "http://images.google.com/searchbyimage?image_url=#{card.media_url}", class: 'hidden-xs', target: '_blank' do

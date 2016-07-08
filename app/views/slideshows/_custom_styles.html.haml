@@ -9,11 +9,13 @@
       - when 'full_screen'
         :css
           body {
-            background-image: url(#{@board.cover.url});
+            background: url(#{@board.cover.url});
             -webkit-background-size: cover;
             -moz-background-size: cover;
             -o-background-size: cover;
             background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
             background-attachment: fixed;
             filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{@board.cover.url}', sizingMethod='scale');
             -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{@board.cover.url}', sizingMethod='scale')";
@@ -48,6 +50,8 @@
             -moz-background-size: cover;
             -o-background-size: cover;
             background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
             background-attachment: fixed;
             filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{@board.cover.url}', sizingMethod='scale');
             -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{@board.cover.url}', sizingMethod='scale')";
@@ -103,6 +107,8 @@
             -moz-background-size: cover;
             -o-background-size: cover;
             background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
             background-attachment: fixed;
             filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{@board.cover.url}', sizingMethod='scale');
             -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{@board.cover.url}', sizingMethod='scale')";

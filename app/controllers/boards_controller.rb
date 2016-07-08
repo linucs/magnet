@@ -8,6 +8,23 @@ class BoardsController < ApplicationController
 
   respond_to :js
 
+  class AnalyticsOptions < Struct.new(:provider_name, :since, :until, :by)
+    include ActiveModel::Model
+
+    def self.from_hash(h)
+      obj = self.new
+      obj.provider_name = h ? h[:provider_name] : nil
+      obj.since = h ? (DateTime.parse(h[:since]) rescue 1.month.ago) : 1.month.ago
+      obj.until = h ? (DateTime.parse(h[:until]) rescue Time.zone.now) : Time.zone.now
+      obj.by = h ? h[:by] || 'day' : 'day'
+      obj
+    end
+
+    def to_hash
+      { provider_name: self.provider_name, since: self.since, until: self.until, by: self.by }
+    end
+  end
+
   def index
     load_boards
     respond_with(@boards) do |format|
@@ -105,19 +122,21 @@ class BoardsController < ApplicationController
   end
 
   def analytics
+    @options = AnalyticsOptions.from_hash(params[:options])
   end
 
   def charts
+    @options = AnalyticsOptions.from_hash(params[:options])
     @data = case params[:chart_id]
-            when 'topics_summary' then @board.topics_summary(params[:options])
-            when 'top_contributors' then @board.top_contributors(params[:options])
-            when 'most_liked_people' then @board.most_liked_people(params[:options])
-            when 'most_shared_people' then @board.most_shared_people(params[:options])
-            when 'most_commented_people' then @board.most_commented_people(params[:options])
-            when 'top_influencers' then @board.top_influencers(params[:options])
-            when 'most_engaging_people' then @board.most_engaging_people(params[:options])
-            when 'buzz' then @board.feeds.map { |f| { name: "#{f.name}", data: @board.buzz({ feed_id: f.id }.merge(params[:options] || {})) } }
-            when 'hashtags' then @board.hashtags(params[:options])
+      when 'topics_summary' then @board.topics_summary(@options.to_hash)
+      when 'top_contributors' then @board.top_contributors(@options.to_hash)
+      when 'most_liked_people' then @board.most_liked_people(@options.to_hash)
+      when 'most_shared_people' then @board.most_shared_people(@options.to_hash)
+      when 'most_commented_people' then @board.most_commented_people(@options.to_hash)
+      when 'top_influencers' then @board.top_influencers(@options.to_hash)
+      when 'most_engaging_people' then @board.most_engaging_people(@options.to_hash)
+      when 'buzz' then @board.feeds.map { |f| { name: "#{f.name}", data: @board.buzz({ feed_id: f.id }.merge(@options.to_hash || {})) } }
+      when 'hashtags' then @board.hashtags(@options.to_hash)
     end
 
     respond_with(@board) do |format|

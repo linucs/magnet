@@ -497,8 +497,11 @@ class Board < ActiveRecord::Base
   def topics_summary(options = {})
     match = { enabled: { '$eq' => true } }
     if options
-      match[:created_at] = { '$gte' => options[:since] } if options[:since].is_a?(Time)
-      match[:created_at] = { '$lt' => options[:until] } if options[:until].is_a?(Time)
+      if options[:since].is_a?(Date) || options[:until].is_a?(Date)
+        match[:created_at] = {}
+        match[:created_at]['$gt'] = options[:since] if options[:since].is_a?(Date)
+        match[:created_at]['$lte'] = options[:until] if options[:until].is_a?(Date)
+      end
     end
     cards_collection.collection.aggregate(
       { '$match' => match },
@@ -518,8 +521,11 @@ class Board < ActiveRecord::Base
     if options
       limit = options[:limit].to_i if options[:limit].present?
       match[:provider_name] = { '$eq' => options[:provider_name] } if options[:provider_name].present?
-      match[:created_at] = { '$gte' => options[:since] } if options[:since].is_a?(Time)
-      match[:created_at] = { '$lt' => options[:until] } if options[:until].is_a?(Time)
+      if options[:since].is_a?(Date) || options[:until].is_a?(Date)
+        match[:created_at] = {}
+        match[:created_at]['$gt'] = options[:since] if options[:since].is_a?(Date)
+        match[:created_at]['$lte'] = options[:until] if options[:until].is_a?(Date)
+      end
     end
     cards_collection.collection.aggregate(
       { '$match' => match },
@@ -535,8 +541,11 @@ class Board < ActiveRecord::Base
     if options
       limit = options[:limit].to_i if options[:limit].present?
       match[:provider_name] = { '$eq' => options[:provider_name] } if options[:provider_name].present?
-      match[:created_at] = { '$gte' => options[:since] } if options[:since].is_a?(Time)
-      match[:created_at] = { '$lt' => options[:until] } if options[:until].is_a?(Time)
+      if options[:since].is_a?(Date) || options[:until].is_a?(Date)
+        match[:created_at] = {}
+        match[:created_at]['$gt'] = options[:since] if options[:since].is_a?(Date)
+        match[:created_at]['$lte'] = options[:until] if options[:until].is_a?(Date)
+      end
     end
     mean = cards_collection.collection.aggregate(
       { '$match' => match },
@@ -581,8 +590,11 @@ class Board < ActiveRecord::Base
     if options
       limit = options[:limit].to_i if options[:limit].present?
       match[:provider_name] = { '$eq' => options[:provider_name] } if options[:provider_name].present?
-      match[:created_at] = { '$gte' => options[:since] } if options[:since].is_a?(Time)
-      match[:created_at] = { '$lt' => options[:until] } if options[:until].is_a?(Time)
+      if options[:since].is_a?(Date) || options[:until].is_a?(Date)
+        match[:created_at] = {}
+        match[:created_at]['$gt'] = options[:since] if options[:since].is_a?(Date)
+        match[:created_at]['$lte'] = options[:until] if options[:until].is_a?(Date)
+      end
     end
     # weights = cards_collection.collection.aggregate(
     #   {'$match' => match},
@@ -642,8 +654,11 @@ class Board < ActiveRecord::Base
     if options
       limit = options[:limit].to_i if options[:limit].present?
       match[:provider_name] = { '$eq' => options[:provider_name] } if options[:provider_name].present?
-      match[:created_at] = { '$gte' => options[:since] } if options[:since].is_a?(Time)
-      match[:created_at] = { '$lt' => options[:until] } if options[:until].is_a?(Time)
+      if options[:since].is_a?(Date) || options[:until].is_a?(Date)
+        match[:created_at] = {}
+        match[:created_at]['$gt'] = options[:since] if options[:since].is_a?(Date)
+        match[:created_at]['$lte'] = options[:until] if options[:until].is_a?(Date)
+      end
     end
     cards_collection.collection.aggregate(
       { '$match' => match },
@@ -659,8 +674,11 @@ class Board < ActiveRecord::Base
     if options
       limit = options[:limit].to_i if options[:limit].present?
       match[:provider_name] = { '$eq' => options[:provider_name] } if options[:provider_name].present?
-      match[:created_at] = { '$gte' => options[:since] } if options[:since].is_a?(Time)
-      match[:created_at] = { '$lt' => options[:until] } if options[:until].is_a?(Time)
+      if options[:since].is_a?(Date) || options[:until].is_a?(Date)
+        match[:created_at] = {}
+        match[:created_at]['$gt'] = options[:since] if options[:since].is_a?(Date)
+        match[:created_at]['$lte'] = options[:until] if options[:until].is_a?(Date)
+      end
     end
     cards_collection.collection.aggregate(
       { '$match' => match },
@@ -676,8 +694,11 @@ class Board < ActiveRecord::Base
     if options
       limit = options[:limit].to_i if options[:limit].present?
       match[:provider_name] = { '$eq' => options[:provider_name] } if options[:provider_name].present?
-      match[:created_at] = { '$gte' => options[:since] } if options[:since].is_a?(Time)
-      match[:created_at] = { '$lt' => options[:until] } if options[:until].is_a?(Time)
+      if options[:since].is_a?(Date) || options[:until].is_a?(Date)
+        match[:created_at] = {}
+        match[:created_at]['$gt'] = options[:since] if options[:since].is_a?(Date)
+        match[:created_at]['$lte'] = options[:until] if options[:until].is_a?(Date)
+      end
     end
     cards_collection.collection.aggregate(
       { '$match' => match },
@@ -692,8 +713,11 @@ class Board < ActiveRecord::Base
     group = { year: { '$year' => '$created_at' }, month: { '$month' => '$created_at' }, day: { '$dayOfMonth' => '$created_at' } }
     if options
       match[:provider_name] = { '$eq' => options[:provider_name] } if options[:provider_name].present?
-      match[:created_at] = { '$gte' => options[:since] } if options[:since].is_a?(Time)
-      match[:created_at] = { '$lt' => options[:until] } if options[:until].is_a?(Time)
+      if options[:since].is_a?(Date) || options[:until].is_a?(Date)
+        match[:created_at] = {}
+        match[:created_at]['$gt'] = options[:since] if options[:since].is_a?(Date)
+        match[:created_at]['$lte'] = options[:until] if options[:until].is_a?(Date)
+      end
       match[:feed_id] = { '$eq' => options[:feed_id].to_i } if options[:feed_id].present?
       group[:hour] =  { '$hour' => '$created_at' } if options[:by] == 'hour' || options[:by] == 'minute'
       group[:minute] = { '$minute' => '$created_at' } if options[:by] == 'minute'
@@ -716,8 +740,11 @@ class Board < ActiveRecord::Base
     if options
       limit = options[:limit].to_i if options[:limit].present?
       match[:provider_name] = { '$eq' => options[:provider_name] } if options[:provider_name].present?
-      match[:created_at] = { '$gte' => options[:since] } if options[:since].is_a?(Time)
-      match[:created_at] = { '$lt' => options[:until] } if options[:until].is_a?(Time)
+      if options[:since].is_a?(Date) || options[:until].is_a?(Date)
+        match[:created_at] = {}
+        match[:created_at]['$gte'] = options[:since] if options[:since].is_a?(Date)
+        match[:created_at]['$lt'] = options[:until] if options[:until].is_a?(Date)
+      end
     end
     cards_collection.collection.aggregate(
       { '$match' => match },

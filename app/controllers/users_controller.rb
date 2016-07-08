@@ -14,8 +14,24 @@ class UsersController < ApplicationController
     end
   end
 
+  def new
+    @user = User.new
+    respond_with(@user)
+  end
+
   def edit
     authorize! :edit, @user
+  end
+
+  def create
+    @user = User.new(user_params)
+    authorize! :create, @user
+    @user.save
+    respond_with(@user) do |format|
+      format.js do
+        load_users
+      end
+    end
   end
 
   def update
@@ -45,6 +61,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:admin, :notify_exceptions, :max_feeds, :expires_at)
+    params.require(:user).permit(:email, :password, :password_confirmation,
+      :admin, :notify_exceptions, :max_feeds, :expires_at)
   end
 end
