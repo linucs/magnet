@@ -48,3 +48,18 @@
 **Bug fixes**:
 
 * Better error handling on the wall layout
+
+## 1.1.1 (2016-07-06)
+
+**Enhancements**:
+
+* Statistics can now be filtered by date and grouped by day, hour or minute
+* ADV campaigns can be enabled on wall, deck and timeline layouts
+* Users can now be added by admins
+* CTAs can be individually added to any card
+* CTAs and ADV Campagn contents can be edited with a WYSIWYG editor
+
+**Bug fixes**:
+
+* Fixed a bug that prevented the 'Notify exceptions' flag to be managed on the user's profile management page
+* Fixed a layout bug in full-screen wall backgrounds
