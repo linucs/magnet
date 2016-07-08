@@ -1,0 +1,6 @@
+- unless @user.persisted?
+  $('#new-user-form').html('#{j render 'form' }');
+  $('#new-user-form .selectize').selectize();
+- else
+  $('#users').html('#{j render 'users_listing' }');
+  $('#new-user-dialog').modal('hide');

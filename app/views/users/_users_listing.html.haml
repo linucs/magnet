@@ -5,4 +5,5 @@
   .pull-right
     %span.page_entries_info= page_entries_info @users
     = paginate @users, params: {controller: 'users', action: 'index'}, remote: true
-  .clearfix
+  .clearfix.margin-bottom
+  .text-center= link_to 'Add a user', new_user_path, remote: true, class: 'btn btn-primary'

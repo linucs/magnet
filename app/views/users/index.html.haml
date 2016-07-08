@@ -17,6 +17,19 @@
     #users
       = render 'users_listing'
 
+#new-user-dialog.modal.fade(tabindex="-1" role="dialog" aria-labelledby="New user" aria-hidden="true")
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button(type="button" class="close" data-dismiss="modal")
+          %span(aria-hidden="true")
+            &times;
+          %span.sr-only
+            Close
+        %h4.modal-title
+          Add a new user
+      #new-user-form
+
 #edit-user-dialog.modal.fade(tabindex="-1" role="dialog" aria-labelledby="Manage this user" aria-hidden="true")
   .modal-dialog
     .modal-content
