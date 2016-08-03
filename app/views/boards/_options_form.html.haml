@@ -1,12 +1,11 @@
 = simple_form_for(@board, remote: true) do |f|
-  = f.error_notification
-
   = hidden_field_tag :in_place, params[:in_place]
   = hidden_field_tag :page, params[:page]
   = hidden_field_tag :section, params[:section]
   = f.simple_fields_for :options, f.object.options do |o|
     - if params[:section] == 'wall'
       .modal-body
+        = f.error_notification
         .nav-tabs-custom
           %ul.nav.nav-tabs(role="tablist")
             %li.active(role="presentation")

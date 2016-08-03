@@ -63,7 +63,7 @@ class CampaignsController < ApplicationController
   end
 
   def campaign_params
-    params.require(:campaign).permit(:enabled, :name, :board_id, :row_order_position,
+    params.require(:campaign).permit(:enabled, :name, :board_id, :team_id, :row_order_position,
       :threshold, :content, :start_displaying_at, :end_displaying_at, :activate_on_deck,
       :activate_on_timeline, :activate_on_wall, :bootsy_image_gallery_id)
   end
