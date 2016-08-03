@@ -135,6 +135,7 @@ en:
         board: Linked collection
         start_displaying_at: 'Start displaying'
         end_displaying_at: 'Stop displaying'
+        team: 'Team ownership'
       options:
         since: from
         until: to
@@ -282,6 +283,7 @@ en:
         activate_on_deck: 'Show ads on the deck layout'
         activate_on_timeline: 'Show ads on the timeline layout'
         activate_on_wall: 'Show ads the wall layout'
+        team: 'Select which team has control over this campaign'
     placeholders:
       board:
         host: live.example.com

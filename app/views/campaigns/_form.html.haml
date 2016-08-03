@@ -1,21 +1,31 @@
 = simple_form_for(@campaign, remote: true) do |f|
   .modal-body
     = f.error_notification
-
-    - if @campaign.persisted?
-      .row
-        .col-md-4= f.input :enabled
-        .col-md-4= f.input :start_displaying_at, as: :date_picker, data: { showClear: true, showClose: true, showTodayButton: true }
-        .col-md-4= f.input :end_displaying_at, as: :date_picker, data: { showClear: true, showClose: true, showTodayButton: true }
-    .row
-      .col-md-4= f.input :name
-      .col-md-4= f.association :board, collection: current_user.boards, include_blank: 'select...'
-      .col-md-4= f.input :threshold, as: :select, collection: 10.step(100, 10).map { |v| ["#{v}%", v] }
-    .row
-      .col-md-4= f.input :activate_on_deck
-      .col-md-4= f.input :activate_on_timeline
-      .col-md-4= f.input :activate_on_wall
-    = f.input :content, as: :bootsy, editor_options: { alert_unsaved: false, html: true, lists: false, skip_parser: true }
+    .nav-tabs-custom
+      %ul.nav.nav-tabs(role="tablist")
+        %li.active(role="presentation")
+          %a(href="#adv-settings" data-toggle="tab") Settings
+        %li(role="presentation")
+          %a(href="#adv-layout" data-toggle="tab") Content & layouts
+      .tab-content
+        #adv-settings.tab-pane.active(role="tabpanel")
+          - if @campaign.persisted?
+            .row
+              .col-md-4= f.input :enabled
+              .col-md-4= f.input :start_displaying_at, as: :date_picker, data: { showClear: true, showClose: true, showTodayButton: true }
+              .col-md-4= f.input :end_displaying_at, as: :date_picker, data: { showClear: true, showClose: true, showTodayButton: true }
+            - if current_user.admin?
+              = f.association :team
+          .row
+            .col-md-4= f.input :name
+            .col-md-4= f.association :board, collection: current_user.boards, include_blank: 'select...'
+            .col-md-4= f.input :threshold, as: :select, collection: 10.step(100, 10).map { |v| ["#{v}%", v] }
+        #adv-layout.tab-pane(role="tabpanel")
+          .row
+            .col-md-4= f.input :activate_on_deck
+            .col-md-4= f.input :activate_on_timeline
+            .col-md-4= f.input :activate_on_wall
+          = f.input :content, as: :bootsy, editor_options: { alert_unsaved: false, html: true, lists: false, skip_parser: true }
 
   .modal-footer
     = f.button :submit
