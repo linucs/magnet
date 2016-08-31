@@ -7,7 +7,7 @@ module ApplicationHelper
     if devise_controller? && !user_signed_in?
       'login-page'
     else
-      'pace-supported skin-blue-light'
+      "pace-supported skin-blue-light #{action_name == 'show' ? 'sidebar-collapse' : nil}"
     end
   end
 end

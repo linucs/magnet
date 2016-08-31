@@ -28,7 +28,6 @@
 //= require jasny-bootstrap/dist/js/jasny-bootstrap
 //= require pace/pace.min
 //= require selectize/dist/js/standalone/selectize
-//= require iCheck/icheck
 //= require outdated-browser/outdatedbrowser/outdatedbrowser
 //= require jspdf/dist/jspdf.min
 //= require dropzone/dist/dropzone
