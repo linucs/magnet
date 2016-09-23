@@ -22,6 +22,6 @@
             - else
               %span.text-danger You are not connected to #{provider.title}.
               .pull-right
-                = link_to user_omniauth_authorize_path(:provider => provider.name), :class => "btn btn-xs btn-link" do
+                = link_to omniauth_authorize_path(:user, provider.name), :class => "btn btn-xs btn-link" do
                   %i.fa{class: "fa-#{provider.name}"}
                   connect to #{provider.title}

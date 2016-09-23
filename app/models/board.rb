@@ -18,7 +18,6 @@ class Board < ActiveRecord::Base
     'Cyborg' => 'deck/themes/cyborg.css',
     'Darkly' => 'deck/themes/darkly.css',
     'Flatly' => 'deck/themes/flatly.css',
-    'Darkly' => 'deck/themes/darkly.css',
     'Journal' => 'deck/themes/journal.css',
     'Lumen' => 'deck/themes/lumen.css',
     'Paper' => 'deck/themes/paper.css',
@@ -38,7 +37,6 @@ class Board < ActiveRecord::Base
     'Cyborg' => 'deck/themes/cyborg.css',
     'Darkly' => 'deck/themes/darkly.css',
     'Flatly' => 'deck/themes/flatly.css',
-    'Darkly' => 'deck/themes/darkly.css',
     'Journal' => 'deck/themes/journal.css',
     'Lumen' => 'deck/themes/lumen.css',
     'Paper' => 'deck/themes/paper.css',
@@ -58,7 +56,6 @@ class Board < ActiveRecord::Base
     'Cyborg' => 'deck/themes/cyborg.css',
     'Darkly' => 'deck/themes/darkly.css',
     'Flatly' => 'deck/themes/flatly.css',
-    'Darkly' => 'deck/themes/darkly.css',
     'Journal' => 'deck/themes/journal.css',
     'Lumen' => 'deck/themes/lumen.css',
     'Paper' => 'deck/themes/paper.css',
@@ -503,9 +500,9 @@ class Board < ActiveRecord::Base
         match[:created_at]['$lte'] = options[:until] if options[:until].is_a?(Date)
       end
     end
-    cards_collection.collection.aggregate(
+    cards_collection.collection.aggregate([
       { '$match' => match },
-      '$group' => { _id: '$feed_id', count: { '$sum' => 1 } }
+      '$group' => { _id: '$feed_id', count: { '$sum' => 1 } }]
     ).map(&:values).map do |i|
       [(begin
                                          Feed.find(i[0]).name
@@ -527,11 +524,11 @@ class Board < ActiveRecord::Base
         match[:created_at]['$lte'] = options[:until] if options[:until].is_a?(Date)
       end
     end
-    cards_collection.collection.aggregate(
+    cards_collection.collection.aggregate([
       { '$match' => match },
       { '$group' => { _id: '$from', count: { '$sum' => 1 } } },
       { '$sort' => { count: -1 } },
-      '$limit' => limit
+      '$limit' => limit]
     ).map(&:values)
   end
 
@@ -547,7 +544,7 @@ class Board < ActiveRecord::Base
         match[:created_at]['$lte'] = options[:until] if options[:until].is_a?(Date)
       end
     end
-    mean = cards_collection.collection.aggregate(
+    mean = cards_collection.collection.aggregate([
       { '$match' => match },
       '$group' => {
         _id: nil,
@@ -555,11 +552,11 @@ class Board < ActiveRecord::Base
         likes: { '$avg' => '$likes_count' },
         shares: { '$avg' => '$shares_count' },
         comments: { '$avg' => '$comments_count' }
-      }
+      }]
     ).first
 
     unless mean.nil?
-      cards_collection.collection.aggregate(
+      cards_collection.collection.aggregate([
         { '$match' => match },
         { '$group' => {
           _id: '$from',
@@ -579,7 +576,7 @@ class Board < ActiveRecord::Base
         }
         },
         { '$sort' => { count: -1 } },
-        '$limit' => limit
+        '$limit' => limit]
       ).map(&:values).map { |v| [v[0], v[1] < 0 ? 0 : Math.sqrt(v[1])] }
     end
   end
@@ -596,7 +593,7 @@ class Board < ActiveRecord::Base
         match[:created_at]['$lte'] = options[:until] if options[:until].is_a?(Date)
       end
     end
-    # weights = cards_collection.collection.aggregate(
+    # weights = cards_collection.collection.aggregate([
     #   {'$match' => match},
     #   {'$group' => {
     #     _id: nil,
@@ -618,10 +615,10 @@ class Board < ActiveRecord::Base
     #     shares: {'$divide' => ['$shares', '$total']},
     #     comments: {'$divide' => ['$comments', '$total']}
     #     }
-    #   }
+    #   }]
     # ).first
 
-    cards_collection.collection.aggregate(
+    cards_collection.collection.aggregate([
       { '$match' => match },
       { '$group' => {
         _id: '$from',
@@ -644,7 +641,7 @@ class Board < ActiveRecord::Base
       }
       },
       { '$sort' => { count: -1 } },
-      '$limit' => limit
+      '$limit' => limit]
     ).map(&:values)
   end
 
@@ -660,11 +657,11 @@ class Board < ActiveRecord::Base
         match[:created_at]['$lte'] = options[:until] if options[:until].is_a?(Date)
       end
     end
-    cards_collection.collection.aggregate(
+    cards_collection.collection.aggregate([
       { '$match' => match },
       { '$group' => { _id: '$from', count: { '$sum' => '$likes_count' } } },
       { '$sort' => { count: -1 } },
-      '$limit' => limit
+      '$limit' => limit]
     ).map(&:values)
   end
 
@@ -680,11 +677,11 @@ class Board < ActiveRecord::Base
         match[:created_at]['$lte'] = options[:until] if options[:until].is_a?(Date)
       end
     end
-    cards_collection.collection.aggregate(
+    cards_collection.collection.aggregate([
       { '$match' => match },
       { '$group' => { _id: '$from', count: { '$sum' => '$shares_count' } } },
       { '$sort' => { count: -1 } },
-      '$limit' => limit
+      '$limit' => limit]
     ).map(&:values)
   end
 
@@ -700,11 +697,11 @@ class Board < ActiveRecord::Base
         match[:created_at]['$lte'] = options[:until] if options[:until].is_a?(Date)
       end
     end
-    cards_collection.collection.aggregate(
+    cards_collection.collection.aggregate([
       { '$match' => match },
       { '$group' => { _id: '$from', count: { '$sum' => '$comments_count' } } },
       { '$sort' => { count: -1 } },
-      '$limit' => limit
+      '$limit' => limit]
     ).map(&:values)
   end
 
@@ -722,7 +719,7 @@ class Board < ActiveRecord::Base
       group[:hour] =  { '$hour' => '$created_at' } if options[:by] == 'hour' || options[:by] == 'minute'
       group[:minute] = { '$minute' => '$created_at' } if options[:by] == 'minute'
     end
-    cards_collection.collection.aggregate(
+    cards_collection.collection.aggregate([
       { '$match' => match },
       { '$group' => { _id: group, date: { '$first' => group }, count: { '$sum' => 1 } } },
       { '$sort' => { _id: 1 } },
@@ -730,7 +727,7 @@ class Board < ActiveRecord::Base
         _id: 0,
         date: '$date',
         count: '$count'
-      }
+      }]
     ).map(&:values)
   end
 
@@ -746,12 +743,12 @@ class Board < ActiveRecord::Base
         match[:created_at]['$lt'] = options[:until] if options[:until].is_a?(Date)
       end
     end
-    cards_collection.collection.aggregate(
+    cards_collection.collection.aggregate([
       { '$match' => match },
       { '$unwind' => '$tags' },
       { '$group' => { _id: { '$toLower' => '$tags' }, count: { '$sum' => 1 } } },
       { '$sort' => { count: -1 } },
-      '$limit' => limit
+      '$limit' => limit]
     ).map(&:values)
   end
 

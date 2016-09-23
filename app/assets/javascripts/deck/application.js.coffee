@@ -107,7 +107,7 @@ angular
     $scope.template_url = gon.template_url
     $scope.footer_url = gon.footer_url
 
-    $scope.board = new Board($location.search()['limit'])
+    $scope.board = new Board($location.search().limit)
 
     $(".fancybox").fancybox({
       beforeShow: () ->

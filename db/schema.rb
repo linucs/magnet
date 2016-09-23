@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160512040621) do
+ActiveRecord::Schema.define(version: 20160916082748) do
 
   create_table "authentication_providers", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -162,6 +162,7 @@ ActiveRecord::Schema.define(version: 20160512040621) do
     t.integer  "use_count",  limit: 4,   default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "expires_at"
   end
 
   add_index "shortened_urls", ["owner_id", "owner_type"], name: "index_shortened_urls_on_owner_id_and_owner_type", using: :btree

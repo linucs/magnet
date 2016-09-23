@@ -1,5 +1,5 @@
 {
-  "name": "dsl-generated dependencies",
+  "name": "dsl-generated-dependencies",
   "dependencies": {
     "angular": "latest",
     "angular-animate": "latest",
@@ -7,7 +7,7 @@
     "angular-resource": "latest",
     "angular-sanitize": "latest",
     "angular-ui-router": "latest",
-    "ui-utils": "latest",
+    "angular-ui-scroll": "latest",
     "angular-ui-bootstrap-bower": "latest",
     "angulartics": "latest",
     "angular-social": "latest",
@@ -38,6 +38,7 @@
     "jquery-geocomplete": "latest",
     "salvattore": "latest",
     "eonasdan-bootstrap-datetimepicker": "latest",
-    "bootstrap-tour": "latest"
+    "bootstrap-tour": "latest",
+    "bootbox": "latest"
   }
 }

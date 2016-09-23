@@ -5,19 +5,17 @@
         .user-block
           = image_tag card.profile_image_url, class: 'img-circle'
           %span.username
+            = link_to card.original_content_url, target: '_blank' do
+              %span.hint--top{:'data-hint' => "View the original content on #{card.provider_title || 'the local system'}"}
+                %i.fa.fa-fw{class: "fa-#{card.provider_name}"}
             = link_to card.profile_url, target: '_blank' do
               %span.hint--bottom{:'data-hint' => "Open this #{card.provider_name.try(:titleize)} account's page"}= card.from
           %span.description{title: "This content was originally posted on #{l(card.created_at, format: :long)}"}
             #{time_ago_in_words(card.created_at)} ago
         .box-tools
-          = check_box_tag 'card_ids[]', card.id, nil, class: 'card-bulk-select'
-          = link_to card.original_content_url, target: '_blank' do
-            %span.hint--top{:'data-hint' => "View the original content on #{card.provider_title || 'the local system'}"}
-              %i.fa{class: "fa-#{card.provider_name}"}
           .dropdown
-            %button.btn.btn-link.btn-xs.dropdown-toggle(type="button" class="" data-toggle="dropdown" data-hover="dropdown" aria-haspopup="true" aria-expanded="false")
+            %button.btn.btn-xs.btn-link.dropdown-toggle(type="button" class="" data-toggle="dropdown" data-hover="dropdown" aria-haspopup="true" aria-expanded="false")
               %i.fa.fa-fw.fa-bars
-              %span.caret
             %ul.dropdown-menu.dropdown-menu-right
               - unless transient
                 %li.text-right
@@ -82,6 +80,8 @@
                     %span.hint--top{:'data-hint' => 'Search for the attached image on Google images'}
                       Search on Google Images
                       %i.fa.fa-search
+            %a.btn.btn-xs
+              = check_box_tag 'card_ids[]', card.id, nil, class: 'card-bulk-select fa-check-rnd'
       .box-body.word-wrap{:style => "display: block;"}
         - if !card.is_text?
           .media-wrapper.pad

@@ -17,10 +17,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   protected
 
   def configure_sign_up_params
-    User::WHITELISTED_ATTRIBUTES.each { |a| devise_parameter_sanitizer.for(:sign_up) << a }
+    devise_parameter_sanitizer.permit(:sign_up, keys: User::WHITELISTED_ATTRIBUTES)
   end
 
   def configure_account_update_params
-    User::WHITELISTED_ATTRIBUTES.each { |a| devise_parameter_sanitizer.for(:account_update) << a }
+    devise_parameter_sanitizer.permit(:account_update, keys: User::WHITELISTED_ATTRIBUTES)
   end
 end

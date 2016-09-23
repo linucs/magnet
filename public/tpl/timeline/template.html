@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <div class="card {{card.label}} {{card.content_type}}" ui-scroll="card in cards" id="{{card.id}}" data-external-id="{{card.external_id}}">
+      <div class="card {{card.label}} {{card.content_type}}" ui-scroll="card in cards" start-index="0" id="{{card.id}}" data-external-id="{{card.external_id}}">
         <div class="panel panel-default">
           <div class="panel-heading" ng-show="card.from">
             <a ng-href="{{card.profile_url || card.original_content_url}}" target="_blank">
@@ -26,7 +26,7 @@
           </div>
           <div ng-show="card.cta && card.cta.length > 0" class="cta" ng-bind-html="card.cta | to_trusted"></div>
           <div ng-show="card.content && card.content.length > 0" ng-switch="card.content_type" class="panel-body">
-            <p ng-switch-default ng-bind-html="card.content | to_trusted">
+            <p ng-switch-default ng-bind-html="card.content | linky:'_blank' | to_trusted">
           </div>
           <div ng-show="card.provider_name" class="panel-footer">
             <span class="small">{{card.created_at | date:'medium'}}</span>

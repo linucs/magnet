@@ -10,4 +10,8 @@ module ApplicationHelper
       "pace-supported skin-blue-light #{action_name == 'show' ? 'sidebar-collapse' : nil}"
     end
   end
+
+  def omniauth_authorize_path(resource, provider)
+    send("#{resource}_#{provider}_omniauth_authorize_path")
+  end
 end

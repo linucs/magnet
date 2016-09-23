@@ -17,7 +17,7 @@
 #= require angular-resource/angular-resource
 #= require angular-sanitize/angular-sanitize
 #= require angular-ui-bootstrap-bower/ui-bootstrap-tpls
-#= require ui-utils/ui-utils
+#= require angular-ui-scroll/dist/ui-scroll
 #= require angular-rrssb/dist/angular-rrssb
 #= require RRSSB/js/rrssb
 #= require jquery.stellar/jquery.stellar
@@ -53,7 +53,7 @@ angular
   .filter('to_src', () ->
     (tag) -> $(tag).attr('src')
   )
-  .factory('cards', ['$resource', '$timeout', ($resource, $timeout) ->
+  .factory('cards', ['$resource', ($resource) ->
     client = (start, end) ->
       $resource gon.api_host + "/boards/:id/cards.json", {id: '@id'},
         query:
@@ -68,9 +68,7 @@ angular
             layout: 'timeline'
     get = (index, count, success) ->
       if index >= 0
-        $('#grid .panel').each ->
-            $(this).parent().before(this)
-        client(index - 1, index + count - 1).query({id: gon.board_id},
+        client(index, index + count - 1).query({id: gon.board_id},
           ((response) ->
             success response
           ),

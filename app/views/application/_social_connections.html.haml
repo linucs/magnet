@@ -18,7 +18,7 @@
             .small-box-footer
               connected
         - else
-          = link_to user_omniauth_authorize_path(:provider => provider.name), class: 'small-box bg-red' do
+          = link_to omniauth_authorize_path(:user, provider.name), class: 'small-box bg-red' do
             .inner
               %h3 !
               %p

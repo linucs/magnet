@@ -29,7 +29,7 @@ class Providers::Twitter
       if user_timeline?
         options = { include_rts: false, include_entities: true, count: n }
         options[:max_id] = max_id if max_id
-        client.user_timeline(@feed.options.twitter_user_timeline, options).take(n)
+        client.user_timeline(@feed.options.twitter_user_timeline, options)
       else
         []
       end
@@ -43,7 +43,7 @@ class Providers::Twitter
       if home_timeline?
         options = { include_rts: false, include_entities: true, count: n }
         options[:max_id] = max_id if max_id
-        client.home_timeline(options).take(n)
+        client.home_timeline(options)
       else
         []
       end
@@ -57,7 +57,7 @@ class Providers::Twitter
       if mentions_timeline?
         options = { include_rts: false, include_entities: true, count: n }
         options[:max_id] = max_id if max_id
-        client.mentions_timeline(options).take(n)
+        client.mentions_timeline(options)
       else
         []
       end
@@ -72,7 +72,7 @@ class Providers::Twitter
         hashtag = @feed.options.twitter_search.delete('#').strip
         options = { include_entities: true, count: n }
         options[:max_id] = max_id if max_id
-        client.search("##{hashtag} -rt", options).take(n)
+        client.search("##{hashtag} -rt", options)
       else
         []
       end
@@ -125,7 +125,7 @@ class Providers::Twitter
       begin
         @feed.send_notification(:card, @card) if @card.new_record? && @card.enabled? && @card.online?
         Rails.logger.info "Cannot save card #{@tweet._id} for feed #{@feed.id}: #{@card.errors.full_messages}" unless @card.for_board(@feed.board_id).save
-      rescue Moped::Errors::OperationFailure => f
+      rescue Mongo::Error::OperationFailure => f
       rescue => e
         Magnet.capture_exception(e, user: { email: @feed.user.to_s }, extra: { feed: @feed.name, tweet: tweet.to_s })
       end

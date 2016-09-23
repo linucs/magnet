@@ -270,9 +270,9 @@ class Card
       options = spec.options
       if database = options[:database]
         with(read: :primary, database: database, collection: "board-#{id}")
-          .collection.indexes.create(key, options.except(:database))
+          .collection.indexes.create_one(key, options.except(:database))
       else
-        with(read: :primary, collection: "board-#{id}").collection.indexes.create(key, options)
+        with(read: :primary, collection: "board-#{id}").collection.indexes.create_one(key, options)
       end
     end && true
   end

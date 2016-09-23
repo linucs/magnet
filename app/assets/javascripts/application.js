@@ -35,6 +35,7 @@
 //= require salvattore/dist/salvattore
 //= require admin-lte/dist/js/app
 //= require bootstrap-tour/build/js/bootstrap-tour
+//= require bootbox/bootbox
 //= require boards
 //= require categories
 //= require feeds
@@ -57,7 +58,7 @@ $.addBulkAction = function(e, val) {
       value: action
     }).appendTo($form);
   }
-  if(val) {
+  if (val) {
     $('<input>').attr({
       type: 'hidden',
       name: 'value',
@@ -74,20 +75,48 @@ $(function() {
     lowerThan: 'IE8',
     languagePath: ''
   });
+
   $(document).on('change', '.submit-on-change', function(e) {
     Pace.track(function(){
       $.addBulkAction(e).submit();
     });
     e.preventDefault();
   });
+
   $(document).on('click', '.submit-on-click', function(e) {
     Pace.track(function(){
       $.addBulkAction(e).submit();
     });
     e.preventDefault();
   });
-  $(document).on('click', '.alert-on-click', function(e) {
-    alert('This card has the following attached note:\n\n' + $(e.target).attr('title'));
-    e.preventDefault();
-  });
+
+  window.alert = function(message) {
+    return bootbox.alert(message);
+  }
+
+  $.rails.allowAction = function(element) {
+  	var message = element.data('confirm'), answer = false, callback;
+  	if (!message) { return true; }
+
+    if (confirm && $.rails.fire(element, 'confirm')) {
+  		myCustomConfirmBox(message, function() {
+  			callback = $.rails.fire(element, 'confirm:complete', [answer]);
+  			if(callback) {
+  				var oldAllowAction = $.rails.allowAction;
+  				$.rails.allowAction = function() { return true; };
+  				element.trigger('click');
+  				$.rails.allowAction = oldAllowAction;
+  			}
+  		});
+  	}
+  	return false;
+	}
+
+	function myCustomConfirmBox(message, callback) {
+		bootbox.confirm(message, function(confirmed) {
+			if (confirmed) {
+				callback();
+			}
+		});
+	}
 });

@@ -14,7 +14,7 @@
             .small-box-footer
               add contents
         - else
-          = link_to user_omniauth_authorize_path(:provider => provider.name), class: "small-box btn-#{provider.name}" do
+          = link_to omniauth_authorize_path(:user, provider.name), class: "small-box btn-#{provider.name}" do
             .inner
               %h3
                 = @board.all_cards.by_provider(provider.name).count
