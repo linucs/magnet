@@ -37,14 +37,14 @@
     "browser",
     "masonry"
   ],
-  "version": "1.0.8",
-  "_release": "1.0.8",
+  "version": "1.0.9",
+  "_release": "1.0.9",
   "_resolution": {
     "type": "version",
-    "tag": "v1.0.8",
-    "commit": "05bf4812fc963ac74e7ab2487b95f068e7504f27"
+    "tag": "v1.0.9",
+    "commit": "0fec94bfa013c63e96a7eb9614e4ecaa5e7516e9"
   },
-  "_source": "git://github.com/bandd/salvattore.git",
+  "_source": "https://github.com/bandd/salvattore.git",
   "_target": "*",
   "_originalSource": "salvattore"
 }

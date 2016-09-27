@@ -4,11 +4,13 @@
       .pull-left.image
         = image_tag @board.icon_url || @board.banner_url || '1x1.png'
       .pull-left.info
-        %p Manage this collection
-        %a(href="#")
-          %i.fa.fa-arrow-left
-          = link_to 'BACK', boards_path
+        %h5
+          %strong Manage this collection
     %ul.sidebar-menu
+      %li.treeview
+        = link_to boards_path do
+          %i.fa.fa-fw.fa-arrow-left
+          %span BACK
       %li#sidebar-insights.header INSIGHTS
       %li.treeview
         = link_to board_path(@board, :order => 'most_liked'), remote: true do

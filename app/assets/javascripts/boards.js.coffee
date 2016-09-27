@@ -57,6 +57,6 @@ jQuery ->
 
   $(document).on 'click', '.bulk-action.label-cards', (e) ->
     $target = $(e.target)
-    label = prompt $target.data('prompt')
-    if label
-      $.addBulkAction(e, label).submit()
+    bootbox.prompt $target.data('prompt'), (label) ->
+      if label
+        $.addBulkAction(e, label).submit()

@@ -15,7 +15,7 @@
       .row
         .col-xs-8
           - if devise_mapping.rememberable?
-            = f.input :remember_me, as: :boolean, wrapper_html: {class: 'icheck'}
+            = f.input :remember_me, as: :boolean
         .col-xs-4
           = f.button :submit, 'Login', class: 'btn-block'
   / /.login-box-body

@@ -6,6 +6,7 @@ json.array! @cards + @ads do |card|
   json.content_type card.content_type
   json.content_source card.content_source
   json.from card.from
+  json.source card.source
   json.location card.location
   json.media_url card.media_url
   json.original_content_url card.original_content_url

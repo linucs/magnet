@@ -254,7 +254,7 @@ class Providers::Facebook
       begin
         @feed.send_notification(:card, @card) if @card.new_record? && @card.enabled? && @card.online?
         Rails.logger.info "Cannot save card #{@post.id} for feed #{@feed.id}: #{@card.errors.full_messages}" unless @card.for_board(@feed.board_id).save
-      rescue Moped::Errors::OperationFailure => f
+      rescue Mongo::Error::OperationFailure => f
       rescue => e
         Magnet.capture_exception(e, user: { email: @feed.user.to_s }, extra: { feed: @feed.name, post: post.to_s })
       end

@@ -38,7 +38,7 @@
                 .info-box-number
                   = @board.all_cards.by_provider(provider.name).count
                 .pull-right
-                  = link_to user_omniauth_authorize_path(:provider => provider.name), class: 'small-box-footer', title: "To populate your boards, please link your #{provider.title} account" do
+                  = link_to omniauth_authorize_path(:user, provider.name), class: 'small-box-footer', title: "To populate your boards, please link your #{provider.title} account" do
                     connect
                     %i.fa.fa-fw.fa-arrow-circle-right
   - if @board.cards.any?

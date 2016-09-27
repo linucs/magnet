@@ -29,7 +29,6 @@ $icon-font-path: "bootstrap-sass/assets/fonts/bootstrap/";
 @import 'pace/themes/black/pace-theme-minimal';
 @import 'selectize/dist/css/selectize';
 @import 'selectize/dist/css/selectize.bootstrap3';
-@import 'iCheck/skins/all';
 @import 'ionicons/css/ionicons';
 @import 'bootstrap-colorpicker/css/colorpicker';
 @import 'outdated-browser/outdatedbrowser/outdatedbrowser';
@@ -101,4 +100,34 @@ ul.social-connections {
 
 .wysiwyg-text-align-right {
   text-align: right;
+}
+
+input.fa-check-rnd, input.fa-check-sqr {
+  visibility: hidden;
+}
+
+input.fa-check-rnd:checked:after, input.fa-check-rnd:after,
+input.fa-check-sqr:checked:after, input.fa-check-sqr:after {
+  visibility: visible;
+  font-family: FontAwesome;
+  position: relative;
+  display: inline-block;
+  top: -2px;
+  left: 0px;
+}
+
+input.fa-check-rnd:checked:after {
+  content: '\f058';
+}
+
+input.fa-check-rnd:after {
+  content: '\f10c';
+}
+
+input.fa-check-sqr:checked:after {
+  content: '\f14a';
+}
+
+input.fa-check-sqr:after {
+  content: '\f096';
 }

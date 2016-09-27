@@ -92,7 +92,7 @@ class CardsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.js { render js: 'alert("No cards were selected.\nClick on the top-right checkbox on each card, to perform this action on all selected ones.")' }
+        format.js { render js: 'alert("No cards were selected.<br/>Click on the top-right checkbox on each card, to perform this action on all selected ones.")' }
       end
     end
   end

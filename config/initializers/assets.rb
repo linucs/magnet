@@ -17,4 +17,4 @@ end
 ::Sass::Script::Number.precision = [8, ::Sass::Script::Number.precision].max
 
 Rails.application.config.assets.precompile << %r(.*.(?:eot|svg|ttf|woff|woff2)$)
-Rails.application.config.assets.precompile += %w( deck/themes/* timeline/themes/* wall/themes/* reveal.js/css/*.css reveal.js/lib/font/*.css iCheck/skins/**/* fancybox/source/*.png fancybox/source/*.gif )
+Rails.application.config.assets.precompile += %w( deck/themes/* timeline/themes/* wall/themes/* reveal.js/lib/font/*.css fancybox/source/*.png fancybox/source/*.gif )

@@ -10,6 +10,6 @@
       -# = simple_form_for identity, :remote => true do |f|
         -# .switch.switch-large= f.check_box :enabled, :class => 'submit-on-change'
     - else
-      = link_to user_omniauth_authorize_path(:provider => provider.name),title: "To populate your boards, please link your #{provider.title} account", :class => "btn btn-block btn-danger" do
+      = link_to omniauth_authorize_path(:user, provider.name), title: "To populate your boards, please link your #{provider.title} account", :class => "btn btn-block btn-danger" do
         %i.fa.fa-fw{class: "fa-#{provider.name}"}
         connect to #{provider.title}

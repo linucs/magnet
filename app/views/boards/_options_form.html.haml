@@ -50,7 +50,7 @@
       .modal-footer
         .pull-left
           Short URL for this layout:
-          = link_to nil, short_url(slideshow_path(@board, action: :wall), @board), target: '_blank'
+          = link_to nil, short_url(slideshow_path(@board, action: :wall), owner: @board), target: '_blank'
         = f.button :submit, 'Update Wall layout'
     - elsif params[:section] == 'timeline'
       .modal-body
@@ -84,7 +84,7 @@
       .modal-footer
         .pull-left
           Short URL for this layout:
-          = link_to nil, short_url(slideshow_path(@board, action: :timeline), @board), target: '_blank'
+          = link_to nil, short_url(slideshow_path(@board, action: :timeline), owner: @board), target: '_blank'
         = f.button :submit, 'Update Timeline layout'
     - else
       .modal-body
@@ -120,5 +120,5 @@
       .modal-footer
         %h5.pull-left
           Short URL for this layout:
-          = link_to nil, short_url(slideshow_path(@board, action: :deck), @board), target: '_blank'
+          = link_to nil, short_url(slideshow_path(@board, action: :deck), owner: @board), target: '_blank'
         = f.button :submit, 'Update Deck layout'
