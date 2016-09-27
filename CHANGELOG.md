@@ -63,3 +63,16 @@
 
 * Fixed a bug that prevented the 'Notify exceptions' flag to be managed on the user's profile management page
 * Fixed a layout bug in full-screen wall backgrounds
+
+## 1.2 (2016-09-27)
+
+**Enhancements**:
+
+* Upgraded to Ruby 2.3.0
+* Upgraded to Rails 4.2.7.1
+* Upgraded all gems to the latest versions
+* Bootbox is now used to display alerts and confirmation dialogs
+
+**Bug fixes**:
+
+* Fixed a bug in websocket-rails (see https://github.com/websocket-rails/websocket-rails/pull/430)
