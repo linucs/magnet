@@ -21,13 +21,8 @@ GIT
     redis (3.2.1)
 
 GIT
-  remote: git://github.com/foxsoft/remotipart.git
-  revision: 80de04c699ec4a60cf7178b28851be9c7ad2d876
-  specs:
-    remotipart (1.2.1)
-
-PATH
-  remote: ../websocket-rails
+  remote: git://github.com/develon/websocket-rails.git
+  revision: ff1d3c83f79096b843efccd0a49fe679313085ab
   specs:
     websocket-rails (0.7.0)
       em-synchrony
@@ -38,6 +33,12 @@ PATH
       redis
       redis-objects
       thin
+
+GIT
+  remote: git://github.com/foxsoft/remotipart.git
+  revision: 80de04c699ec4a60cf7178b28851be9c7ad2d876
+  specs:
+    remotipart (1.2.1)
 
 GEM
   remote: https://rubygems.org/
@@ -692,4 +693,4 @@ DEPENDENCIES
   websocket-rails!
 
 BUNDLED WITH
-   1.13.1
+   1.13.5

@@ -49,7 +49,7 @@ gem 'swagger-blocks'
 gem 'oj', '~> 2.17', '>= 2.17.4'
 
 gem 'figaro', '~> 1.1.1'
-gem 'websocket-rails', path: '../websocket-rails' # github: 'develon/websocket-rails' #, '~> 0.7.0'
+gem 'websocket-rails', github: 'develon/websocket-rails' #, '~> 0.7.0'
 gem 'faye-websocket', '~> 0.10.4'
 gem 'sidekiq', '~> 4.1.4'
 gem 'sidekiq-benchmark', '~> 0.4.1'
