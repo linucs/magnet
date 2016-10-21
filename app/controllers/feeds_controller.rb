@@ -98,8 +98,11 @@ class FeedsController < ApplicationController
   end
 
   def feed_params
-    params.require(:feed).permit(:authentication_provider_id, :user_id, :name, :label, :enabled, :board_name, :live_streaming).tap do |whitelisted|
-      whitelisted[:options] = params[:feed][:options]
+    params.require(:feed).permit(:authentication_provider_id, :user_id, :name,
+                                 :label, :enabled, :board_name, :live_streaming,
+                                 options: Providers::Facebook.options.keys + Providers::Instagram.options.keys +
+                                 Providers::Rss.options.keys + Providers::Tumblr.options.keys +
+                                 Providers::Twitter.options.keys).tap do |whitelisted|
       whitelisted.delete(:user_id) if @board && !@board.user_ids.include?(params[:feed][:user_id].to_i)
     end
   end

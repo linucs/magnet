@@ -19,8 +19,9 @@
           .form-group.file.category_image{class: f.object.errors[:image].any? ? 'has-error': nil}
             %div= f.label :image
             .fileinput.fileinput-new{"data-provides" => "fileinput"}
-              .fileinput-new.thumbnail{:style => "width: 120px; height: 90px;"}
-                = image_tag @category.image.url
+              - if @category.image.present?
+                .fileinput-new.thumbnail{:style => "width: 120px; height: 90px;"}
+                  = image_tag @category.image.url
               .fileinput-preview.fileinput-exists.thumbnail{:style => "max-width: 120px; max-height: 90px;"}
               %div
                 %span.btn.btn-default.btn-xs.btn-file
@@ -36,8 +37,9 @@
           .form-group.file.category_cover{class: f.object.errors[:cover].any? ? 'has-error': nil}
             %div= f.label :cover
             .fileinput.fileinput-new{"data-provides" => "fileinput"}
-              .fileinput-new.thumbnail{:style => "width: 120px; height: 90px;"}
-                = image_tag @category.cover.url
+              - if @category.cover.present?
+                .fileinput-new.thumbnail{:style => "width: 120px; height: 90px;"}
+                  = image_tag @category.cover.url
               .fileinput-preview.fileinput-exists.thumbnail{:style => "max-width: 120px; max-height: 90px;"}
               %div
                 %span.btn.btn-default.btn-xs.btn-file

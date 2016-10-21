@@ -1,8 +1,6 @@
-require File.expand_path('../boot', __FILE__)
+require_relative 'boot'
 
 require 'rails/all'
-require 'rack/throttle'
-require 'redis'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -14,15 +12,9 @@ module Magnet
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
-    # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    # config.time_zone = 'Central Time (US & Canada)'
-
-    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :de
-
-    config.middleware.use Rack::Throttle::Interval, :cache => Redis.new, :key_prefix => :throttle
+    unless Rails.env.development?
+      config.middleware.use Rack::Throttle::Hourly, :cache => Redis.new, :key_prefix => :throttle
+    end
 
     config.middleware.use Rack::Cors do
       allow do
@@ -34,12 +26,11 @@ module Magnet
       end
     end
 
-    config.active_record.raise_in_transactional_callbacks = true
+    config.action_cable.mount_path = '/cable'
+    config.action_cable.disable_request_forgery_protection = true
   end
 
   def self.capture_exception(e, context = {})
-    Raven.user_context context[:user] if context[:user].is_a?(Hash)
-    Raven.extra_context context[:extra] if context[:extra].is_a?(Hash)
-    Raven.capture_exception(e)
+    Rails.logger.error e
   end
 end

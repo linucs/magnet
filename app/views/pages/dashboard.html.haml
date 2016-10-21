@@ -45,14 +45,9 @@
 
 - content_for :javascripts do
   :javascript
-    var dispatcher, hashtag;
+    var hashtag;
+
     $(function() {
-      dispatcher = new WebSocketRails('#{Figaro.env.websocket_host.to_s + ':' + Figaro.env.websocket_port.to_s}/websocket');
-
-      dispatcher.on_open = function(data) {
-        console.log('Websocket connection has been established: ', data);
-      }
-
       $('#show-card-dialog').on('hidden.bs.modal', function (e) {
         $('#show-card-form').html('');
       });

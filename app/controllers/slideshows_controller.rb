@@ -25,7 +25,7 @@ class SlideshowsController < ApplicationController
     if @board.options.wall_custom_background_image_style == 'parallax'
       gon.wall_background_image_size = @board.options.wall_background_image_size.present? ? @board.options.wall_background_image_size : "#{gon.wall_width.to_i * 2}px #{gon.wall_height}px"
     end
-    gon.websocketUrl = "#{Figaro.env.websocket_host}:#{Figaro.env.websocket_port}/websocket"
+    gon.websocketUrl = Figaro.env.websocket_url
   end
 
   def timeline
