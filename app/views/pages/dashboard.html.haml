@@ -45,22 +45,21 @@
 
 - content_for :javascripts do
   :javascript
-    var dispatcher, hashtag;
+    var hashtag;
+
     $(function() {
-      dispatcher = new WebSocketRails('#{Figaro.env.websocket_host.to_s + ':' + Figaro.env.websocket_port.to_s}/websocket');
-
-      dispatcher.on_open = function(data) {
-        console.log('Websocket connection has been established: ', data);
-      }
-
       $('#show-card-dialog').on('hidden.bs.modal', function (e) {
         $('#show-card-form').html('');
       });
 
       $('.save-search').on("click", function (e) {
-        if(!$(e.target).attr('disabled') && hashtag && confirm('Are you sure?')) {
-          $("#persist").val(hashtag);
-          $('#search-form').submit();
+        if(!$(e.target).attr('disabled') && hashtag) {
+          bootbox.confirm('Are you sure?', function(confirmed) {
+            if(confirmed) {
+              $("#persist").val(hashtag);
+              $('#search-form').submit();
+            }
+          });
         }
       });
     });

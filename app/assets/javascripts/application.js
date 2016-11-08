@@ -18,7 +18,7 @@
 //= require jquery.remotipart
 //= require awesomecloud/jquery.awesomeCloud-0.2
 //= require angular/angular
-//= require websocket_rails/main
+//= require action_cable
 //= require moment/min/moment.min
 //= require bootstrap-sass/assets/javascripts/bootstrap-sprockets
 //= require bootstrap-hover-dropdown/bootstrap-hover-dropdown.min
@@ -26,7 +26,6 @@
 //= require bootstrap-colorpicker/js/bootstrap-colorpicker
 //= require eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min
 //= require jasny-bootstrap/dist/js/jasny-bootstrap
-//= require pace/pace.min
 //= require selectize/dist/js/standalone/selectize
 //= require outdated-browser/outdatedbrowser/outdatedbrowser
 //= require jspdf/dist/jspdf.min
@@ -77,16 +76,12 @@ $(function() {
   });
 
   $(document).on('change', '.submit-on-change', function(e) {
-    Pace.track(function(){
-      $.addBulkAction(e).submit();
-    });
+    $.addBulkAction(e).submit();
     e.preventDefault();
   });
 
   $(document).on('click', '.submit-on-click', function(e) {
-    Pace.track(function(){
-      $.addBulkAction(e).submit();
-    });
+    $.addBulkAction(e).submit();
     e.preventDefault();
   });
 
@@ -114,7 +109,7 @@ $(function() {
 
 	function myCustomConfirmBox(message, callback) {
 		bootbox.confirm(message, function(confirmed) {
-			if (confirmed) {
+			if (confirmed && callback) {
 				callback();
 			}
 		});

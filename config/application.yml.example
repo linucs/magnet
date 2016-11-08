@@ -66,9 +66,8 @@ web_host: 'http://magnet.dev'
 # Public API URL
 api_host: 'http://api.magnet.dev'
 
-# Websocket configuration (Faye)
-websocket_host: 'magnet.dev'
-websocket_port: '3001'
+# Websocket configuration (ActionCable)
+websocket_url: 'ws://localhost/cable'
 
 # Assets host (useful when deliverying to a CDN)
 # assets_host:

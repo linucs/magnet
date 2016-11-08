@@ -149,7 +149,7 @@ class Board < ActiveRecord::Base
   has_and_belongs_to_many :users do
     def pick_one
       @buffer ||= cycle
-      @buffer.next if @buffer.size > 0
+      @buffer.next if @buffer.any?
     end
   end
   has_many :campaigns, dependent: :nullify
@@ -280,7 +280,7 @@ class Board < ActiveRecord::Base
   end
 
   def cards_collection
-    Card.with(collection: "board-#{id}")
+    Card.for_board(id)
   end
 
   def search_cards(q = nil, order = nil)
@@ -753,7 +753,7 @@ class Board < ActiveRecord::Base
   end
 
   def send_notification(msg, obj = self)
-    WebsocketRails["board-#{id}"].trigger(msg, obj)
+    BoardsChannel.broadcast_to "board_#{id}", msg: msg, obj: obj
   end
 
   private

@@ -1,4 +1,4 @@
-require 'html/sanitizer'
+require 'rails/html/sanitizer'
 
 class Providers::Rss
   MAX_ENTRIES = 50
@@ -44,7 +44,7 @@ class Providers::Rss
 
     def initialize(feed)
       @feed = feed
-      @sanitizer = HTML::FullSanitizer.new
+      @sanitizer = Rails::HTML::FullSanitizer.new
     end
 
     def parse(rss, entry)

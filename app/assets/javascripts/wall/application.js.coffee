@@ -12,13 +12,13 @@
 #
 #= require jquery
 #= require jquery_ujs
-#= require websocket_rails/main
 #= require angular/angular
 #= require angular-animate/angular-animate
 #= require angular-resource/angular-resource
 #= require angular-sanitize/angular-sanitize
 #= require fancybox/source/jquery.fancybox.pack
 #= require reveal.js/js/reveal
+#= require action_cable
 #= require_self
 
 window.onerror = (msg, url, lineNo, columnNo, error) ->
@@ -133,28 +133,23 @@ magnet = angular
 
     loadCards()
 
-    if gon.websocketUrl?
-      dispatcher = new WebSocketRails(gon.websocketUrl)
-      dispatcher.on_open = (data) ->
-        console.log 'Websocket connection has been established: ', data
-        channel = dispatcher.subscribe("board-#{gon.board_id}")
-        channel.bind 'reload', (board) ->
-          $window.location.reload()
-        channel.bind 'togglePause', (board) ->
-          Reveal.togglePause()
-        channel.bind 'toggleAutoSlide', (board) ->
-          Reveal.toggleAutoSlide()
-        channel.bind 'toggleOverview', (board) ->
-          Reveal.toggleOverview()
-        channel.bind 'prev', (board) ->
-          Reveal.prev()
-        channel.bind 'next', (board) ->
-          Reveal.next()
-        channel.bind 'slide', (n) ->
-          Reveal.slide(n)
-      dispatcher.bind 'connection_closed', (data) ->
-        console.log 'Websocket connection closed: ', data
-        $timeout () ->
-          dispatcher.reconnect()
-        , 60000
+    ActionCable.createConsumer(gon.websocketUrl).subscriptions.create channel: "BoardsChannel", id: gon.board_id,
+      connected: ->
+        # Called when the subscription is ready for use on the server
+        console.log 'Websocket connection has been established'
+
+      disconnected: ->
+        # Called when the subscription has been terminated by the server
+        console.log 'Websocket connection has been lost'
+
+      received: (data) ->
+        # Called when there's incoming data on the websocket for this channel
+        switch data.msg
+          when 'reload' then $window.location.reload()
+          when 'togglePause' then Reveal.togglePause()
+          when 'toggleAutoSlide' then Reveal.toggleAutoSlide()
+          when 'toggleOverview' then Reveal.toggleOverview()
+          when 'prev' then Reveal.prev()
+          when 'next' then Reveal.next()
+          when 'slide' then Reveal.slide(obj)
     ])

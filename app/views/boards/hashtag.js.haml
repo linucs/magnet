@@ -7,16 +7,34 @@
         (function() {
           $(".disable-on-submit").attr("disabled", true);
           hashtag = '#{@hashtag}';
-          var channel = dispatcher.subscribe('board-#{@board.id}');
+
           var cards_count = 0;
-          channel.bind('card', function(card) {
-            cards_count += 1;
-            $.flash('<i class="fa fa-fw fa-refresh fa-spin"></i> Scanning in progress. There are ' + cards_count + ' new contents available. Please wait...', 'info');
-          });
-          channel.bind('polling-end', function(feed) {
-            cards_count = 0;
-            $('#flash_messages .alert').alert('close');
-            $.post('#{hashtag_boards_path}', {'board[hashtag]': '#{j @hashtag}', transient: true, commit: 'Refresh'});
+          ActionCable.createConsumer(#{Figaro.env.websocket_url.present? ? "'#{Figaro.env.websocket_url}'" : ''}).subscriptions.create({
+            channel: "BoardsChannel",
+            id: #{@board.id}
+          }, {
+            connected: function() {
+              // Called when the subscription is ready for use on the server
+            },
+
+            disconnected: function() {
+              // Called when the subscription has been terminated by the server
+            },
+
+            received: function(data) {
+              // Called when there's incoming data on the websocket for this channel
+              switch(data.msg) {
+                case 'card':
+                  cards_count += 1;
+                  $.flash('<i class="fa fa-fw fa-refresh fa-spin"></i> Scanning in progress. There are ' + cards_count + ' new contents available. Please wait...', 'info');
+                  break;
+                case 'polling-end':
+                  $('#flash_messages .alert').alert('close');
+                  $.post('#{hashtag_boards_path}', {'board[hashtag]': '#{j @hashtag}', transient: true, commit: 'Refresh'});
+                  cards_count = 0;
+                  break;
+              }
+            }
           });
         }).call(this);
 
