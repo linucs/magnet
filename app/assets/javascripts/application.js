@@ -109,7 +109,7 @@ $(function() {
 
 	function myCustomConfirmBox(message, callback) {
 		bootbox.confirm(message, function(confirmed) {
-			if (confirmed) {
+			if (confirmed && callback) {
 				callback();
 			}
 		});

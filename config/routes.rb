@@ -7,9 +7,9 @@ Rails.application.routes.draw do
   unless Figaro.env.disable_uploads.to_b
     mount DAV4Rack::Handler.new(
       root: File.join(Rails.root, 'public', 'system'),
-      root_uri_path: '/files',
+      root_uri_path: '/magnet',
       resource_class: UserFileResource
-    ), at: '/files'
+    ), at: '/magnet'
   end
 
   mount Bootsy::Engine => '/bootsy', as: 'bootsy'
