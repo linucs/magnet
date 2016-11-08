@@ -76,3 +76,15 @@
 **Bug fixes**:
 
 * Fixed a bug in websocket-rails (see https://github.com/websocket-rails/websocket-rails/pull/430)
+
+## 1.3 (2016-09-27)
+
+**Enhancements**:
+
+* Upgraded to Ruby 2.3.1
+* Upgraded to Rails 5.0.0.1
+* Upgraded all gems to the latest versions
+
+**Bug fixes**:
+
+* Fixed a bug in WebDAV routing
