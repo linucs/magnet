@@ -21,7 +21,7 @@
           last scanned #{time_ago_in_words(feed.polled_at)} ago,
         #{feed.cards.count} card(s)
   .tools
-    - if current_user.admin? && feed.authentication_provider.allows_live_streaming?
+    - if current_user.admin? && feed.enabled? && feed.authentication_provider.allows_live_streaming?
       = link_to toggle_streaming_board_feed_path(@board, feed), :method => :put, :data => { :confirm => 'Are you sure?' }, remote: true do
         %span.hint--left(data-hint="Toggle live streaming from this feed")
           %i.fa.text-danger{class: feed.live_streaming? ? 'fa-pause' : 'fa-play'}

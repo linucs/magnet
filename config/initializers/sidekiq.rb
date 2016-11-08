@@ -1,7 +1,4 @@
 require 'sidekiq/api'
-require 'sidekiq/logging/json'
-
-Sidekiq.logger.formatter = Sidekiq::Logging::Json::Logger.new
 
 module Sidekiq
   def self.is_running?
@@ -9,8 +6,10 @@ module Sidekiq
   end
 end
 
-schedule_file = "config/schedule.yml"
+Sidekiq.configure_server do |config|
+  schedule_file = "config/schedule.yml"
 
-if File.exists?(schedule_file) && Sidekiq.server?
-  Sidekiq::Cron::Job.load_from_hash YAML.load_file(schedule_file)
+  if File.exists?(schedule_file) && Sidekiq.server?
+    Sidekiq::Cron::Job.load_from_hash YAML.load_file(schedule_file)
+  end
 end

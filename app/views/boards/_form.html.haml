@@ -23,7 +23,7 @@
       .row
         .col-md-4
           = f.input :full_street_address, input_html: { class: 'geocomplete' }
-          = f.input :description, input_html: { rows: 6 }
+          = f.input :description
         .col-md-8
           .google-map
       = f.input :latitude, as: :hidden, input_html: { 'data-geo' => 'lat' }
@@ -39,8 +39,9 @@
             .form-group.file.board_icon{class: f.object.errors[:icon].any? ? 'has-error': nil}
               %div= f.label :icon
               .fileinput.fileinput-new{"data-provides" => "fileinput"}
-                .fileinput-new.thumbnail{:style => "width: 120px; height: 90px;"}
-                  = image_tag @board.icon.url
+                - if @board.icon.present?
+                  .fileinput-new.thumbnail{:style => "width: 120px; height: 90px;"}
+                    = image_tag @board.icon.url
                 .fileinput-preview.fileinput-exists.thumbnail{:style => "max-width: 120px; height: 90px;"}
                 %div
                   %span.btn.btn-default.btn-xs.btn-file
@@ -56,8 +57,9 @@
             .form-group.file.board_image{class: f.object.errors[:image].any? ? 'has-error': nil}
               %div= f.label :image
               .fileinput.fileinput-new{"data-provides" => "fileinput"}
-                .fileinput-new.thumbnail{:style => "width: 120px; height: 90px;"}
-                  = image_tag @board.image.url
+                - if @board.image.present?
+                  .fileinput-new.thumbnail{:style => "width: 120px; height: 90px;"}
+                    = image_tag @board.image.url
                 .fileinput-preview.fileinput-exists.thumbnail{:style => "max-width: 120px; height: 90px;"}
                 %div
                   %span.btn.btn-default.btn-xs.btn-file
@@ -73,8 +75,9 @@
             .form-group.file.board_cover{class: f.object.errors[:cover].any? ? 'has-error': nil}
               %div= f.label :cover
               .fileinput.fileinput-new{"data-provides" => "fileinput"}
-                .fileinput-new.thumbnail{:style => "width: 120px; height: 90px;"}
-                  = image_tag @board.cover.url
+                - if @board.cover.present?
+                  .fileinput-new.thumbnail{:style => "width: 120px; height: 90px;"}
+                    = image_tag @board.cover.url
                 .fileinput-preview.fileinput-exists.thumbnail{:style => "max-width: 120px; height: 90px;"}
                 %div
                   %span.btn.btn-default.btn-xs.btn-file

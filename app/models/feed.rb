@@ -148,12 +148,16 @@ class Feed < ActiveRecord::Base
   end
 
   def send_notification(msg, obj = self)
-    WebsocketRails["board-#{board_id}"].trigger(msg, obj)
+    BoardsChannel.broadcast_to "board_#{board_id}", msg: msg, obj: obj
   end
 
   def handle_polling_exception(e)
     update_attribute(:last_exception, e.message)
-    NotificationMailer.polling_exception(self, e).deliver_now if user.notify_exceptions?
+    unless Rails.env.development?
+      NotificationMailer.polling_exception(self, e).deliver_now if user.notify_exceptions?
+    else
+      Rails.logger.error e
+    end
   end
 
   private

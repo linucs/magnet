@@ -1,6 +1,8 @@
-require 'html/sanitizer'
-
 class Card
+  include Mongoid::Document
+
+  store_in collection: ->{ RequestLocals.fetch(:collection) { 'cards' } }
+
   PER_PAGE = 48
 
   include Swagger::Blocks
@@ -191,7 +193,8 @@ class Card
   paginates_per PER_PAGE
 
   def for_board(id)
-    with(collection: "board-#{id}")
+    RequestLocals.store[:collection] = "board-#{id}"
+    self
   end
 
   def feed
@@ -252,7 +255,8 @@ class Card
   end
 
   def self.for_board(id)
-    with(collection: "board-#{id}")
+    RequestLocals.store[:collection] = "board-#{id}"
+    self
   end
 
   def self.index_for_board(id)
@@ -269,10 +273,13 @@ class Card
       key = spec.key
       options = spec.options
       if database = options[:database]
-        with(read: :primary, database: database, collection: "board-#{id}")
-          .collection.indexes.create_one(key, options.except(:database))
+        with(read: :primary, database: database, collection: "board-#{id}") do |c|
+          c.collection.indexes.create_one(key, options.except(:database))
+        end
       else
-        with(read: :primary, collection: "board-#{id}").collection.indexes.create_one(key, options)
+        with(read: :primary, collection: "board-#{id}") do |c|
+          c.collection.indexes.create_one(key, options)
+        end
       end
     end && true
   end

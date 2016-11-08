@@ -14,6 +14,9 @@
  *= require categories
  *= require feeds
  *= require pages
+ *= require slideshows
+ *= require teams
+ *= require users
  *= require_self
  */
 
@@ -26,7 +29,6 @@ $icon-font-path: "bootstrap-sass/assets/fonts/bootstrap/";
 @import 'admin-lte/dist/css/skins/_all-skins';
 @import 'hint';
 @import 'font-awesome/css/font-awesome';
-@import 'pace/themes/black/pace-theme-minimal';
 @import 'selectize/dist/css/selectize';
 @import 'selectize/dist/css/selectize.bootstrap3';
 @import 'ionicons/css/ionicons';
@@ -52,18 +54,6 @@ html, body {
 
 .colorpicker.dropdown-menu {
   z-index: 1099 !important;
-}
-
-body.pace-supported > :not(.pace), body.pace-supported:before, body.pace-supported:after {
-  -webkit-transition: opacity .4s ease-in-out;
-  -moz-transition: opacity .4s ease-in-out;
-  -o-transition: opacity .4s ease-in-out;
-  -ms-transition: opacity .4s ease-in-out;
-  transition: opacity .4s ease-in-out
-}
-
-body.pace-supported:not(.pace-done) > :not(.pace), body.pace-supported:not(.pace-done):before, body.pace-supported:not(.pace-done):after {
-  opacity: 0.1
 }
 
 .word-wrap {
