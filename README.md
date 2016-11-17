@@ -14,7 +14,7 @@ An open source Social Hub, used to collect, moderate and display posts from Soci
 I'm probably somehow depressed, and coding has always kept my mind busy at night, that's it :)
 
 ## Requirements
-- MRI 2.1.5 - other versions/VMs are untested but might work fine
+- MRI >= 2.3.0 - other versions/VMs are untested but might work fine
 - [MySQL](http://dev.mysql.com/) 5.6.x (used for metadata storage) - other RDBMS are untested but might work fine
 - [Redis](http://redis.io/) 3.0.x (needed by Sidekiq and websocket-rails gem)
 - [MongoDB](https://www.mongodb.org/) 3.0.x (used for contents storage)
@@ -22,7 +22,7 @@ I'm probably somehow depressed, and coding has always kept my mind busy at night
 - [Logstash](https://www.elastic.co/products/logstash) 1.5.0 (optional)
 
 ## Getting started
-Follow the simple setup process explained in the [Wiki](https://github.com/develon/magnet/wiki).
+Follow the simple setup process explained in the [Wiki](https://github.com/linucs/magnet/wiki).
 
 ## Acknowledgements
 While developing even a simple application, it'a easy to forget of how many hours people spent developing those awesome libraries included in the project buildfiles.
